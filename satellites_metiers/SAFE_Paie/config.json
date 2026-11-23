@@ -1,0 +1,55 @@
+{
+    "folder": "SAFE_Paie",
+    "app_id": "paie",
+    "name": "SAFE Paie Tunisienne & Déclarations Sociales",
+    "tagline": "Moteur de paie tunisien, barème IRPP 8 tranches, CNSS 9.68%, FOPROLOS, CSS & fiches de paie",
+    "badge": "IRPP & CNSS 2026",
+    "icon": "/icons/paie.png",
+    "version": "1.0.0",
+    "accent": "#16A34A",
+    "modules": [
+        "payrollEngine",
+        "hrDeep",
+        "hrWorkflows",
+        "reportsExport"
+    ],
+    "default_module": "payrollEngine",
+    "legislation": [
+        "Loi de Finances : Barème progressif légal de l'IRPP à 8 tranches",
+        "Déductions familiales légales : 300 DT pour chef de famille, 100 DT par enfant à charge (jusqu'à 4 enfants)",
+        "Législation de Sécurité Sociale : Cotisation CNSS salariale à 9.68 % et part patronale à 16.57 % (secteur non-agricole)",
+        "Loi n° 77-54 créant le Fonds de Promotion du Logement pour les Salariés (FOPROLOS) : Taux de 1 %",
+        "Loi de Finances : Contribution Sociale de Solidarité (CSS) à 0.5 % pour le financement des caisses de retraite",
+        "Accords paritaires et conventions collectives sectorielles tunisiennes (grilles de salaires minima)"
+    ],
+    "features": [
+        "Moteur de calcul de paie haute précision au millime tunisien (3 décimales)",
+        "Génération en un clic des bulletins de paie mensuels normalisés",
+        "Calcul instantané du salaire brut au salaire net et simulation inverse (Net vers Brut)",
+        "Calcul automatisé des heures supplémentaires bonifiées selon le Code du travail tunisien (25%, 50%, 100%)",
+        "Édition du Livre de Paie mensuel conforme aux obligations de l'Inspection du Travail",
+        "Préparation et télétransmission de la Déclaration Trimestrielle des Salaires CNSS (DS)",
+        "Gestion des avances sur salaires, acomptes et prêts entreprise avec retenue sur paie",
+        "Comptabilisation automatique des écritures de paie (Salaires 641, CNSS 434, IRPP 432)"
+    ],
+    "security": {
+        "key_format": "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
+        "hardware_lock": "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
+        "crypto_algorithm": "HMAC-SHA256"
+    },
+    "fiscal_compliance_tunisia": {
+        "currency": "TND (Dinar Tunisien à 3 décimales)",
+        "timbre_fiscal": "1.000 DT",
+        "accounting_standard": "Système Comptable des Entreprises (SCE NC 01)",
+        "vat_rates": [
+            19,
+            13,
+            7
+        ],
+        "withholding_tax_rates": [
+            1.5,
+            10
+        ]
+    },
+    "icon_image": "/icons/paie.png"
+}

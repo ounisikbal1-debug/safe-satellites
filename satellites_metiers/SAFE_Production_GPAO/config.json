@@ -1,0 +1,52 @@
+{
+    "folder": "SAFE_Production_GPAO",
+    "app_id": "production",
+    "name": "SAFE Production Industrielle & GPAO",
+    "tagline": "Nomenclatures BOM, Ordres de Fabrication (OF), Planification MRP & Maintenance des équipements",
+    "badge": "Industrie & GPAO",
+    "icon": "/icons/production.png",
+    "version": "1.0.0",
+    "accent": "#D97706",
+    "modules": [
+        "activities",
+        "mrpPlanning",
+        "stocks",
+        "maintenance",
+        "quality",
+        "reportsExport"
+    ],
+    "default_module": "activities",
+    "legislation": [
+        "Normes Tunisiennes homologuées (INNORPI) relatives aux procédés industriels et à la traçabilité de production",
+        "Norme Comptable Tunisienne NCT 04 : Évaluation et valorisation des produits en cours et des produits finis",
+        "Réglementation de la sécurité des équipements industriels et registres de maintenance obligatoire"
+    ],
+    "features": [
+        "Gestion des nomenclatures de fabrication multi-niveaux (Bill of Materials - BOM)",
+        "Création, ordonnancement et suivi d'avancement des Ordres de Fabrication (OF)",
+        "Calcul des Besoins Nets (MRP) synchronisé avec les stocks de composants et les commandes clients",
+        "Imputation précise des temps machines, coûts de main-d'œuvre et frais généraux d'atelier",
+        "Gestion de la maintenance assistée par ordinateur (GMAO) : Parc machines, compteurs, interventions préventives/curatives",
+        "Module Qualité & CAPA : Déclaration de non-conformités, fiches de rebuts et plans d'actions correctives"
+    ],
+    "security": {
+        "key_format": "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
+        "hardware_lock": "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
+        "crypto_algorithm": "HMAC-SHA256"
+    },
+    "fiscal_compliance_tunisia": {
+        "currency": "TND (Dinar Tunisien à 3 décimales)",
+        "timbre_fiscal": "1.000 DT",
+        "accounting_standard": "Système Comptable des Entreprises (SCE NC 01)",
+        "vat_rates": [
+            19,
+            13,
+            7
+        ],
+        "withholding_tax_rates": [
+            1.5,
+            10
+        ]
+    },
+    "icon_image": "/icons/production.png"
+}

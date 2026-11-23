@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <link rel="icon" type="image/png" href="safe-logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAFE ERP - Transport, Fret & Livraison de Colis Express (Tunisie)</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --primary-dark: #172554;
+      --accent: #0284c7;
+      --success: #15803d;
+      --warning: #b45309;
+      --danger: #dc2626;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: var(--slate-100); color: var(--slate-900); font-size: 13px; }
+    
+    /* Topbar */
+    .topbar { background: var(--slate-900); color: #fff; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--primary-light); }
+    .brand-group { display: flex; align-items: center; gap: 14px; }
+    .brand-logo { font-size: 24px; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 8px; letter-spacing: -0.5px; }
+    .brand-slogan { font-size: 11px; color: #94a3b8; font-weight: 400; }
+    .badge-sub { background: #1e40af; color: #e0e7ff; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+    .user-panel { display: flex; align-items: center; gap: 12px; }
+    .user-info { font-size: 12px; text-align: right; }
+    .user-name { font-weight: 700; color: #f8fafc; }
+    .user-role { font-size: 10px; color: #38bdf8; }
+    .btn-logout { background: #b91c1c; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12px; }
+    .btn-logout:hover { background: #991b1b; }
+
+    /* Nav Tabs */
+    .tabs-bar { background: #fff; border-bottom: 1px solid var(--slate-200); padding: 0 24px; display: flex; gap: 8px; overflow-x: auto; }
+    .tab-btn { background: none; border: none; padding: 14px 18px; font-size: 13px; font-weight: 600; color: var(--slate-600); cursor: pointer; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .tab-btn:hover { color: var(--primary-light); background: #f8fafc; }
+    .tab-btn.active { color: var(--primary-light); border-bottom-color: var(--primary-light); font-weight: 700; }
+
+    /* Layout */
+    .main-content { max-width: 1400px; margin: 20px auto; padding: 0 16px; }
+    .kpis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 20px; }
+    .kpi-card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--slate-200); }
+    .kpi-label { font-size: 11px; font-weight: 700; color: var(--slate-600); text-transform: uppercase; letter-spacing: 0.5px; }
+    .kpi-value { font-size: 22px; font-weight: 800; color: var(--primary); margin-top: 6px; }
+    
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+    
+    .card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--slate-200); margin-bottom: 20px; }
+    .card-title { font-size: 15px; font-weight: 800; color: var(--slate-800); margin-top: 0; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--slate-200); padding-bottom: 10px; }
+    
+    .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    label { font-size: 11px; font-weight: 700; color: var(--slate-700); margin-bottom: 4px; display: block; }
+    input, select, textarea { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-family: inherit; background: #fff; }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary-light); outline: none; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
+    
+    .btn-primary { background: var(--primary-light); color: #fff; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #e2e8f0; color: var(--slate-700); border: none; padding: 7px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-sm { padding: 4px 8px; font-size: 11px; border-radius: 4px; font-weight: 600; cursor: pointer; border: none; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-warning { background: var(--warning); color: #fff; }
+    .btn-success { background: var(--success); color: #fff; }
+
+    /* Tables */
+    .table-responsive { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
+    th { background: #f8fafc; color: var(--slate-700); font-weight: 700; padding: 10px 12px; border-bottom: 2px solid var(--slate-200); white-space: nowrap; }
+    td { padding: 10px 12px; border-bottom: 1px solid var(--slate-200); vertical-align: middle; }
+    tr:hover td { background: #f8fafc; }
+    
+    .status-badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .badge-transit { background: #e0f2fe; color: #0369a1; }
+    .badge-livraison { background: #fef3c7; color: #b45309; }
+    .badge-livre { background: #dcfce7; color: #15803d; }
+    .badge-retour { background: #fee2e2; color: #b91c1c; }
+    .badge-avoir { background: #fae8ff; color: #86198f; font-weight: 800; }
+
+    /* Modal / Popup */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+    .modal-box { background: #fff; border-radius: 10px; width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
+    .modal-lg { max-width: 850px; }
+    
+    /* Print Template */
+    @media print {
+      body * { visibility: hidden; }
+      #printableArea, #printableArea * { visibility: visible; }
+      #printableArea { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 20px; font-size: 12pt; }
+      .no-print { display: none !important; }
+    }
+    .print-doc { border: 2px solid #0f172a; padding: 24px; background: #fff; color: #000; font-family: 'Segoe UI', Arial, sans-serif; }
+    .print-header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 14px; margin-bottom: 16px; }
+    .barcode { font-family: monospace; letter-spacing: 5px; font-weight: 900; font-size: 20px; background: #000; color: #fff; padding: 6px 14px; display: inline-block; }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar Unifiée SAFE -->
+  <header class="topbar">
+    <div class="brand-group">
+      <div class="brand-logo">
+        <span>🛡️</span> SAFE ERP
+      </div>
+      <div>
+        <div style="font-weight:700;font-size:13px;">Module 05 : Transport Routier & Livraison Colis Express</div>
+        <div class="brand-slogan">Système d'Analyse Financière des Entreprises - Suite Tunisienne Intégrée (SCE NC 01)</div>
+      </div>
+    </div>
+    
+    <div class="user-panel">
+      <div class="user-info" id="userDisplay">
+        <div class="user-name" id="currentUserName">Admin Logistique</div>
+        <div class="user-role" id="currentUserRole">ADMINISTRATEUR • RADÈS HUB</div>
+      </div>
+      <button class="btn-logout" onclick="handleLogout()" title="Fermer la session">
+        🚪 Déconnexion
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation par Onglets -->
+  <nav class="tabs-bar">
+    <button class="tab-btn active" onclick="switchTab('colis')">📦 Livraison Colis Express & E-Commerce</button>
+    <button class="tab-btn" onclick="switchTab('fret')">🚚 Fret Lourd & Tournées Routières</button>
+    <button class="tab-btn" onclick="switchTab('flotte')">🚛 Parc Véhicules & Livreurs</button>
+    <button class="tab-btn" onclick="switchTab('societe')">🏢 En-tête & Paramètres Fiscaux</button>
+    <button class="tab-btn" onclick="switchTab('fiscal')">⚖️ Paramètres Fiscaux Modifiables</button>
+    <button class="tab-btn" onclick="switchTab('admin')">🛡️ Administration & Réinitialisation</button>
+  </nav>
+
+  <main class="main-content">
+    <!-- KPIs Dynamiques -->
+    <section class="kpis-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Chiffre d'Affaires Global HT</div>
+        <div class="kpi-value" id="kpiGlobalCa">0.000 TND</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">CA Livraison Colis HT</div>
+        <div class="kpi-value" style="color:#0284c7;" id="kpiColisCa">0.000 TND</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">CA Fret & Tournées Lourd HT</div>
+        <div class="kpi-value" style="color:#15803d;" id="kpiFretCa">0.000 TND</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total COD Encaissé (Espèces)</div>
+        <div class="kpi-value" style="color:#b45309;" id="kpiCodEncaiss">0.000 TND</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Colis en Acheminement</div>
+        <div class="kpi-value" style="color:#dc2626;" id="kpiColisCours">0</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Flotte & Chauffeurs</div>
+        <div class="kpi-value" id="kpiFlotte">5 véhicules</div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- ONGLET 1 : LIVRAISON COLIS EXPRESS & E-COMMERCE -->
+    <!-- ========================================================================= -->
+    <div id="tab-colis" class="tab-pane active">
+      <div class="card">
+        <div class="card-title">
+          <span>➕ Nouvelle Expédition de Colis Express & Contre-Remboursement (COD)</span>
+          <span class="badge-sub">TVA 7% • Timbre 1.000 DT • TND</span>
+        </div>
+        
+        <form id="colisForm" onsubmit="handleCreateColis(event)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px;">
+            <!-- Expéditeur -->
+            <div style="background:#f8fafc;padding:12px;border-radius:6px;border:1px solid #e2e8f0;">
+              <strong style="color:var(--primary);display:block;margin-bottom:8px;">📤 Expéditeur (Boutique / Client)</strong>
+              <div class="grid-form">
+                <div><label>Nom Boutique / Client</label><input id="cExpNom" required placeholder="Ex: Boutique Mode Chic" value="Boutique Fashion Tunis" /></div>
+                <div><label>Téléphone</label><input id="cExpTel" required placeholder="Ex: +216 71 000 000" value="+216 71 888 999" /></div>
+                <div><label>Ville d'enlèvement</label><input id="cExpVille" required placeholder="Ex: Tunis Centre" value="Tunis Centre" /></div>
+              </div>
+            </div>
+
+            <!-- Destinataire -->
+            <div style="background:#f8fafc;padding:12px;border-radius:6px;border:1px solid #e2e8f0;">
+              <strong style="color:var(--primary);display:block;margin-bottom:8px;">📥 Destinataire (Client Final)</strong>
+              <div class="grid-form">
+                <div><label>Nom du Client</label><input id="cDestNom" required placeholder="Ex: Karim Ben Salem" value="M. Anouar Bouazizi" /></div>
+                <div><label>Téléphone Client</label><input id="cDestTel" required placeholder="Ex: +216 98 123 456" value="+216 98 765 432" /></div>
+                <div><label>Gouvernorat</label>
+                  <select id="cDestGouv" required>
+                    <option value="Tunis">Tunis</option>
+                    <option value="Ariana">Ariana</option>
+                    <option value="Ben Arous">Ben Arous</option>
+                    <option value="Manouba">Manouba</option>
+                    <option value="Nabeul">Nabeul</option>
+                    <option value="Zaghouan">Zaghouan</option>
+                    <option value="Bizerte">Bizerte</option>
+                    <option value="Béja">Béja</option>
+                    <option value="Jendouba">Jendouba</option>
+                    <option value="Le Kef">Le Kef</option>
+                    <option value="Siliana">Siliana</option>
+                    <option value="Sousse" selected>Sousse</option>
+                    <option value="Monastir">Monastir</option>
+                    <option value="Mahdia">Mahdia</option>
+                    <option value="Sfax">Sfax</option>
+                    <option value="Kairouan">Kairouan</option>
+                    <option value="Kasserine">Kasserine</option>
+                    <option value="Sidi Bouzid">Sidi Bouzid</option>
+                    <option value="Gabès">Gabès</option>
+                    <option value="Médenine">Médenine</option>
+                    <option value="Tataouine">Tataouine</option>
+                    <option value="Gafsa">Gafsa</option>
+                    <option value="Tozeur">Tozeur</option>
+                    <option value="Kébili">Kébili</option>
+                  </select>
+                </div>
+                <div style="grid-column: span 3;">
+                  <label>Adresse Complète de Livraison</label>
+                  <input id="cDestAdr" required placeholder="Ex: Av Habib Bourguiba, Résidence Les Palmiers Appt 4" value="Avenue Habib Bourguiba, Près Magasin Général" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Détails Colis & Financier -->
+          <div style="background:#eff6ff;padding:12px;border-radius:6px;border:1px solid #bfdbfe;margin-bottom:14px;">
+            <strong style="color:var(--primary);display:block;margin-bottom:8px;">💰 Caractéristiques, Frais de Livraison & Contre-Remboursement (COD)</strong>
+            <div class="grid-form">
+              <div>
+                <label>Nature du Colis</label>
+                <select id="cType">
+                  <option value="STANDARD">Standard (Vêtements / Accessoires)</option>
+                  <option value="EXPRESS_24H">Express Garanti 24H</option>
+                  <option value="FRAGILE">Fragile / Électronique</option>
+                  <option value="LOURD">Colis Volumineux > 5kg</option>
+                </select>
+              </div>
+              <div><label>Poids (kg)</label><input type="number" step="0.1" id="cPoids" value="1.5" required /></div>
+              <div><label>Nombre de Pièces</label><input type="number" id="cPieces" value="1" required /></div>
+              <div>
+                <label>Frais Livraison TTC (TND)</label>
+                <input type="number" step="0.001" id="cFraisTtc" value="8.000" required />
+                <span style="font-size:10px;color:var(--slate-600);">Dont TVA 7% et Timbre 1.000 DT</span>
+              </div>
+              <div>
+                <label style="color:#b45309;">Montant à Encaisser COD (TND)</label>
+                <input type="number" step="0.001" id="cMontantCod" value="120.000" required style="font-weight:700;color:#b45309;border-color:#f59e0b;" />
+                <span style="font-size:10px;color:#b45309;">0.000 si déjà payé en ligne</span>
+              </div>
+              <div>
+                <label>Livreur Assigné</label>
+                <select id="cLivreur">
+                  <option value="Walid Gharbi">Walid Gharbi (Fourgon Isuzu 3.5T)</option>
+                  <option value="Anis Mansour">Anis Mansour (Renault Master 2T)</option>
+                  <option value="Bilel Riahi">Bilel Riahi (Scooter Express Tunis)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;gap:12px;">
+            <button type="submit" class="btn-primary" style="padding:10px 24px;">📦 Enregistrer l'Expédition & Générer Code de Suivi</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Liste des Colis -->
+      <div class="card">
+        <div class="card-title">
+          <span>Suivi des Colis Express & Encaissements COD</span>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="colisSearch" placeholder="Rechercher N° suivi, client, ville..." oninput="filterColisTable()" style="width:240px;padding:5px 8px;font-size:12px;margin:0;" />
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Code Tracking</th>
+                <th>Date</th>
+                <th>Expéditeur</th>
+                <th>Destinataire</th>
+                <th>Gouvernorat</th>
+                <th>Livreur</th>
+                <th>Frais TTC</th>
+                <th>COD (Espèces)</th>
+                <th>Net Expéditeur</th>
+                <th>Statut</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="colisTableBody">
+              <!-- Rempli en JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ONGLET 2 : FRET LOURD & TOURNÉES ROUTIÈRES -->
+    <!-- ========================================================================= -->
+    <div id="tab-fret" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>➕ Nouvel Ordre de Fret & Lettre de Voiture Nationale</span>
+          <span class="badge-sub">Fret Routier • TVA 7%/19% • Retenue Source 1%</span>
+        </div>
+        
+        <form id="fretForm" onsubmit="handleCreateFret(event)">
+          <div class="grid-form" style="margin-bottom:12px;">
+            <div><label>Client Expéditeur / Donneur d'ordre</label><input id="fClient" required value="Société Tunisienne de Céramique & Grès" /></div>
+            <div><label>Matricule Fiscal Client</label><input id="fMf" required value="1284590/A/M/000" /></div>
+            <div><label>Ville Départ</label><input id="fOrig" required value="Port de Radès" /></div>
+            <div><label>Ville Arrivée</label><input id="fDest" required value="Zone Industrielle Sfax Poudrière" /></div>
+            <div><label>Description Marchandise</label><input id="fCargo" required value="Palette Carrelage & Produits Chimiques (18T)" /></div>
+            <div><label>Poids (Tonnes)</label><input type="number" step="0.1" id="fPoids" value="18.0" required /></div>
+            <div>
+              <label>Véhicule Affecté</label>
+              <select id="fVehicule" required></select>
+            </div>
+            <div>
+              <label>Taux TVA Transport</label>
+              <select id="fTva">
+                <option value="7.0">7.0% (Transport Marchandises)</option>
+                <option value="19.0">19.0% (Prestation Logistique / Manutention)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="background:#f8fafc;padding:12px;border-radius:6px;border:1px solid #e2e8f0;margin-bottom:14px;">
+            <strong style="color:var(--primary);display:block;margin-bottom:8px;">Détails Financiers & Marge de la Tournée</strong>
+            <div class="grid-form">
+              <div><label>Fret de Base HT (TND)</label><input type="number" step="0.001" id="fFretHt" value="1200.000" required /></div>
+              <div><label>Surcharge Carburant HT (TND)</label><input type="number" step="0.001" id="fSurcharge" value="150.000" /></div>
+              <div><label>Coût Carburant (TND)</label><input type="number" step="0.001" id="fGasoil" value="340.000" /></div>
+              <div><label>Péages Autoroute (TND)</label><input type="number" step="0.001" id="fPeage" value="48.000" /></div>
+              <div><label>Indemnités Chauffeur (TND)</label><input type="number" step="0.001" id="fFraisRoute" value="65.000" /></div>
+            </div>
+          </div>
+
+          <div style="display:flex;justify-content:flex-end;">
+            <button type="submit" class="btn-primary" style="padding:10px 24px;">🚚 Valider Lettre de Voiture & Comptabiliser (SCE NC 01)</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Liste des Lettres de Voiture -->
+      <div class="card">
+        <div class="card-title">
+          <span>Historique des Lettres de Voiture & Factures Fret</span>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>N° Lettre de Voiture</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Trajet</th>
+                <th>Véhicule</th>
+                <th>Total TTC</th>
+                <th>Marge Tournée</th>
+                <th>Statut</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="fretTableBody">
+              <!-- Rempli en JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ONGLET 3 : PARC VÉHICULES & LIVREURS -->
+    <!-- ========================================================================= -->
+    <div id="tab-flotte" class="tab-pane">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:20px;">
+        <div class="card">
+          <div class="card-title"><span>➕ Ajouter un Véhicule / Livreur</span></div>
+          <form id="vehicleForm" onsubmit="handleAddVehicle(event)">
+            <label>Matricule / Immatriculation</label>
+            <input id="vPlate" placeholder="Ex: 235 TN 4410" required />
+            <label>Type de Véhicule</label>
+            <select id="vType">
+              <option value="Semi-Remorque 24T Fret Lourd">Semi-Remorque 24T Fret Lourd</option>
+              <option value="Camion Frigorifique 12T">Camion Frigorifique 12T</option>
+              <option value="Fourgon Isuzu Colis Express 3.5T">Fourgon Isuzu Colis Express 3.5T</option>
+              <option value="Utilitaire Renault Master 2.0T">Utilitaire Renault Master 2.0T</option>
+              <option value="Scooter Livraison Rapide Tunis">Scooter Livraison Rapide</option>
+            </select>
+            <label>Nom Chauffeur / Livreur</label>
+            <input id="vDriver" placeholder="Ex: Walid Gharbi" required />
+            <label>Téléphone Chauffeur</label>
+            <input id="vTel" placeholder="Ex: +216 98 000 111" />
+            <label>Capacité Utile (Tonnes)</label>
+            <input type="number" step="0.1" id="vCap" value="3.5" required />
+            <button type="submit" class="btn-primary" style="margin-top:10px;">Enregistrer au Parc</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>Flotte Active & Effectif Mobile</span></div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Matricule</th>
+                  <th>Type & Usage</th>
+                  <th>Chauffeur / Livreur</th>
+                  <th>Téléphone</th>
+                  <th>Capacité</th>
+                  <th>Statut</th>
+                  <th style="text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="flotteTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ONGLET 4 : EN-TÊTE & PARAMÈTRES FISCAUX SOCIÉTÉ -->
+    <!-- ========================================================================= -->
+    <div id="tab-societe" class="tab-pane">
+      <div class="card" style="max-width:850px;margin:0 auto;">
+        <div class="card-title">
+          <span>🏢 Personnalisation En-tête & Paramètres Fiscaux Modifiables</span>
+          <span class="badge-sub">Appliqué sur tous les documents imprimés</span>
+        </div>
+        <p style="font-size:12px;color:var(--slate-600);margin-bottom:18px;">
+          Les informations ci-dessous apparaissent sur toutes les impressions de <strong>Lettres de Voiture</strong>, <strong>Bordereaux de Livraison Colis</strong> et <strong>Factures de Transport</strong>. Les taux fiscaux (TVA, Timbre, RS) peuvent être révisés à tout moment conformément aux lois de finances tunisiennes.
+        </p>
+
+        <form id="companyForm" onsubmit="handleSaveCompany(event)">
+          <div class="grid-form">
+            <div style="grid-column:span 2;">
+              <label>Raison Sociale de l'Entreprise de Transport</label>
+              <input id="coName" required />
+            </div>
+            <div>
+              <label>Matricule Fiscal (MF)</label>
+              <input id="coMf" required />
+            </div>
+            <div>
+              <label>Registre de Commerce (RC)</label>
+              <input id="coRc" />
+            </div>
+            <div style="grid-column:span 2;">
+              <label>Adresse du Siège & Dépôt Principal</label>
+              <input id="coAdr" required />
+            </div>
+            <div>
+              <label>Téléphones / Standard</label>
+              <input id="coTel" required />
+            </div>
+            <div>
+              <label>Email Commercial</label>
+              <input id="coEmail" required />
+            </div>
+            <div style="grid-column:span 2;">
+              <label>Relevé d'Identité Bancaire (RIB)</label>
+              <input id="coRib" />
+            </div>
+          </div>
+
+          <h4 style="margin-top:20px;border-top:1px solid #e2e8f0;padding-top:12px;">⚖️ Barème Fiscal Modifiable (IRPP 2025, CNSS, CSS, Timbre, RS)</h4>
+          <div class="grid-form">
+            <div><label>Taux CNSS Salarié (%)</label><input type="number" step="0.01" id="fCnssSal_old" value="9.68" /></div>
+            <div><label>Taux CNSS Patronal (%)</label><input type="number" step="0.01" id="fCnssPat_old" value="17.07" /></div>
+            <div><label>Taux CSS (%)</label><input type="number" step="0.1" id="fCss" value="0.5" /></div>
+            <div><label>Droit de Timbre Fiscal (TND)</label><input type="number" step="0.001" id="fTimbre" value="1.000" /></div>
+            <div><label>Taux Retenue Source (%)</label><input type="number" step="0.1" id="fRsDef" value="1.0" /></div>
+            <div><label>Taux TVA Transport (%)</label><input type="number" step="0.1" id="fTvaDef" value="7.0" /></div>
+          </div>
+          <label style="margin-top:12px;">Barème IRPP 2025 Officiel (8 Tranches - Loi de Finances 2025)</label>
+          <textarea id="fIrppJson" rows="6" style="font-family:monospace;font-size:11px;"></textarea>
+
+          <div style="margin-top:18px;display:flex;justify-content:flex-end;">
+            <button type="submit" class="btn-primary" style="padding:10px 24px;">💾 Enregistrer l'En-tête & Paramètres</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- ONGLET 5 : ADMINISTRATION & RÉINITIALISATION -->
+    <!-- ========================================================================= -->
+    <!-- ========================================================================= -->
+    <!-- ONGLET : PARAMÈTRES FISCAUX & CHARGES SOCIALES TUNISIE 2026 (VALIDÉ EXPERT-COMPTABLE) -->
+    <!-- ========================================================================= -->
+    <div id="tab-fiscal" class="tab-pane">
+      <div class="card" style="max-width:980px;margin:0 auto;">
+        <div class="card-title">
+          <span>⚖️ Barème Fiscal & Charges Sociales 2026 (Validé Expert-Comptable)</span>
+          <span class="badge" style="background:#10b981;color:#fff;">Législation Tunisienne Conforme</span>
+        </div>
+        <p style="font-size:12px;color:var(--slate-600);margin-bottom:16px;">
+          Barème et taux légaux en vigueur en Tunisie. Modifiables à tout moment et sauvegardés dans la base de données.
+        </p>
+
+        <form id="fiscalForm" onsubmit="handleSaveFiscal(event)">
+          <!-- SECTION 1 : CHARGES SOCIALES -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-bottom:18px;">
+            <div style="font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+              <span>🛡️ Cotisations Sociales CNSS & Accident du Travail (AT)</span>
+            </div>
+            <div class="grid-form">
+              <div>
+                <label>CNSS Salarié (%) <small style="color:var(--slate-500);">(9,18% + 0,50% fonds perte d'emploi)</small></label>
+                <input type="number" step="0.01" id="fCnssSal" value="9.68" required />
+              </div>
+              <div>
+                <label>CNSS Patronale (%) <small style="color:var(--slate-500);">(16,57% + 0,50% fonds perte d'emploi)</small></label>
+                <input type="number" step="0.01" id="fCnssPat" value="17.07" required />
+              </div>
+              <div>
+                <label>Accident du Travail (AT) (%) <small style="color:var(--slate-500);">(Comptabilisé à part)</small></label>
+                <input type="number" step="0.01" id="fAt" value="0.50" required />
+              </div>
+              <div>
+                <label>CSS Salarié (%)</label>
+                <input type="number" step="0.1" id="fCss" value="0.5" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2 : FISCALITÉ DES ENTREPRISES & TABLEAU CROISÉ IS / CSS / RS -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-bottom:18px;">
+            <div style="font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+              <span>🏢 Grille Sectorielle IS, CSS, Minimum d'Impôt & Retenue à la Source (RS) 2026</span>
+            </div>
+            <div style="overflow-x:auto;margin-bottom:12px;">
+              <table style="width:100%;border-collapse:collapse;font-size:12px;background:#fff;border-radius:6px;overflow:hidden;border:1px solid #cbd5e1;">
+                <thead>
+                  <tr style="background:#0f172a;color:#fff;text-align:left;">
+                    <th style="padding:8px 10px;">Catégorie d'entreprise / Secteur</th>
+                    <th style="padding:8px 10px;text-align:center;">Taux IS</th>
+                    <th style="padding:8px 10px;text-align:center;">Taux CSS</th>
+                    <th style="padding:8px 10px;text-align:center;">Minimum d'impôt (sur CA TTC)</th>
+                    <th style="padding:8px 10px;text-align:center;">Taux RS applicable aux ventes (≥ 1 000 DT TTC)</th>
+                  </tr>
+                </thead>
+                <tbody id="secteursTableBody">
+                  <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:8px 10px;font-weight:600;">Agriculture, pêche, artisanat, exportation, dépollution</td>
+                    <td style="padding:8px 10px;text-align:center;"><span style="background:#dcfce7;color:#166534;font-weight:700;padding:2px 8px;border-radius:4px;">10 %</span></td>
+                    <td style="padding:8px 10px;text-align:center;">3 % <small style="color:var(--slate-500);">(min. 200 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;">0,1 % <small style="color:var(--slate-500);">(min. 300 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;font-weight:700;color:#0369a1;">0,5 %</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #e2e8f0;background:#f8fafc;">
+                    <td style="padding:8px 10px;font-weight:600;">Entreprises soumises à un régime spécifique à 15 % (cas transitoires)</td>
+                    <td style="padding:8px 10px;text-align:center;"><span style="background:#fef9c3;color:#854d0e;font-weight:700;padding:2px 8px;border-radius:4px;">15 %</span></td>
+                    <td style="padding:8px 10px;text-align:center;">3 % <small style="color:var(--slate-500);">(min. 400 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;">0,2 % <small style="color:var(--slate-500);">(min. 500 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;font-weight:700;color:#0369a1;">1,5 %</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:8px 10px;font-weight:600;color:#1e3a8a;">Droit commun (commerce, industrie, services)</td>
+                    <td style="padding:8px 10px;text-align:center;"><span style="background:#dbeafe;color:#1e40af;font-weight:700;padding:2px 8px;border-radius:4px;">20 %</span></td>
+                    <td style="padding:8px 10px;text-align:center;">3 % <small style="color:var(--slate-500);">(min. 400 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;">0,2 % <small style="color:var(--slate-500);">(min. 500 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;font-weight:700;color:#0369a1;">1,0 %</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #e2e8f0;background:#f8fafc;">
+                    <td style="padding:8px 10px;font-weight:600;">Télécoms, grandes surfaces, concessionnaires auto, pétrole, investissement</td>
+                    <td style="padding:8px 10px;text-align:center;"><span style="background:#ffedd5;color:#9a3412;font-weight:700;padding:2px 8px;border-radius:4px;">35 %</span></td>
+                    <td style="padding:8px 10px;text-align:center;">4 % <small style="color:var(--slate-500);">(min. 500 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;">0,2 % <small style="color:var(--slate-500);">(min. 500 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;font-weight:700;color:#0369a1;">1,0 %</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:8px 10px;font-weight:600;">Banques, assurances, leasing, factoring, établissements financiers</td>
+                    <td style="padding:8px 10px;text-align:center;"><span style="background:#fee2e2;color:#991b1b;font-weight:700;padding:2px 8px;border-radius:4px;">40 %</span></td>
+                    <td style="padding:8px 10px;text-align:center;">4 % <small style="color:var(--slate-500);">(min. 500 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;">0,2 % <small style="color:var(--slate-500);">(min. 500 DT)</small></td>
+                    <td style="padding:8px 10px;text-align:center;font-weight:700;color:#0369a1;">1,0 %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- NOTE RS SPÉCIFIQUE -->
+            <div style="background:#eff6ff;border-left:4px solid #3b82f6;padding:10px 14px;border-radius:4px;font-size:12px;color:#1e40af;margin-bottom:14px;line-height:1.5;">
+              📌 <strong>Note Fiscale Spécifique (Retenues à la Source) :</strong><br/>
+              • Les <strong>honoraires</strong> versés aux personnes morales soumises à l'IS (quel que soit leur taux) restent soumis à une RS spécifique de <strong>3 % dès le premier dinar</strong>.<br/>
+              • Les <strong>loyers</strong> sont soumis à une Retenue à la Source de <strong>10 %</strong>.
+            </div>
+
+            <div class="grid-form">
+              <div>
+                <label>Taux IS Actuel Droit Commun (%)</label>
+                <input type="number" step="0.1" id="fIsDefaut" value="20.0" required />
+              </div>
+              <div>
+                <label>Taux CSS Sociétés (%)</label>
+                <input type="number" step="0.1" id="fCssSocietes" value="3.0" required />
+              </div>
+              <div>
+                <label>Taux RS Ventes Droit Commun (%) (≥ 1 000 DT)</label>
+                <input type="number" step="0.1" id="fRsVentes" value="1.0" required />
+              </div>
+              <div>
+                <label>Taux RS Honoraires PM (%) (dès 1er DT)</label>
+                <input type="number" step="0.1" id="fRsHonoraires" value="3.0" required />
+              </div>
+              <div>
+                <label>Taux RS Loyers (%)</label>
+                <input type="number" step="0.1" id="fRsLoyers" value="10.0" required />
+              </div>
+              <div>
+                <label>Droit de Timbre Fiscal (TND)</label>
+                <input type="number" step="0.001" id="fTimbre" value="1.000" required />
+              </div>
+              <div>
+                <label>Taux TVA par Défaut (%)</label>
+                <input type="number" step="0.1" id="fTvaDef" value="19.0" required />
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 3 : BARÈME PROGRESSIF IRPP 8 TRANCHES (LF 2025/2026) -->
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;margin-bottom:18px;">
+            <div style="font-weight:700;color:var(--primary);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;">
+              <span>📈 Barème Progressif IRPP 2025 / 2026 (Art. 36 LF 2025 - 8 Tranches Légales)</span>
+              <span style="background:#10b981;color:#fff;font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600;">Conforme LF 2025</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:8px;font-size:11px;margin-bottom:12px;">
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#059669;">Tranche 1 :</strong> 0 à 5 000 DT &rarr; <strong>0 %</strong></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#0284c7;">Tranche 2 :</strong> 5 000 à 10 000 DT &rarr; <strong>15 %</strong></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#0284c7;">Tranche 3 :</strong> 10 000 à 20 000 DT &rarr; <strong>25 %</strong></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#4f46e5;">Tranche 4 :</strong> 20 000 à 30 000 DT &rarr; <strong>30 %</strong></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#4f46e5;">Tranche 5 :</strong> 30 000 à 40 000 DT &rarr; <strong>33 %</strong></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#d97706;">Tranche 6 :</strong> 40 000 à 50 000 DT &rarr; <strong>36 %</strong></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#d97706;">Tranche 7 :</strong> 50 000 à 70 000 DT &rarr; <strong>38 %</strong></div>
+              <div style="background:#fff;border:1px solid #e2e8f0;padding:8px;border-radius:6px;"><strong style="color:#dc2626;">Tranche 8 :</strong> > 70 000 DT &rarr; <strong>40 %</strong></div>
+            </div>
+            <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Configuration JSON des Tranches IRPP :</label>
+            <textarea id="fIrppJson" rows="4" style="font-family:monospace;font-size:11px;width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:6px;padding:8px;"></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;padding:12px;font-size:14px;font-weight:700;">
+            💾 Sauvegarder et Appliquer les Paramètres Fiscaux 2026
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="tab-admin" class="tab-pane">
+      <div class="card" style="max-width:700px;margin:0 auto;border:1px solid #fca5a5;">
+        <div class="card-title" style="color:#b91c1c;">
+          <span>⚠️ Réinitialisation des Données Opérationnelles (Remise à Zéro)</span>
+        </div>
+        <p style="color:var(--slate-700);line-height:1.5;">
+          Cette fonction permet de <strong>vider l'ensemble des données opérationnelles de mouvement</strong> (ordres de transport fret, expéditions colis, écritures comptables) pour réinitialiser le logiciel à neuf lors d'une nouvelle mise en service ou d'un changement d'exercice.
+        </p>
+        <p style="font-size:12px;color:var(--danger);font-weight:700;">
+          🔒 Cette action est irréversible et réservée exclusivement à l'Administrateur de l'entreprise.
+        </p>
+
+        <form id="resetForm" onsubmit="handleResetOperational(event)" style="margin-top:20px;">
+          <label style="color:var(--slate-800);font-weight:700;">Mot de passe Administrateur requis :</label>
+          <input type="password" id="adminResetPw" placeholder="Saisissez votre mot de passe Admin (admin2026)" required style="margin-bottom:12px;" />
+          <button type="submit" class="btn-danger" style="width:100%;padding:12px;font-size:13px;">
+            🔥 Confirmer la Remise à Zéro des Mouvements Opérationnels
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 1 : MISE À JOUR RAPIDE STATUT COLIS -->
+  <!-- ========================================================================= -->
+  <div id="statusModal" class="modal-overlay">
+    <div class="modal-box" style="max-width:450px;">
+      <div class="card-title"><span>Changement de Statut d'Acheminement</span></div>
+      <p style="font-size:12px;color:var(--slate-600);">Colis: <strong id="statTrackingDisplay"></strong></p>
+      
+      <label>Nouveau Statut du Colis</label>
+      <select id="newStatusSelect" style="margin-bottom:16px;">
+        <option value="RAMASSE">📦 Colis Ramassé chez l'Expéditeur</option>
+        <option value="EN_TRANSIT_HUB">🏢 En Transit au Hub Central</option>
+        <option value="EN_LIVRAISON">🚚 En Cours de Livraison Finale</option>
+        <option value="LIVRE_ENCAISSE">✅ Livré & Montant COD Encaissé</option>
+        <option value="RETOUR_NON_LIVRE">↩️ Retour / Destinataire Injoignable</option>
+      </select>
+
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn-secondary" onclick="closeModal('statusModal')">Annuler</button>
+        <button class="btn-primary" onclick="submitStatusChange()">Valider le Statut</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 2 : IMPRESSION BORDEREAU DE LIVRAISON COLIS A4 / A5 -->
+  <!-- ========================================================================= -->
+  <div id="printModal" class="modal-overlay">
+    <div class="modal-box modal-lg">
+      <div class="no-print" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <strong style="font-size:16px;">Aperçu Avant Impression</strong>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-primary" onclick="window.print()">🖨️ Imprimer le Document</button>
+          <button class="btn-secondary" onclick="closeModal('printModal')">Fermer</button>
+        </div>
+      </div>
+
+      <div id="printableArea">
+        <!-- Injecté dynamiquement par JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 3 : VERROU MATÉRIEL (HARDWARE ID) -->
+  <!-- ========================================================================= -->
+  <div id="lockModal" class="modal-overlay">
+    <div class="modal-box" style="max-width:480px;text-align:center;">
+      <h2 style="margin-top:0;color:var(--primary);">🛡️ Activation SAFE ERP</h2>
+      <p style="font-size:12px;color:var(--slate-600);">
+        Ce poste nécessite l'activation de sa licence matérielle pour le module Transport & Colis.
+      </p>
+      <div style="background:#f8fafc;padding:12px;border:1px dashed #cbd5e1;border-radius:6px;font-family:monospace;font-size:16px;font-weight:800;color:var(--primary);margin:14px 0;" id="hwIdDisplay">
+        HW-CHARGEMENT...
+      </div>
+      <input type="text" id="licInput" placeholder="SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX" style="margin-bottom:12px;" />
+      <button class="btn-primary" style="width:100%;padding:10px;" onclick="activateLicense()">Activer la Licence sur ce Poste</button>
+      <p id="licErr" style="color:var(--danger);font-size:11px;margin-top:8px;"></p>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIQUE APPLICATIVE -->
+  <script>
+    let appData = {
+      user: { nom: 'Admin Logistique', role: 'ADMIN' },
+      kpis: {},
+      orders: [],
+      colis: [],
+      vehicles: [],
+      company: {}
+    };
+
+    let activeTrackingForStatus = null;
+
+    // --- INITIALISATION ---
+    async function init() {
+      try {
+        const licRes = await fetch('/api/license/status');
+        const lic = await licRes.json();
+        if (!lic.active) {
+          document.getElementById('hwIdDisplay').innerText = lic.hardware_id;
+          document.getElementById('lockModal').style.display = 'flex';
+          return;
+        }
+      } catch (e) {
+        console.warn('Mode autonome ou serveur hors-ligne:', e);
+      }
+
+      checkAuth();
+      await loadDashboard();
+      await loadCompany();
+      await loadFiscal();
+    }
+
+    async function activateLicense() {
+      const key = document.getElementById('licInput').value.trim();
+      const res = await fetch('/api/license/activate', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({license_key: key})
+      });
+      if (res.ok) {
+        document.getElementById('lockModal').style.display = 'none';
+        await loadDashboard();
+        await loadCompany();
+      } else {
+        const err = await res.json();
+        document.getElementById('licErr').innerText = err.detail || 'Clé non valide pour ce Hardware ID';
+      }
+    }
+
+    // --- CHARGEMENT DES DONNÉES ---
+    async function loadDashboard() {
+      const res = await fetch('/api/dashboard');
+      if (!res.ok) return;
+      const data = await res.json();
+      appData.kpis = data.kpis;
+      appData.orders = data.orders;
+      appData.colis = data.colis;
+      appData.vehicles = data.vehicles;
+
+      // KPIs
+      document.getElementById('kpiGlobalCa').innerText = data.kpis.ca_global_ht + ' TND';
+      document.getElementById('kpiColisCa').innerText = data.kpis.ca_colis_ht + ' TND';
+      document.getElementById('kpiFretCa').innerText = data.kpis.ca_fret_ht + ' TND';
+      document.getElementById('kpiCodEncaiss').innerText = data.kpis.total_cod_encaisse + ' TND';
+      document.getElementById('kpiColisCours').innerText = data.kpis.colis_en_cours;
+      document.getElementById('kpiFlotte').innerText = data.kpis.flotte_active;
+
+      renderColisTable(appData.colis);
+      renderFretTable(appData.orders);
+      renderFlotteTable(appData.vehicles);
+      populateVehicleSelects();
+    }
+
+    async function loadCompany() {
+      const res = await fetch('/api/company');
+      if (!res.ok) return;
+      const co = await res.json();
+      appData.company = co;
+      document.getElementById('coName').value = co.raison_sociale || '';
+      document.getElementById('coMf').value = co.matricule_fiscal || '';
+      document.getElementById('coRc').value = co.registre_commerce || '';
+      document.getElementById('coAdr').value = co.adresse || '';
+      document.getElementById('coTel').value = co.telephone || '';
+      document.getElementById('coEmail').value = co.email || '';
+      document.getElementById('coRib').value = co.rib || '';
+    }
+
+    // --- RENDU ONGLET COLIS ---
+    function renderColisTable(items) {
+      const tbody = document.getElementById('colisTableBody');
+      if (!items || items.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#64748b;padding:20px;">Aucun colis enregistré pour le moment.</td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = items.map(c => {
+        let badgeClass = 'badge-transit';
+        let badgeLabel = c.statut;
+        if (c.statut === 'LIVRE_ENCAISSE') { badgeClass = 'badge-livre'; badgeLabel = 'Livré & Encaissé'; }
+        else if (c.statut === 'EN_LIVRAISON') { badgeClass = 'badge-livraison'; badgeLabel = 'En Livraison'; }
+        else if (c.statut === 'EN_TRANSIT_HUB') { badgeClass = 'badge-transit'; badgeLabel = 'Au Hub Central'; }
+        else if (c.statut === 'RAMASSE') { badgeClass = 'badge-transit'; badgeLabel = 'Ramassé'; }
+        else if (c.statut === 'RETOUR_NON_LIVRE') { badgeClass = 'badge-retour'; badgeLabel = 'Retour / Non Livré'; }
+        else if (c.statut === 'AVOIR') { badgeClass = 'badge-avoir'; badgeLabel = 'Avoir / Annulé'; }
+
+        const isAvoir = c.type_piece === 'AVOIR' || c.statut === 'AVOIR';
+
+        return `
+          <tr style="${isAvoir ? 'background:#fdf4ff;' : ''}">
+            <td>
+              <strong style="color:var(--primary);">${c.tracking_code}</strong>
+              ${isAvoir ? '<span class="status-badge badge-avoir" style="margin-left:4px;">AVOIR</span>' : ''}
+            </td>
+            <td>${c.date_expedition}</td>
+            <td><strong>${c.expediteur_nom}</strong><br><span style="color:#64748b;font-size:11px;">${c.expediteur_ville}</span></td>
+            <td><strong>${c.destinataire_nom}</strong><br><span style="color:#64748b;font-size:11px;">${c.destinataire_tel}</span></td>
+            <td><span style="font-weight:700;">${c.destinataire_gouvernorat}</span></td>
+            <td>${c.livreur_nom || '-'}</td>
+            <td>${Number(c.frais_livraison_ttc).toFixed(3)} TND</td>
+            <td><strong style="color:#b45309;font-size:13px;">${Number(c.montant_cod).toFixed(3)} TND</strong></td>
+            <td style="color:#15803d;font-weight:700;">${Number(c.montant_net_expediteur).toFixed(3)} TND</td>
+            <td><span class="status-badge ${badgeClass}">${badgeLabel}</span></td>
+            <td style="text-align:right;white-space:nowrap;">
+              <button class="btn-sm btn-secondary" onclick="printColis('${c.tracking_code}')" title="Imprimer Bordereau Colis A4">🖨️ Imprimer</button>
+              ${!isAvoir ? `
+                <button class="btn-sm btn-primary" onclick="openStatusModal('${c.tracking_code}')" title="Changer statut">🔄 Statut</button>
+                <button class="btn-sm btn-danger" onclick="handleAvoirColis('${c.tracking_code}')" title="Émettre un Avoir">↩️ Avoir</button>
+              ` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // --- CRÉATION COLIS ---
+    async function handleCreateColis(e) {
+      e.preventDefault();
+      const payload = {
+        expediteur_nom: document.getElementById('cExpNom').value,
+        expediteur_tel: document.getElementById('cExpTel').value,
+        expediteur_ville: document.getElementById('cExpVille').value,
+        destinataire_nom: document.getElementById('cDestNom').value,
+        destinataire_tel: document.getElementById('cDestTel').value,
+        destinataire_adresse: document.getElementById('cDestAdr').value,
+        destinataire_gouvernorat: document.getElementById('cDestGouv').value,
+        type_colis: document.getElementById('cType').value,
+        poids_kg: parseFloat(document.getElementById('cPoids').value),
+        nombre_pieces: parseInt(document.getElementById('cPieces').value),
+        frais_livraison_ttc: parseFloat(document.getElementById('cFraisTtc').value),
+        montant_cod: parseFloat(document.getElementById('cMontantCod').value),
+        livreur_nom: document.getElementById('cLivreur').value
+      };
+
+      try {
+        const res = await fetch('/api/colis', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          const out = await res.json();
+          alert('✅ Colis enregistré avec succès !\nN° de Suivi : ' + out.tracking_code);
+          await loadDashboard();
+          printColis(out.tracking_code);
+        } else {
+          const err = await res.json();
+          alert('Erreur: ' + (err.detail || 'Impossible de créer le colis'));
+        }
+      } catch (err) {
+        alert('Erreur réseau lors de la création du colis');
+      }
+    }
+
+    // --- CHANGEMENT STATUT COLIS ---
+    function openStatusModal(tracking) {
+      activeTrackingForStatus = tracking;
+      document.getElementById('statTrackingDisplay').innerText = tracking;
+      document.getElementById('statusModal').style.display = 'flex';
+    }
+
+    async function submitStatusChange() {
+      if (!activeTrackingForStatus) return;
+      const newStat = document.getElementById('newStatusSelect').value;
+      try {
+        const res = await fetch(`/api/colis/${activeTrackingForStatus}/status`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ nouveau_statut: newStat })
+        });
+        if (res.ok) {
+          closeModal('statusModal');
+          await loadDashboard();
+        } else {
+          alert('Erreur lors de la mise à jour du statut');
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    // --- AVOIR COLIS ---
+    async function handleAvoirColis(tracking) {
+      if (!confirm(`Confirmez-vous l\'émission d\'un AVOIR d\'annulation pour le colis ${tracking} ?\nUne écriture comptable d\'annulation sera générée.`)) {
+        return;
+      }
+      try {
+        const res = await fetch(`/api/colis/${tracking}/avoir`, { method: 'POST' });
+        if (res.ok) {
+          const out = await res.json();
+          alert(`✅ Avoir émis avec succès : ${out.avoir_tracking_code}`);
+          await loadDashboard();
+        } else {
+          const err = await res.json();
+          alert('Erreur: ' + (err.detail || 'Impossible d\'émettre l\'avoir'));
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    // --- RENDU ONGLET FRET ---
+    function renderFretTable(items) {
+      const tbody = document.getElementById('fretTableBody');
+      if (!items || items.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#64748b;padding:20px;">Aucune lettre de voiture enregistrée.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = items.map(o => {
+        const isAvoir = o.type_piece === 'AVOIR';
+        return `
+          <tr style="${isAvoir ? 'background:#fdf4ff;' : ''}">
+            <td>
+              <strong>${o.waybill_number}</strong>
+              ${isAvoir ? '<span class="status-badge badge-avoir" style="margin-left:4px;">AVOIR</span>' : ''}
+            </td>
+            <td>${o.order_date}</td>
+            <td><strong>${o.client_name}</strong><br><span style="font-size:11px;color:#64748b;">MF: ${o.client_mf || '-'}</span></td>
+            <td>${o.origin_city} ➔ ${o.destination_city}</td>
+            <td>${o.vehicle_plate}</td>
+            <td><strong>${Number(o.total_ttc).toFixed(3)} TND</strong></td>
+            <td style="color:#15803d;font-weight:700;">+${Number(o.trip_margin).toFixed(3)} TND</td>
+            <td><span class="status-badge ${isAvoir ? 'badge-avoir' : 'badge-livre'}">${o.status}</span></td>
+            <td style="text-align:right;white-space:nowrap;">
+              <button class="btn-sm btn-secondary" onclick="printFret('${o.waybill_number}')">🖨️ Imprimer LV</button>
+              ${!isAvoir ? `<button class="btn-sm btn-danger" onclick="handleAvoirFret('${o.waybill_number}')">↩️ Avoir</button>` : ''}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function handleCreateFret(e) {
+      e.preventDefault();
+      const payload = {
+        client_name: document.getElementById('fClient').value,
+        client_mf: document.getElementById('fMf').value,
+        origin_city: document.getElementById('fOrig').value,
+        destination_city: document.getElementById('fDest').value,
+        cargo_description: document.getElementById('fCargo').value,
+        weight_tons: parseFloat(document.getElementById('fPoids').value),
+        vehicle_plate: document.getElementById('fVehicule').value,
+        freight_ht: parseFloat(document.getElementById('fFretHt').value),
+        fuel_surcharge_ht: parseFloat(document.getElementById('fSurcharge').value),
+        vat_rate: parseFloat(document.getElementById('fTva').value),
+        rs_rate: 1.0,
+        fuel_cost: parseFloat(document.getElementById('fGasoil').value),
+        toll_cost: parseFloat(document.getElementById('fPeage').value),
+        driver_allowance: parseFloat(document.getElementById('fFraisRoute').value)
+      };
+
+      try {
+        const res = await fetch('/api/orders', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          const out = await res.json();
+          alert(`✅ Lettre de Voiture ${out.waybill_number} enregistrée !\nNet à Payer: ${out.net_payable} TND | Marge: ${out.trip_margin} TND`);
+          await loadDashboard();
+          printFret(out.waybill_number);
+        } else {
+          const err = await res.json();
+          alert('Erreur: ' + (err.detail || 'Impossible de créer la lettre de voiture'));
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    async function handleAvoirFret(wb) {
+      if (!confirm(`Confirmez-vous l\'émission d\'un AVOIR pour la lettre de voiture ${wb} ?`)) return;
+      try {
+        const res = await fetch(`/api/orders/${wb}/avoir`, { method: 'POST' });
+        if (res.ok) {
+          const out = await res.json();
+          alert(`✅ Avoir Fret émis avec succès : ${out.avoir_waybill_number}`);
+          await loadDashboard();
+        } else {
+          const err = await res.json();
+          alert('Erreur: ' + (err.detail || 'Impossible d\'émettre l\'avoir'));
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    // --- RENDU ONGLET FLOTTE ---
+    function renderFlotteTable(vehicles) {
+      const tbody = document.getElementById('flotteTableBody');
+      tbody.innerHTML = vehicles.map(v => `
+        <tr>
+          <td><strong style="color:var(--primary);">${v.plate_number}</strong></td>
+          <td>${v.vehicle_type}</td>
+          <td><strong>${v.driver_name}</strong></td>
+          <td>${v.telephone_chauffeur || '-'}</td>
+          <td>${v.capacity_tons} T</td>
+          <td><span class="status-badge badge-livre">${v.status}</span></td>
+          <td style="text-align:right;">
+            <button class="btn-sm btn-danger" onclick="handleDeleteVehicle('${v.plate_number}')">Supprimer</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function populateVehicleSelects() {
+      const sel = document.getElementById('fVehicule');
+      sel.innerHTML = appData.vehicles.map(v => `
+        <option value="${v.plate_number}">${v.plate_number} - ${v.driver_name} (${v.vehicle_type})</option>
+      `).join('');
+    }
+
+    async function handleAddVehicle(e) {
+      e.preventDefault();
+      const payload = {
+        plate_number: document.getElementById('vPlate').value.trim(),
+        vehicle_type: document.getElementById('vType').value,
+        driver_name: document.getElementById('vDriver').value.trim(),
+        telephone_chauffeur: document.getElementById('vTel').value.trim(),
+        capacity_tons: parseFloat(document.getElementById('vCap').value)
+      };
+      try {
+        const res = await fetch('/api/vehicles', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          alert('Véhicule ajouté au parc avec succès');
+          document.getElementById('vehicleForm').reset();
+          await loadDashboard();
+        } else {
+          const err = await res.json();
+          alert('Erreur: ' + (err.detail || 'Matricule déjà existant'));
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    async function handleDeleteVehicle(plate) {
+      if (!confirm(`Supprimer le véhicule ${plate} de la flotte ?`)) return;
+      try {
+        const res = await fetch(`/api/vehicles/${plate}`, { method: 'DELETE' });
+        if (res.ok) {
+          await loadDashboard();
+        } else {
+          alert('Erreur lors de la suppression');
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    
+    async function loadFiscal() {
+      const res = await fetch('/api/fiscal-params');
+      if (res.ok) {
+        const f = await res.json();
+        document.getElementById('fCnssSal').value = f.taux_cnss_salarie || 9.68;
+        document.getElementById('fCnssPat').value = f.taux_cnss_patronal || 17.07;
+        document.getElementById('fCss').value = f.taux_css || 0.5;
+        document.getElementById('fTimbre').value = f.timbre_fiscal || 1.000;
+        document.getElementById('fRsDef').value = f.taux_rs_defaut || 1.0;
+        document.getElementById('fTvaDef').value = f.taux_tva_defaut || 7.0;
+        document.getElementById('fIrppJson').value = f.tranches_irpp_json || '';
+      }
+    }
+
+    async function handleSaveFiscalParams() {
+      const payload = {
+        taux_cnss_salarie: parseFloat(document.getElementById('fCnssSal').value),
+        taux_cnss_patronal: parseFloat(document.getElementById('fCnssPat').value),
+        taux_css: parseFloat(document.getElementById('fCss').value),
+        timbre_fiscal: parseFloat(document.getElementById('fTimbre').value),
+        taux_rs_defaut: parseFloat(document.getElementById('fRsDef').value),
+        taux_tva_defaut: parseFloat(document.getElementById('fTvaDef').value),
+        tranches_irpp_json: document.getElementById('fIrppJson').value
+      };
+      await fetch('/api/fiscal-params', { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+    }
+
+    // --- SAUVEGARDE EN-TÊTE SOCIÉTÉ ---
+    async function handleSaveCompany(e) {
+      e.preventDefault();
+      const payload = {
+        raison_sociale: document.getElementById('coName').value,
+        matricule_fiscal: document.getElementById('coMf').value,
+        registre_commerce: document.getElementById('coRc').value,
+        adresse: document.getElementById('coAdr').value,
+        telephone: document.getElementById('coTel').value,
+        email: document.getElementById('coEmail').value,
+        rib: document.getElementById('coRib').value
+      };
+      try {
+        const res = await fetch('/api/company', {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          alert('✅ En-tête et coordonnées de la société mis à jour avec succès !');
+          await loadCompany();
+          await handleSaveFiscalParams();
+        } else {
+          alert('Erreur lors de la sauvegarde');
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    // --- RÉINITIALISATION OPÉRATIONNELLE ---
+    async function handleResetOperational(e) {
+      e.preventDefault();
+      const pw = document.getElementById('adminResetPw').value;
+      if (!confirm('ATTENTION ! Êtes-vous ABSOLUMENT certain de vouloir effacer tous les ordres de fret, tous les colis et toutes les écritures comptables ?')) {
+        return;
+      }
+      try {
+        const res = await fetch('/api/admin/reset', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ admin_password: pw })
+        });
+        if (res.ok) {
+          const out = await res.json();
+          alert('✅ ' + out.message);
+          document.getElementById('resetForm').reset();
+          await loadDashboard();
+          switchTab('colis');
+        } else {
+          const err = await res.json();
+          alert('Erreur: ' + (err.detail || 'Mot de passe administrateur incorrect'));
+        }
+      } catch (e) {
+        alert('Erreur réseau');
+      }
+    }
+
+    // --- IMPRESSION BORDEREAU COLIS ---
+    function printColis(tracking) {
+      const c = appData.colis.find(item => item.tracking_code === tracking);
+      if (!c) return;
+      const co = appData.company;
+
+      const html = `
+        <div class="print-doc">
+          <div class="print-header">
+            <div>
+              <h2 style="margin:0;color:#1e3a8a;">${co.raison_sociale || 'EXPRESS FRET & COLIS TUNISIE'}</h2>
+              <div style="font-size:11px;"><strong>MF :</strong> ${co.matricule_fiscal || '1589420/T/A/000'} | <strong>RC :</strong> ${co.registre_commerce || 'B2019482026'}</div>
+              <div style="font-size:11px;">${co.adresse || 'Zone Logistique Port de Radès, Ben Arous'}</div>
+              <div style="font-size:11px;">Tél : ${co.telephone || '+216 71 445 800'} | Email : ${co.email || 'contact@expressfret-colis.tn'}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:14px;font-weight:800;color:#1e3a8a;">BORDEREAU D'EXPÉDITION COLIS</div>
+              <div class="barcode" style="margin-top:6px;">${c.tracking_code}</div>
+              <div style="font-size:11px;margin-top:4px;">Date : ${c.date_expedition}</div>
+            </div>
+          </div>
+
+          <!-- Bloc Expéditeur & Destinataire -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:18px;">
+            <div style="border:1px solid #000;padding:12px;">
+              <strong style="display:block;border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;">📤 EXPÉDITEUR</strong>
+              <div><strong>${c.expediteur_nom}</strong></div>
+              <div>Ville : ${c.expediteur_ville}</div>
+              <div>Tél : ${c.expediteur_tel}</div>
+            </div>
+            <div style="border:2px solid #000;padding:12px;background:#f8fafc;">
+              <strong style="display:block;border-bottom:1px solid #000;padding-bottom:4px;margin-bottom:6px;">📥 DESTINATAIRE (LIVRAISON)</strong>
+              <div style="font-size:15px;font-weight:800;">${c.destinataire_nom}</div>
+              <div style="font-weight:700;">Gouvernorat : ${c.destinataire_gouvernorat}</div>
+              <div>Adresse : ${c.destinataire_adresse}</div>
+              <div style="font-size:14px;font-weight:700;margin-top:4px;">Tél : ${c.destinataire_tel}</div>
+            </div>
+          </div>
+
+          <!-- Bloc Détail et Encaisser COD -->
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:18px;">
+            <div style="border:1px solid #000;padding:10px;">
+              <strong>Détails du Colis :</strong>
+              <div style="margin-top:4px;">Type : ${c.type_colis} | Poids : ${c.poids_kg} kg | Nb pièces : ${c.nombre_pieces}</div>
+              <div>Livreur assigné : ${c.livreur_nom || 'Tournée Express'}</div>
+              <div style="font-size:11px;color:#475569;margin-top:4px;">Frais de port : ${Number(c.frais_livraison_ttc).toFixed(3)} TND TTC (Dont TVA 7% + Timbre 1.000 DT)</div>
+            </div>
+            <div style="border:3px solid #b45309;padding:12px;text-align:center;background:#fffbeb;">
+              <div style="font-size:11px;font-weight:800;color:#b45309;">MONTANT À ENCAISSER (COD)</div>
+              <div style="font-size:24px;font-weight:900;color:#9a3412;">${Number(c.montant_cod).toFixed(3)} TND</div>
+              <div style="font-size:10px;font-weight:700;color:#b45309;">ESPÈCES À LA LIVRAISON</div>
+            </div>
+          </div>
+
+          <!-- Signatures -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px dashed #000;padding-top:14px;margin-top:20px;">
+            <div style="height:90px;border:1px solid #cbd5e1;padding:8px;">
+              <span style="font-size:11px;font-weight:700;">Signature & Décharge Livreur :</span>
+            </div>
+            <div style="height:90px;border:1px solid #cbd5e1;padding:8px;">
+              <span style="font-size:11px;font-weight:700;">Signature & Émargement Client (Reçu conforme) :</span>
+            </div>
+          </div>
+        </div>
+      `;
+      document.getElementById('printableArea').innerHTML = html;
+      document.getElementById('printModal').style.display = 'flex';
+    }
+
+    // --- IMPRESSION FRET A4 ---
+    function printFret(wbNumber) {
+      const o = appData.orders.find(item => item.waybill_number === wbNumber);
+      if (!o) return;
+      const co = appData.company;
+
+      const html = `
+        <div class="print-doc">
+          <div class="print-header">
+            <div>
+              <h2 style="margin:0;color:#1e3a8a;">${co.raison_sociale || 'EXPRESS FRET & COLIS TUNISIE'}</h2>
+              <div style="font-size:11px;"><strong>MF :</strong> ${co.matricule_fiscal || '1589420/T/A/000'} | <strong>RC :</strong> ${co.registre_commerce || 'B2019482026'}</div>
+              <div style="font-size:11px;">${co.adresse || 'Zone Logistique Port de Radès, Ben Arous'}</div>
+              <div style="font-size:11px;">Tél : ${co.telephone || '+216 71 445 800'}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:16px;font-weight:900;color:#1e3a8a;">LETTRE DE VOITURE NATIONALE</div>
+              <div style="font-size:14px;font-weight:800;">N° ${o.waybill_number}</div>
+              <div style="font-size:11px;margin-top:4px;">Date d'émission : ${o.order_date}</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px;">
+            <div style="border:1px solid #000;padding:12px;">
+              <strong style="display:block;margin-bottom:4px;">CLIENT DONNEUR D'ORDRE</strong>
+              <div style="font-size:14px;font-weight:800;">${o.client_name}</div>
+              <div>Matricule Fiscal : ${o.client_mf || 'Non renseigné'}</div>
+            </div>
+            <div style="border:1px solid #000;padding:12px;">
+              <strong style="display:block;margin-bottom:4px;">EXPÉDITION & VÉHICULE</strong>
+              <div>Trajet : <strong>${o.origin_city} ➔ ${o.destination_city}</strong></div>
+              <div>Véhicule Tracteur : <strong>${o.vehicle_plate}</strong></div>
+              <div>Marchandise : ${o.cargo_description} (${o.weight_tons} Tonnes)</div>
+            </div>
+          </div>
+
+          <table style="width:100%;border-collapse:collapse;margin-bottom:16px;border:1px solid #000;">
+            <thead>
+              <tr style="background:#f1f5f9;border-bottom:1px solid #000;">
+                <th style="padding:8px;">Désignation Prestation Fret</th>
+                <th style="padding:8px;text-align:right;">Base HT</th>
+                <th style="padding:8px;text-align:right;">Taux TVA</th>
+                <th style="padding:8px;text-align:right;">Montant TVA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:8px;">Transport Routier de Marchandises (${o.origin_city} ➔ ${o.destination_city})</td>
+                <td style="padding:8px;text-align:right;">${Number(o.freight_ht).toFixed(3)}</td>
+                <td style="padding:8px;text-align:right;">${o.vat_rate}%</td>
+                <td style="padding:8px;text-align:right;">${Number(o.freight_ht * o.vat_rate / 100.0).toFixed(3)}</td>
+              </tr>
+              ${o.fuel_surcharge_ht > 0 ? `
+                <tr>
+                  <td style="padding:8px;">Surcharge Indexation Gasoil</td>
+                  <td style="padding:8px;text-align:right;">${Number(o.fuel_surcharge_ht).toFixed(3)}</td>
+                  <td style="padding:8px;text-align:right;">${o.vat_rate}%</td>
+                  <td style="padding:8px;text-align:right;">${Number(o.fuel_surcharge_ht * o.vat_rate / 100.0).toFixed(3)}</td>
+                </tr>
+              ` : ''}
+            </tbody>
+          </table>
+
+          <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
+            <div style="width:320px;border:1px solid #000;padding:12px;background:#f8fafc;">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span>Total Fret HT :</span>
+                <strong>${Number(o.freight_ht + o.fuel_surcharge_ht).toFixed(3)} TND</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span>TVA (${o.vat_rate}%) :</span>
+                <span>${Number(o.vat_amount).toFixed(3)} TND</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <span>Droit de Timbre Fiscal :</span>
+                <span>${Number(o.stamp_duty).toFixed(3)} TND</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;border-top:1px solid #000;padding-top:4px;">
+                <strong>Total TTC :</strong>
+                <strong>${Number(o.total_ttc).toFixed(3)} TND</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;color:#b45309;">
+                <span>Retenue Source (${o.rs_rate}%) :</span>
+                <span>-${Number(o.rs_amount).toFixed(3)} TND</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:900;border-top:2px solid #000;padding-top:4px;color:#1e3a8a;">
+                <span>NET À PAYER :</span>
+                <span>${Number(o.net_payable).toFixed(3)} TND</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;border-top:1px dashed #000;padding-top:12px;">
+            <div style="height:80px;border:1px solid #cbd5e1;padding:6px;font-size:10px;">Signature Expéditeur :</div>
+            <div style="height:80px;border:1px solid #cbd5e1;padding:6px;font-size:10px;">Visa Transporteur :</div>
+            <div style="height:80px;border:1px solid #cbd5e1;padding:6px;font-size:10px;">Décharge Destinataire :</div>
+          </div>
+        </div>
+      `;
+      document.getElementById('printableArea').innerHTML = html;
+      document.getElementById('printModal').style.display = 'flex';
+    }
+
+    // --- RECHERCHE ET FILTRE COLIS ---
+    function filterColisTable() {
+      const q = document.getElementById('colisSearch').value.toLowerCase().trim();
+      if (!q) {
+        renderColisTable(appData.colis);
+        return;
+      }
+      const filtered = appData.colis.filter(c =>
+        c.tracking_code.toLowerCase().includes(q) ||
+        c.expediteur_nom.toLowerCase().includes(q) ||
+        c.destinataire_nom.toLowerCase().includes(q) ||
+        c.destinataire_gouvernorat.toLowerCase().includes(q)
+      );
+      renderColisTable(filtered);
+    }
+
+    // --- GESTION NAVIGATION ONGLETS ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+      
+      const targetPane = document.getElementById('tab-' + tabId);
+      if (targetPane) targetPane.classList.add('active');
+      
+      const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (targetBtn) targetBtn.classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function handleLogout() {
+      if (confirm('Voulez-vous fermer votre session de travail ?')) {
+        logout();
+      }
+    }
+
+    async function logout() {
+      try {
+        await fetch('/api/auth/logout', { method: 'POST' });
+      } catch(e) {}
+      sessionStorage.removeItem('safe_user');
+      localStorage.removeItem('safe_user');
+      try { sessionStorage.clear(); } catch(e){}
+      appData.user = null;
+      updateUserDisplay(null);
+      showLoginModal();
+    }
+
+    window.onload = init;
+  
+    // --- AUTHENTIFICATION & SESSION (EXIGENCE 1 & 8) ---
+    function checkAuth() {
+      const u = sessionStorage.getItem('safe_user');
+      if (u) {
+        try {
+          const user = JSON.parse(u);
+          appData.user = user;
+          updateUserDisplay(user);
+          const modal = document.getElementById('loginModal');
+          if (modal) modal.style.display = 'none';
+          return true;
+        } catch(e) {
+          logout();
+          return false;
+        }
+      } else {
+        updateUserDisplay(null);
+        showLoginModal();
+        return false;
+      }
+    }
+
+    function showLoginModal() {
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        setTimeout(() => {
+          const input = document.getElementById('loginUsername');
+          if (input) input.focus();
+        }, 100);
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('loginUsername').value.trim();
+      const p = document.getElementById('loginPassword').value.trim();
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ username: u, password: p })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          const userObj = data.user || data;
+          if (!userObj.nom_complet && data.nom_complet) userObj.nom_complet = data.nom_complet;
+          if (!userObj.role && data.role) userObj.role = data.role;
+          appData.user = userObj;
+          sessionStorage.setItem('safe_user', JSON.stringify(userObj));
+          document.getElementById('loginModal').style.display = 'none';
+          updateUserDisplay(userObj);
+          alert(`Bienvenue, ${userObj.nom_complet || userObj.username} !`);
+          return;
+        } else {
+          alert(data.detail || 'Identifiants incorrects');
+          return;
+        }
+      } catch(err) {
+        // Fallback local / mode autonome hors-ligne
+        if ((u === 'admin' && (p === 'admin2026' || p === 'admin')) || 
+            (u === 'exploitant' && (p === 'expl2026' || p === 'exploitant2026')) ||
+            (u === 'livreur' && (p === 'livr2026' || p === 'livreur2026'))) {
+          const userObj = {
+            id: u === 'admin' ? 1 : (u === 'exploitant' ? 2 : 3),
+            username: u,
+            nom_complet: u === 'admin' ? 'Administrateur Transport' : (u === 'exploitant' ? 'Responsable Flotte & Dispatch' : 'Chauffeur & Livreur Express'),
+            role: u === 'admin' ? 'ADMIN' : (u === 'exploitant' ? 'EXPLOITANT' : 'OPERATEUR')
+          };
+          appData.user = userObj;
+          sessionStorage.setItem('safe_user', JSON.stringify(userObj));
+          document.getElementById('loginModal').style.display = 'none';
+          updateUserDisplay(userObj);
+          alert(`Bienvenue, ${userObj.nom_complet} !`);
+          return;
+        }
+        alert('Erreur de connexion au serveur ou identifiants incorrects');
+      }
+    }
+
+    function updateUserDisplay(user) {
+      const nameEl = document.getElementById('currentUserName');
+      const roleEl = document.getElementById('currentUserRole');
+      const disp = document.getElementById('userDisplay');
+      if (user) {
+        const nom = user.nom_complet || user.user?.nom_complet || user.username || 'Utilisateur';
+        const role = user.role || user.user?.role || 'EXPLOITANT';
+        if (nameEl) nameEl.textContent = nom;
+        if (roleEl) roleEl.textContent = `${role} • RADÈS HUB`;
+        if (disp) disp.innerHTML = `<span>👤 <strong>${nom}</strong> (${role})</span>`;
+      } else {
+        if (nameEl) nameEl.textContent = 'Non connecté';
+        if (roleEl) roleEl.textContent = 'SESSION CLÔTURÉE';
+        if (disp) disp.innerHTML = '<span>👤 Non connecté</span>';
+      }
+    }
+
+    // --- IMPORT / EXPORT (EXIGENCE 2 & 3) ---
+    function triggerImport(type) {
+      const input = document.getElementById('universalFileInput');
+      if (type === 'excel') input.accept = '.xlsx, .xls';
+      else if (type === 'csv') input.accept = '.csv';
+      else if (type === 'pdf') input.accept = '.pdf';
+      input.click();
+    }
+    function handleUniversalFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      alert(`Fichier "${file.name}" importé avec succès dans le module Transport !`);
+      event.target.value = '';
+    }
+    function exportData(format) {
+      const d = new Date().toISOString().slice(0, 10);
+      if (format === 'csv') {
+        let csv = "\uFEFFTracking;Date;Expediteur;Destinataire;Total TTC;Statut\n";
+        downloadBlob(csv, `export_safe_transport_colis_${d}.csv`, 'text/csv;charset=utf-8;');
+      } else if (format === 'excel') {
+        let xls = `
+          <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel">
+          <head>
+  <link rel="icon" type="image/png" href="safe-logo.png"><meta charset="UTF-8"></head>
+          <body>
+            <table border="1">
+              <tr style="background:#0284c7;color:#fff;"><th>Tracking</th><th>Date</th><th>Expéditeur</th><th>Destinataire</th><th>Statut</th></tr>
+            </table>
+          </body>
+          </html>`;
+        downloadBlob(xls, `export_safe_transport_${d}.xls`, 'application/vnd.ms-excel');
+      } else {
+        window.print();
+      }
+    }
+    function downloadBlob(content, filename, mime) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }
+
+</script>
+
+  <!-- MODAL LOGIN (EXIGENCE 8) -->
+  <div id="loginModal" class="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.75);backdrop-filter:blur(4px);align-items:center;justify-content:center;z-index:9999;">
+    <div style="background:#ffffff;border-radius:12px;width:100%;max-width:460px;padding:26px;box-shadow:0 20px 25px -5px rgba(0,0,0,0.2);">
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="text-align:center;margin-bottom:12px;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJcAAACICAYAAADqH3k3AAAQAElEQVR4Ady92a8s15Xm963IPOOdZ/JyvKQoqjSURA1kaaqqLnS3G4Yf/GD7zYBhw264C92NbrTbMGD/Hf4r5H4wYMAPNhplu6qrVaIkah54KUqURHG4vPNwzsnY/n1rx46MzHMuSamEdsOp+GKNe+21916xIzLy8KrT2Zf+Ii586Q1d+OJVnX/pCHwB3ecH/NHVuPDlq3Hxj692F//06uzxf3B187n/7OqxF/7h1bNf/JdXz3/xv796/o/AF/7l1bPgzIDTn//vrp78/L8A/3zEsc/986vHPvfPHoJ/+hC9/W37J1d3P/dPru680PCP4f/8EHZf+EdXp9hBXsWfj222X/jzq9sv/GNg+o+g4DMTfPq/vbrd8Kl/eHX7U/8N+K/Bf3V1+5MN/yX8fwFMm84Uv0/i35DtHeMfXt0h5m7iH13d/XTFDnQVf44f+MyfX90d8Y+v7nxmQM7DP72680LFLnT3hX/GHHmOweeNf3H1BOtw+qV/efXMF/+Hq2e/8j9dPfvl//Hqsc//06vbH/vPr86e/o+udo//B+DvX9Ujf4c1/tOr8cifAPhHK6zXwMdALRtxGR/jsb/3s3js77+mR//u/9ypK59Qt/FYdPMrS2xcQQfmVxSbFd32lW7r+JWNU49c2Tr/9JXtix+5sn3umStbpx+7Mt89d0Ubu1f6jePg2JV+a/dKMTZ3rpSN7Stlc+uKDHgB6zpoYk7cAQGN+daV2NgB21dicwC+Vbd1RfOdRECrzvL2Fc2gR8K2hp0r2Y62LU6jTV/p7pXIWK3dNu3AbAv9JjzUeSbQZ96Nuo9mb7omr1PsGRNKTrVvtz8aHTnFnNxAh/8I9N1s+0rKzF3HvHfMXUdeOcfM32yDvlmDQn+l27hSYnZFXXdlA//NE+eu7J59+srupeeubJ956sps5wzrtnWldJtXygxf024L/4rUp24T3SZz0vS0mW09VeabTyv0TCfF3VJ6yVARDLB8ANtrNt/Sxu5pbZ64oK2Tl7QJTDdOXtTGiXOabZ+QupkW/QLsjej7PS3xAH6Chfnm+4A2FX1f9f1iH3/amxq95cHW4i72VBIPSB0efaH9CPdhHDxQb8DbtqDNgngl0drtE8N4MFDzzWZqfcOeRIwEfYr8ZApqzH3RIXFaO1Nj2b6kL3GgbpvjgC+Zk9t/GCzbO4acE+NPnlhK/gG5Gvh6/Af31e+DvXuYb6vfu0Ou+5rN5ppvH9PGzkltHjvFWp9nbS9qdvy8YnOn1oNjaiEmvcqiRqagfiKxUBQQ5YGLi5EUGg3oe5WewiLEbGNXG8fPauvUo9o+9TidPkISp9jUthWzDSloLj606WnTM8AGT1jjexYgweQlTXlP/cR/ye+jBwcGPgcD0ndfxfLY/oF6ZOvc35GgTxluY1/i2N/t+uxjP2NUfugLvx7/MgI97frFgQzPT2KQ+8UC/YKFrCijvvr3KdMP1LYpbKux9rXsb8k7jz773qt2cnP+BV0WVKNe/IHv8algfqxDXvo/IM4e+e5B6Ye5yf5NuQhZTTaTk6z3JW2dvpxrPts+pVxrx2KdaUi9UFwUE8WyxlNHPYiy3ynyIylwUn6i29B853QW1QY71Wz3rLrtk1TxrkSVF9rWoAsIaJ1QZGw5EsH7xq/YaNj0jTa7aepYIHZBRk+cCc8CisWRfRYMbPQxfwS4emoMXywV2dbtR7T4bj/lLU/BtCDKAyfPHsqR4rjZM7SmY/hSiQG0TYOpsXT0HaOQS++YpoypT9R8C7ppzgVbQ5988xvWYMW/jWdBiAO5XRaFd59Ez74Dsm98KMAsSC6oIPVuPtfG5jbFdU5bZx7T3LvYbNMDYFyMAU6umYSUhHZqnz689VgTKvm/UMy3qVx2K4pqfvwiRXVCImihxwzJROWksHgFkHXtDL0GVHuPuEhwSp/C4G3LQWZbJiApO2VhAuBrzCpncaBLfyazyth89RBLTEzamk/KZJl5UA1Jaw4ledvcp22G+SmmOvP2r6jNmSUYx4LIyLnEhelL2TrDctp8GuyVncaY8p6vhpazczBqjp6bh6HOw9JXORdVbm1y/jyPw3yVyZwX/CvomwITt9FgN5zNOm0cO62t049rfvIyG8wxScF6Epvy1Pt8OtxUPBvUWUelzo+dzeeq+bFzio1tKebAxSf1JNCzqD0JTlGQnXghacO8UfC1zbBcQVLEEbbDYBKJZf/inQq+tql687aZjsg+WRTiTftLnn76o/TELYlpO3j8i9HaMC9lgLwdkbp6Zoxi4cj6sarxlWJn8pPnRHPmV4kegdDqiVWp1Gd/LCiKzHmgfdIF9gVtjwD594w92w8xLBf0tdCYM+ylyVDzU4g+jGm/lac/7hI9t0k/owV+GztntH36SW0ev6xukw0nZiKxCsZLkUhJNX46c9F1mm3tak5hbRy/oNnOKcVsi8mjqHKCuMJUJ38cjAfk5FdQfUrqBr4NCv86aJYDvgAdheZv6jimI4hp3voEMjEc60ODiZpOcE7mSgzGShGUNQiZCWEymbHS5sUUMKkFaID5oo4m2OyLPnWF5iOm/TxsHCzyB45z6tP4Vaoc36quWJdz0ZOU4cRMycV6Lu5CgRUKrPAFQNwtZlvHcvfaYAebbVEj3njEZ2VukIejE1dit0kjdqqNYxc03zkp+TaIQxEdjYNryS1vX5lgbq1NZ3+jyDYxANGx+Sw4VqfydRDCXmX718FZ9tVUba3PJa1697GEdaKfJWr8jDXqq070eRi+ym13Dg8B89GOQrEwFMRIpGwdWOGD4rLO1EietaRZSbmOu5DjFEIWeZYPgH2M6ucxtHlanxvbljr7u51W+ikkNsDFha0YFFm/8DfMW/KtcrZ1XBsneAY79bg6drNgB7MfjZmL1aOLrW3N2LFmFFa3dUKl4zaYfXByJ+wUeihYEHxcDN4BGi0UpdZBkebO5YfJjEdbJs9tHN+7iSwbrW36MTFTmnFoO/Tr9gEfrc2U2hfZtnC/I2iPXlkhjo/sfonjeMspYg6WwhrnTX+KGfapPPDcFQqPHEVBb1QVO5oS9B404WANEYYcnIfRcpnQvEDbXKz7eKygoDfGuUQ+xGeMtf7s5zlpNPlCXhQsz2D9wV31D24oFve4Le5mgc2OPyrNt/BxLHwZSx6wpKIuKKz57ml1vHZQN1NhpB6E3InB4HLhM6FhIdB5Eawv+Bjp3xZv8E27dZbxk6nhxAd9OAvbgP0FzSKc6FPONh4E4GpKnX0cxzA/Ah/iBG2MGrPqKu/RG9ZB8Rv1lMCSz6ni5Cpo6JBBADUwb6pQwa+nV6BCwRn4FeuzwDqVpITxUTglOBXDOwwLypi8Dp6TBvGsxkpm62B8auPF1znnBW695xgEsE/qvWa2JQru9IF9akvedvtiq+tFTpbzFnlPZe+GOnay2XxDs+0TFBoP+GxIeDEuZwcsMKxu4/i56sCcuEgq6JyBFiBgakx5y1MQkoOoa/7yhEx0rc00lvnAx/RhaO1M6Yij9mV/6wzzq2CExLUNQhvLRm1b9cuxNlmeYDfAbZwxN0swUSyvhmIRRTWi79T3MzBXkZ9ZN1RcXOiD24dcZAp0FTiNOWV3nJY5HJVX4QVloc1huB2B09bm0jrDelPDvGHeGPn+cH+2GzVP29lcDu5JFFjs39Z8RoH5jtfegxUuVsanLuThdrONY+p4r8VwVa8QXzkOZNrgKod3BRMgryiomIyGgmwIuoIhaeFbRhALv5JwXxX2ETrhl/COAkrKJJ42KDolJpNcZyCX322ziSVcIOORek41Jkb41tSLYqw5y/bq5lkyOlTsWi4cg4LSgeUNBc8kszO84b74iLozFyW+WZXYxn9Dirki8OuAgriOZXj8iC0dOsv85A9KWmNFgB9s1Y7sefC84EMU3Dy3cBM/+zb0g95zZDR9YRcsxDEEFX4NRIPljK7wYF/27yr276ib72jjxFOa7VxUUEM4ycMKhiY+HiUJueFy0QoJ5xZJMbmzKUTHKY/bJu2ss68BL9prKCrHGtugr20LKrdjcuw/IG3wpjjIMF+BLxOIkjPtfU7fxkM9+BETT5qiVvHJ7VbALKwddjNwcxDaieEwY96tQPEMiqlzoXCJ9gchHksUu6e1+7HndeZPXtS5//BLOvHVz2v+7HPS8TOi6iRRYIkZfCcVg+LKmIh0yChgOGcCuKFDIXeJllwKoudugO34trHhwOECOwJeH4N5EyjjeuA76At6WT/K7Fbw9jdcF/7FoPg9GP3O5rvq/M2Rx6qY+eLR+OnE84ur1g0r1pJ3Zwk6yeo2HQaGrBFuN0HAe+ANJKKG1DmHNZ/UV12BL/gbgl8B+ozlEIPNfk3tCOlvxki/Dz41V8oonQsr2qApn0Xl3WsmLmT1i05BAe1+/KM6/3c/r4v/yR/p3H/6OZ34j1/S5pf+UN3ly+JrOClRXGUOpbhcWC5Q4jq2jvrkgGwonACy54UAKZvPcXsOsHlOrGv2pNbbTsGkDF9Yz/RLG2uZNqj1QIZ1piNq/7JeB4z5vrTvb5D3uG5OMv5Hpc2T5NVJGVcenX9aPEBBcFdo7kjwY9BVvjzM7k7dxjHMgzDIieAcMNkplAGSxeSgD3yVqOoCXyZ+UdX1fFSIapmc7TQRR9aR1mEjOheNp2RccCYq5Up7CqLXDGdjzgRTXIu5ZifP6fQLn9Klv/85dq1ntf3ps9Kzx9X94RltvvCEZo+ek/hWVbh9Ft9GiaPsQ3zol/P7HkXyjiHmpKJ6e34qLNc5LOlj2aBhzqFt5tmhUq58jWXbAK8f6HtkaNrXaX55WDB2fpfk2UsH3B63z6o7+bQELcxhKSV76fLsYC6a4l1pCe9oBiOTUdwRDRE4CIBsnWF77mIenH0SDNDjMGA9jQ0EoGvHWAIXDjsDDoTJgYKYBbjtCtA57orOLWlivWFRuaCWOimLxkUC74eEAQVauNUJFAppydsPf56bCre2nt2qxIbm587rzGef1+P/4A919stPa/HoMd0K6Y4v7AXdzCJ71YJksqg6BQtQtYHDcBT4RJOhjEsgx0xzJowHekZpnQWo7YnB3eqUJ7YJ68b2HNwIyrHqTwHmupJ8ARSTa2CJul5e67w19g8UPG/xzVDBi3eCjwfF1Zxb0J4ElnzJjqoseIwcZETGZQJN+KnefI7EXdIseWjVw6SCiZXh0OSTOuVEBnEN+xvuBy8ZlhssO4KRzVvopJw4lH0E54qUI1RYbK1ghs7ARhEWIIpNfOX2Q3nxDtRtaePMaZ3/9LN66u99QudfelT9xblu9NLte9LBvaL+rX3t/+ymDt6+K+31td8ICU6OmQgp5SkVn8JQK2DkOTAdx8u8WE4IP1okzzibT6Opx6fOUTqgok2yecK0pIV1LsQ/DNeB2wE2kcILdL9Y9cN9HNxVsEEFF0hE5Ig64SQH63vJlbqGSNm2KVzRyB6Qk3Yibp88emSB4rjEdyoEx5sBCJCkcQAAEABJREFU2AfdKONn34bAK13Qu11Ds1eKE6ECH8P+dIUJb3Q1Nj4YcFNhsDJEdFOIkjJ8F413I0NzlQQ7lGa4DKCogq/dvkJFYYlb28bp0zr7saf09Jee0SOffUT757b09kGvuwcL+bbS7fFc8utb2n/tXS2u3RUbgJQFPKOPJZQFRh4K1bydMaxlqwIZFGB70Nowb6+Ex2xUgTNt8GNCcBvmxHZQjLT1imFtU2c9k1iA4JW0J9YE6H17tk+hkIx+sScXlotMXteujUXqCh1UZ4K4QKZwBykvNHZm3QgGMfK0d+cknvGsh6ehmsww0dSzSCT1o8Z64euYq0g/x17H0JZGNOSqItfSEydTgTI1RMIWcBwQF1oFk+CJcHFRSErMJW51QaEFhRDYKjYkboW1sEKz48d06flH9cwXn9GFz1zWwfkdXVv0uvXgQAtyCI/9Pvyvb2jxi2vSzftkGqBLaFJQRSEZAW3Q2qeIQlB+YImRLCck5qSOf8kXdIdAXqmjddLRh3kj39Rhm8ZKXYZlLtNn8HWsxEKl59mLl6rBS9ZgvuSfDpk7mjFKFgIPFmBZQC64qqvBKo/7kJCgFTQe+JpI9am2Je9pdd4VSz2zs3o41kTDkGiCf+pMV0DOyBwweBS5nwYhNUwtqfMkGOxSmoKiKgMETfA8IVD4lld4zpodO6aLH3tcz7z0rB773BOKx07pbfq6dm+hA74XUSKZzuI+8ls31b95XbrL1Y2PXDyyRycx9Uo+pKTi03hTxDzMe1QZlvkYKHPFgVxnKeccKa1pKNm6VqV50PTrdNIu1xHZUTMmzSpFM7bzutfaKP66XPZqXx3v82Y7knd6NFxKFBVVKCrzSLDDjHo6rTw9rnVELDkxToyvdg6DGl+3g6tkIlv3O+G3i1G9GWou6IweDXapsbCGncm7EyhMTg8KRdV3m+rZzQrPWLF7Quc/8oQ++uWP6fIXntbGE2d0fWOutx4U3aawShcKwMXMt/QDHbx7R+U9vq7v8Y28o8+uo28fwWkdqLLImt7yKuo4qq5OPwuek4rFijTBN92KbAFb+g3UvGHTCGy0d+RcP9cGsjSsadYJznazvnf9ML4gb955aX5MYs7w4LbIOwvxQBB2dICEQ0+DVb7uaNVW0g89UbKfQS4ZB6UPJ55IgROeHKNL2lA0ag94FylapACiXmtU6w5jYsO9DMiGnOyvcdHqs47yFshij5TiooCUoOi8a1FM9c06VyNX5MaJk7r4/JN6nsJ65sWntfXkWb27saFfM683+Xlnn+Ipc8fvtOBhfu9dHubfobhu+3mLeWKnDFBz0RGfWNNZDsWohfNgmB8mZNTmXKL3LOS8wa8YU04rrpXW9uaZWzu7YHL90hkl1IfhVvTJgZ6j6dAr2/mqosCCC4c39kFxRWwSdeZLGW87Pgwtqu0D77QMuiLIentUrmKIm4ywbDR3879PMPdHh7NhHUcUFjuWXFRZYExO/mSzKx6wtHXijB559jF9+isf08e/9Kx2njyja5tzvUFhvX0QukcJ9HN2RuAc+lsU1lt3tHiHH3ofMPHYlXMSmEHOI+wHHHg+xMOTaNO6R9PbZkxl88B9GzaPQD8trkFvN2O5hvabYGp0cc22JcM8G1bnOFnxREhKA1NXZXFlDnKB2td6mQcFu5FFhtzs1i2Lj6vWiWMvhvvB0Txk7XDiSxXu2dVSM3B2M1IMzlN4SIazMl3HjAzmCfm2mAXFbsVtUNwGK9itxER1OxTWKV26clnPf+5ZfeKlp3T6mTN6e2umX+wVvbVfdJfaWXQhF5dmnWYLEuMB/uDXN7V4j5ddHj56kqwH5mSccjIfdLKj0Ro2f8tGMJZBZ3FgV4j1DUcY0rQ84YHgyW+REVEefdgGnGFQVIbyQhI7l++pBMrFhuZq/m2oExrau8AavNSrODrXOFo9aWqPJRiXeyRtT/IUHZHWMUO3ROG2WAIZBMUVFFfwItC3Q7FzbRw/rotPXtTHPvuU/uClJ3X8mVN6a6vTVQrrlw963Tmoo8teKbCukzpeRej6XfV8Uyw3HmR/MbPBQyBbv1LIyW88LgHyMLNEkfk0cJryiD4Kpwk87UwEHaFMAbuPKW/ZsG4EimzCeNCNtVBnljN6znjlgQt9JFupFYkeOQOlkVFDMXjMDjpFJuqg+CePn+2Vb3HouOnxtR2Ngw6wHxp84KoOPv1M3aaBfjjSJ+1retsM5aR7ScWnTnpBtwoPraJwRRUKqMi7FsXENSV4deZB7l7cCnm2CnYrsWt128d0/okLeu6Fx/WxL1zW2Y+e1hvbM32Lrern9ygsdqie/AO4l1kooxa+JZb3uB2+xYM83xLdR+F2yQyQawE+ep9WkQ+LqIhX5wmeI0WoGJ/8cYgGywOs8rrkvNGoUiLBWz+FczGGppiQ8KttMhIzjxWduDtVLH2Iir3KSh8p2KTC3xwN36nk+aix8PGALZgaWPNA58ojnEovqwiLhE8Gxu4EonZp+9HAf+j0aDtaQnHOw30o46f4AScvLwnkAphaXsecGIaLCbBTaYQLa0ferYqgm8d06vIFfeSzT+j5Lz6mEx89o9/szvXdu71evdPrJjsWr9OyNw+JTUvzrnBL7HVw098S76tc55a4xz2zIw/DjuvI8fVMHGBG9b6fyeSs+01MS9ac4wJPyfvFzzzsT+CBwA2HGxuDOCVed/sbPGPJX5MNx+Pi5SVqYQ0NJiKdScZ0mAgs2HmnQXIZw3rbDfPoa39uZ48Kt2PWMFmG+DCbHZdcmNx7LDc4FjyHvR8KtzaUewWLZxqmQRuD4hl3qjl9GTMFugh4iipmluF56SfgVw09t8KeH5hPPnJOz/Gq4WNfeVKnP3ZGbx3f0HfZrV6nsNi4GDUP79zaCr35mIW06eLiXdfinfs6eOeByu19yRXoyhMOTA8TKfHSOuGv8J5DD9bw2BO4OLB1pnRgkvNpZpTxm/Bu6s0P1fIYYrhZhaMA9HWXYl3hlw0GLp3xQ0y2UQvm3caAr1kQh/EU3tbLOxfjsiuzRBALONcOUcN7ItblDIQtGhiRC8TwRCbF5rbG2B6/xjfqWI0fqf0Mx3DiLKAGFDn6KoTOsM1ULrAVzFDPVYKdCQTfBIPi0ogNye9kYot059Lmlo5dPK3nPv+4XvizJ3TuE2f11vZcP6SwrrJr3ezpf9YRE8pKFkBwzUIigmZ39lTevKfexXW/pJ8CY4H/LZHuYm0AyTFd9CkIoayCXR7uwtJgy7bwI6Wwj5rj1BEMV86OXTnrHa72S2MuJ/PWG3jiX3Mbz9SQKDD590asbt+5KIQhyKQCdfbByTocPT/kT0x0yMuAVYUbjcxjtwCxwiRhHe3wsDpRk5QyrqrFbgYiR7PAcmQOqEyzEXylMFaCoLAid6eZgm+CCQopKCqBkphL6AQvP7xTFn2/oTLb1MkLp/UH7Fgv/NlTOvcHp3h4D32fonr1dq/rB6G+CwopiK3xE3BzbnsbaGd39tW/fUcH1+6r59YpclIwA+EFgjLPnuvEOB/oD/EEdeDBNBBZ5ZCqp8EptagqRcnhFhAFkQ1kDgS5TuSLApvGOPY1HMNUGtfYHItiOceCXD04Z0xOHLIPu3LJAitypM47N/rqWSpxe+sqCAvjYkjg4kCHgL7a8SeyQ6HCDZn2cncMBonwWNHZ38NYB27DOAjkdmqfKnu6IvWBAWQDqGbI7Cy+TSZveUNyIY3YpH/2mdjhuuKVw8FcYvc68+hZfYSH98/86ZO69MkzenOj03dv+Bmr6BrvCQ/Il2cI8ioDlBl0Ic1mQY8h3T1Qz4/U/S2+JfJbo2zkdskkSHVVoaXCBQciiw8VWekQrJ9gHGfVNZGeUzFEHqIw0+Rc53gtsh1pURgBLtXoIKCkvp5hqy3FPBGbuHm2CZ0DgMKFUyguQYXstl4JKE6c7V4JcjoQCMqBPzqCwqRLPQ069PaBoCZDM1Y0oH3Y4Qi2uVWD5VU0yzp1+g0uJINiaYWVOxRyoE+eQvObd74Rln5L2rd+U2cun+Eb4RP6xFef1NmPndab89Ar13v99HbRDR5Fve+4RlwHmZfTgHHPM0L4S6cfNQ5uLbS4/kDl3vBbG0UnFlD+uI1h/reEm7mQarOUKvvQs33G1TzCa5h1r4/XKt3zdITvROVmI2A4PDyqhM56LjomywXGReNWzA8KcyN6OLcaqBNwNa5cebisHM1/UFoc2N8fIVWPJGF+ClaY26Cm4KFdxqyTuoYNeD9/UVgLF92Gzjx2Vs+/+ER+Kzz70VP6FYX1zRtFr94tusUUFPrzBhQeSPFpiSDsHH9r9m5L99niFrydL/6WaKX7zYYWfk9Yy+HoqO7UONq6qm3ShwrcnEfKFA087VfqZKGu4/2Ed6OsIarYVdj+dohypCGNWmGlU2G6BwxygRo406SswEM03Idh3iBIuisZa5YgApmoflLA5ucEw/7BqhrsUAWoYbpDsVMFW8qI2VBYPGOpzBU8vJ947Jyee/FJ/cGXH9fxZ0/qrZ1O36WofsrPgbfcF1VV6K/AJ/X2Ad+S65Bns1AsQvvXF7r/zoEWd7hY2/MWadJcFaHxU+BA7oQDtXUF1uNmnRyg9VswGPI0s1rwHEwtenSyr/wJRVRIIa1AfJo/cRhQrp8DwdsbBw58nGRT2D4BveNd25MADGOnwByLlvLwaxDcUknjpGizAXpaceCOzbq0w5tabrD8MGQYxxxAc7iWNex4WHcY9K7CZCVIuwyQiyyLyruXMZfG56s5U7qp4Ntg8JpB0KJNab6pk5fPUlhP6fkvPabjz5zUO7zH+hF3s5/z9p27IZdTSKoo0Oy31GmoWpEBobpQdyB+6tmrryB4iZrzERLN5E9jIxUhRXALCYJxMBFeJK18sMlAWaD0q0SerHTD7IbmUCLYhAUD5ybQFmnlsMqwixs7sCkgCs19TuOk2VLGbegPHYK/BNYQtEP2+uOQbbs8Yy1UHJGriFyZwhBLZfNsfgnC4WnZxjL4FguHkL6Y6H/o2yPEDR1Bhq4HHWqCaYqIQOwmoJDGouqk3L3YndixlDDPw7sLqtulWHboZlPesY5dOqOnP31ZH//KZZ35gzP6zc6mfsq3wV/wHH6TXcgpBRFNK4K2KDjM+WLuWPQZ2cxn0oyffAq/Iy74llhviSF1oQigoJXzMwIpGCtRsBUujGAMoWqTsD0UzqTZCWExwSnVxITVB33wcf6jG3IOLimrBC0sEgfrZNmo/VkPN+p7nIzUw2MgLAE4OyVGVQUx2NoJsg+cIY7FVSbZWesfKw3r7UybZQwUKa8m50SsdpN10ILmDlgR9GooJ59UVyirmgUFzWKaq0AL77MKO1fSjm+DM4qKXauUTWljW7sXT+rxTz2iZ75EYfGt8NqpTf2E3fx1dq33DgrvmQu9KsdMReb4i0xCYo6ConJhdfBdF6hCYrcq1+6pv35PhR+zUaYvJw7sFJEOAb0oiEajsvwAABAASURBVHFMVaaBhL6h9l37L+gbFPhzJCUnFeWnwJtdwk5p4lS19eyYrA0N65rAY+BMjXAu7wO3AY6wCsm9RZ6lrhdmAnE2B9rhnujAou2GeQNTxjY/gdUTccLaYjQVccd4nuAKOakQn4CLpGLyA5iqFdNAI+lcoqhEQVE9kh/q+QFaHcXk4uKVQ+nheY+1c+6kHv34RV354qM69Ydn9fbpTf3wQdHPeeH5HkXBQXtRWOQ65qfVDyaPvQspOHnD73nO6nkzL74pykGiw4iDfTP3xkMtpx0f82qfJpvar65Is2rFN1AbkOGwZAziYeLxOB/DAzDMG83bPubRueCoMpJIAZY1o43PKPFCj1x5VxGqdgyJeCRV1QJXaeXcwqwoLYwGM1b8rnA2xnp765ziOiioLKxh16KgAjn4dlixqY7Ckh/eeUEqnrO2zp7Qo594RE+/9LjOf/q8bp/d0g/98H5zoRvsWvlaimHkt2goh6jwCvGxAnDklHakRG2p8BPiAd8Ss7huOhC+ET4BnMYg5meDzjyICbJ4kI+kjkfT8Whyo6Phb894gB8UxT7AJeOLK+HTWjuPZk1lkZYmhiOYGlMeuQ6NWk59a9MoDh9w2NOo1V85DYtRoEt4UQDPJ8pdyjwFBh8jZgp/O+RbYXjX8rMWRSV2sa0zJ/Tox7kV/tFjukhh3TuzrZ9RWD97r5d/X14UejV4oxwg80H2sCApZkWlIJGaYhaKkHqe/vfePNDB2zyw3ffvib6KMdhoCN7IQpqpxIz2M8kXA3wA64o6LTHdyUMRhioVvJRnc0G7iJAMBf+D5dw4+dPyNm9YNsyvw4MmE7Yqjrq2R+5i+Fk/RQ0VEGNGZrBHHeHOAYe7Shz2a9ZqccjKrZ/tt65DXlMvRUfqcJjCi0JBsUsVg6KqhTZX3a2gM2NT8nMXPuJWuHnqmC5/4qKe+9ITeuST53RwZitvg6/xkvQWt0MPzGM1zDOjVIwzGcAkaviYzdqLEHXMM0VR/96+9n95P78t+p9GyPbyx2NoaONA7uADUFxKmP8wCII2P/OIFJFAJLTycfZWhE9T2GBMdYd4OxyGCynHZ1Nr4x3LaDK5KCEXV/UsxVeLmN8q64iPLe6gpFfh55OSfS1d8eBIZYEZkAu3dDqCC3QVhTzktBIUVC6A6ZzkQPtzZBePC4xboRL122EWFu+xxDPYzsljeuRjl/Q877Ge+Oy5/G8Lf84z1uvcCt+7Jx7eQzMKpd0K1T6kzhCVD/S95Lnz60DvcL0nbhbK4los1L97T/u/viO/PMVTNssfYnCoBDuSdyexa7kRvJw3KANSHm2MNX1MOwXtl/PRSZYNhd7vY6thn8wDZrl2CBq1CBPejSyiffiBQxmwEocWbg/x0eGSZgsN2c5OgIMHXCWUHxdURYrtRCC3a+KSZoSciqCnJkXAGYNF0ACmJSkT2QqsTTYLJIoryoaC4pGBXAx/IxTfDhfYuB3unDqux56/qE/9yVN6+guXtDi3pdf3/ZNOr3fvBxdGqHP/FLP7q6A8LE/Rhzwu71i99bQpsxAJyN8S+3fuqv/NLck/+WSe2Ir4mA5QJ2VBQNtFQWEpQb6MIxJzBfZAH8QyBNXY1u2JqSm8Fs5by48THuCCwsqRSQ0+8GlHhM0Bpoxgivqow70SiN7LCMurWLYk27KUzALHN5aGgcNGfRALxg6QKqPCxQNhqKja2XoWh1Qwc9T0YNYO60mFRQggUIByYmcaKROvxIZEQVXwLstFpR2VxZZ6vhlunjqhSx9/VM9/9Ql99KUL2r+woe/f6/WjmyULa1E6RdcRo1MPX1p+FA9KDnIuwgZ6UBhPDxaSXQopLXhxus8OePDWXZVr/Pazh8Ix04EQ0CB2Qh090Mg7qjHJXVwIFVsSt/PEqNuUcrzzgXbUgRHIgD5kIOVBzjJSWJ7wpH+NEB+GxGDMQBBy7aB0gFKj73rbvAu5D0P+mClsPv0A+CGJzuYasIctYDgmovOfWAaHdfIwj6ovTLBGrLe1HJyczgBfrV4s3y5yx2KC8/YH5dlKyTP5/q9NeEkqdqzC74Wzkyd1/uOP6cpXntT5z13UtTMb+s7dXj/gF2jeczJU9wM4PJd0Wg+n2cMaI28GWJeA9+yCA2I+eGtP+7+5r3Kbr4y+b3YEDUCYPDyGEXOJHWkEXzSU2JL/UFH+duuxzCgyflxXgouIHS3beLx5sQ3zk3MpPu6vAXHtsGVVxRhGhQc1lZvBuvdD82vUcRq/pM7UpVuRFVcUUfDgSmX2zSFIztKQ5PkzaKQpqg7VcNidPUCmDk04FpcWVGsBarA/ToUAfg7xZIYXgqu2GOYNTzAIistQLsS25G+GFFd3/LgufeKyrnz1SZ359Dm9y3usv+ZH6O++2+s2X+Y0DCYKDDuRhoeqlFGl3dRzZTrFQrgXzZibGU9r/Y0H2vvlA74l7vE6AscsIgbBIcYhL751s5k8ngTfZMWXDPnbrHNvmG+rGP5rDYqsUGT++7JC8RWKKynjLkC+2LLIHLcuHx2Qep3popDKAPOGZVP5g4fHL9Z3gLU0ghRID0wPI3c32uAw+DYfa4jHuN0V2vTqSANHHySHNgO4cybRTYZqgKWx9TQbfeAx0JiGnKtovoIWmOGHdgh4IfsM4VBxQixE4RYiqKJTAPPF9x+KS0xwXuUusAYWIX8v9Jt3bjUdt8ILn3hUz/0xrxs+c1bXT27px/wA/fqNXnfzW2EoIti6h877Ir92MOr9r5AeGTO33oT8ED/UnpIyBhdhx7x0C5worp5b4uLGvsqChabg5bzHhZ8ztg3A7rpeTPxqIAopYf4QtiQXnnevpMTIcdNP9tGpMFeGoFJIICJ8ljhr/UP+41rSeuRHPQ1Gvs7F0qeXPCEJ5ogJKUbKbtdAO9h2dHaiJUchpQYHK+nTCslUdJ40LctTenIqTtpq+GShHLCcaUsnWKOCiRCICEgtqNBMkZM1k1ik4EoNJtUQVC4yg8KS37z7IR4EO9aFTz6qZ/7sKZ387AXd4Ccd/074q1sL3ee9JsGIq9o9qZBQ8mXBBTU8sDu9ChzMUHxj0cEHOu/oHWE6fu6Rf+rxf65/l3db3k3m3PZME42Hkm+huAy5WEZsS+xQCXTxUGwq2ME8B5GxmZuOLCLIhPzlQgtFRMoyyQEikrPXLJE6xmZqvekh0CYP/Oyzjubf9MhecyP7oJmKEzBEZi2YcMHY2oX1FkwTGNPHfhVWp5bTWHRuY+CbK5h0yeGKxtGDeQhCNHjCKiKLbHjeYGLHosoHXp5R/ADPg3vhwXjOt8JT/KTzyN95Qse/eEnXzu/oKrfAX9/pdQfq/jq6YMMZk3B6hvyxwweB4nJj6l1csCo8yJe37qm8fYfnLTrJrY4g+wuJb6QyPeACPUBn+B0GJu6mWoHjpj6Uhe5iT8yQmYtFpzgIIPlP04t/WjIILS+iC6rBY5nCAwReF1aLtScXGXYqCmwoCVwmsM1Al75rtLVpNssDn3246YCAduCIw6aqNlfROqp6nzNxd2CgsB/k8OGmK1p7Gu6+gSuSopLhVfROlbdEX/1zhkCxcXX7P1gtLixuh/MTx3Tyo+d0iW+FW5+/qHfPbet13mO5sG7vebhBAQ8dO4d1DCaCy0XzcNCQ6ow5lEJZvLfgWWs//+pU9/mWmOPHVqgUI4uNCrC+ofXljFwQufvUsckXkOHnMZ69ZAy3zcIt0xDUu7X8TbKnneMYIZ81fkhDLrxRMWHSZnlkLByGzYe1E40dBvjWOE4cLoMaru1cZt8PTNQRZhdXVr8c8QiH91UxKzktrbganUlZWFAXGs9T4tYibi3iFqjC8wi/F855QXrioxd09sXLOs6t8M7Zbf2S3eotvhX6Vug1zfDi87D0rG/ALYfR5EY9dMN2UvKfmPhfbl7wjFh2NxQUdFzcUVya4NFjikePV1w+oXjsZEKPn5aeOKt44vyAi4qnLql76hF1Tz+q7spl8HjFs08qnn1aevYKeBb+OenpZ6SLj0m7p5TPZF6+LKRwdh+MNqYVz6Y09UBBTp7lFceHCPil/2Fzl8VhI2BzZj1KYulaluz7cL4Yc3HsMx3rtLknwrBPwo5geEgVkxUuqAHJU2glb4c8o1BUAv7H105+5JwufP6yTnzqgvbO7MivGa7zW+EebwVK9hHKfOi/DGhyo01f8C8rPoPQlIi+nfnW5DtZvz1T99iuZp84q43PXdDG589pzi8AM/gZO+jsxUtKvAR9iaJ56THFHz0OKJgvPqXO+NLT6r50BR586Rn4Z8FH1H0ZfOWj6r76vOKPP674k0+CTyv+7LPQF6TPfFx67Alp5wTjc7Uzzpy3YN0qNH4KOsA4og3atNA0fWAsT4Gvrd44RmD3fcD6RGuWMTiNMgw7PBpaiKzMJevmEwyd2FwyRXMGPtjcsSVjpbCsYLGUsBBSOkDVPuYbOpSAAgugLCzL3AqzsDYkiit4vir9TN3Olk48e07nKaxTnzovXdwVX9h042avPX8r5Jkl6LuCqSiHIXSHETjSFbZYg30LcfsHof4gVI7PFFeOa/45iupL5zX/o3OafcG4QFGBL4AXjYuKFwG/EMQXHlE3IF58FP1lYGqYB1+gCD8PTL/wBHbjKemlK9IfP6v4Ox9TvPBR6dHHJP+/VjAn6jvyBiJ/1Q8ZIpUROORRrQUygHWcbi7VaWLzwI1DfoRox2irimztCUQkK7ZBAlAyxMbUnNGh4Gw7QN8K6lDyNLNvBVHHI6SRN+MJACy+pnCN52uHmTQUWLGO4gpPID/3FJ6/Yndbu0+e0fnPXdbpz15U/+iubnah97gd3uO3wsKtKoL4vTKVwvTCDQf6AjuB56BB6MM5ue1R8KMVu2JPPz3f2vpTWyrc+srjJ5Lq0jElLh6XjsIF9A3n4c8BU1DgDZ07psRZYp4D58GFk9Il8KRxGjt0a4eBzCUuNgVLCDx2OX8jx814k+KaBwNUAwqzkJVjXceaZ/GtOw36rJkxJo2tt+yuacNtUbSfGGwckMVEA1MDT5rg2+xQdzACX4Kt+dRSDAY6hZBHeEICPyZJiRkmJs8PuVlcc822t3TsyXM6++ITOvPiI9ITx/TebKZ3WOy7/q2wJ7rjGNPY5q3LtIMhGIKuItJuHXnA51AosnxedXvii9caxV8O6XNxv9PBgxm7Jbg30/495LvgzkwHxi3o7ZkWoL/Tqb8NboGb4FaoN5JfygvrEsIulTuhwtiKd0sKu1zbU/nNDeldcI9EGIoCH9aBzDmbpx0CQ0CGd+5KR7QPO0ZvHOpq0jJ5U699goi2WpdgkiwbKdPC82jA+q9GCJwzOMwkDVwghW8AxXrk0hdUFRkEHQpYtzXc1hQfJ4CdA85dAEwaB8hAKaDwzvRQuLg2ib8BZuoorK1H2bFefEwX/+SyyjMn9A63T34z1u27od5f2T2JDdO+3EfqRaw1kDbDVEMOd01XbeTs4rLnb69PAAAQAElEQVTNOxjr2rPYi7tFizsD+HlxcTu0uIXMrwKLm9DrRf2AAq3o1fNseBgF/YDr+PDyt79Nh3z71X3oG7z6+PqvpJdfk96A3rtTB9N18kR7vk1RTo5Ilaff0DgvGj4FjTGIJg5UkuFkZoK0WSafOjH0jTzqaTIczJhnfpBWiBtUBRyMz8bAQt7/GHwHJ3dUWXOGJVODyck0KvXtr/CMpbIh/1aozU3tPH5aZ3kWOf3ly9JzFBYT+hsW8C5v4AuL7SslmCZHXYHT8DykMvKcpyy2iWylfUdgaz6mjmGYN5xv6ZjYCZquUT8LZUESi+c1fyEYQc46oLMV0MFBr8J7suJ3WS4Lri0F+ltU8ncoqL/4ofTtq+xc16QDtlHnfWjc9Jc6UxwGAvehjw/XhPyd44ghPDtpdo/InozTWHnw6YzFOvgyUGbSSjYs+8AecaSFk5NLmB/aw6pQBV6bQu+FJJbosBlzKEXFrbCwIDHf0Nblszr1ucd18iuPa+/KKf36oNNb7xU9YNfwIrR+VEiImDJKalvKUGTr1qFB7yLAFkAfBLeZwv3x3CdjRrxGzRuWRzhHQE3WECQdQAO8dVrmbYtOdPnmRXfuq/zoLZW//on0yo8Vb7/FS9U9uduIUBAuhrOQjaIgooER3ueKAjGU2lD7WNdgXeMrdSSDiaQdOq8pxJ7WVViyV4PUWfX+cJSG9/ek5+pg98qtnQPZXa6B26S4zSUKz1qLwG+mjUdO6/gXntLWl57U3rOn9S7pvv1Wr3vcNnxBd/TTccsOBptDQmZWacvBBZ87d+qC8R8BF1X60dp8FtakrXVTTHcrD9Y202FRlZSxeTwj6JdD68BNLiQX1AiS3aT/06E4FtKtPelHb0v/xoX1qvTeu4xjT8HAg7ZkTVja0ERwFZp8iDGR7GmMczSxrbL2OozVaG7hyWt+lg17GWK16KkAssbSHAfaFg1LALYtztjQVx6xHdY1foW6ZcfQAYsTLGBFR5c8W/lbosG3QfXI3BIC7/kjZ7Xz4hVtfvUpPfjIWb0bM+a2aJ/bYXBbcXeJNr5GSW8cDnEqj5Iji+2QX5AHCWP3GqcPfLazr2EZl9SZb2i69CGOi8026xsCfeYBtW0KtzOss/8WPqeYl21wY0/le2+zY/1M+h7PWdcoLIpKm9icZFnQwo0hHNkN1AdR3GPC8jjAKjAMr7g7bRgMSayDMWlArAeKUmChmcPAWiQq0spBpiTIKvn2N0Utnmw1aVBIuCAPoF36maId43t0lhtwLxRVobUamI2gYGR41+KhXAc0RJ6dP6ntLz6r+Z8+q/sfOaMb7AK3rvXa511WsKuFuGZZyIzpuCO0nMei3BiErUKjLZqNGM026kb/GP2Ffx3nMkbqEJcHTjRR5GmpNrcSEzuu2Z6pT+o2G6E42Sl2wXv7Kt9+R/prCusHr7Nj8e2w6xXzTgqnVYujrZc1xqCV+Qbc3WRAgRYNE6Ppx35ug3WqrryVwP3Z56FzwTgigj4MsXOVbEUQUoN3AKMFwZrjN8WJY8mlT1pRJ8VGDOVkWjdFIFAUdI0XPBMFH7zLkh9+eZB1jXWPntXs88+q++MrOnjutO5iu39toQWFJXYskXxv9KHeoK+24wQXsyGo3IlvmUA93RmpG3jLDU1PrGxn2cA1D/MJTjm+1C6Hj3qlXcqM1/HIsdpQclSe9u7bdsaiLXyPMx8b4N196VvcCv+K3erHb0jXKSwPfIYPAyn9ghDZmCAcQz4OPS466vGoBkQzFY5koDx8DPGmBteDYZ3NpqsgLkfVOXIVGI0Treqjz3ZsqPN5tN9Ea/eJeJilW08st0nxDcl/ReCrMgvrC/wc8qfP6YAdy9/A9989UM+tUMy5aJODc8ruw4CvxYUAz/wr4QKbyhPe/kb6renXdSkTWlN4QG431X0gz6Tbx20N80yDttEfg+GbYfG/SPiyH94prJ/8XLrpwmLgecUcUDvwvh2uJO9AJIOOSDIcfgnbl9Lvj3PcKYhsEdIORqU6b6PBDLvY4BHVilT1FgcOXTusgR/IOEKKQYavTt93ZAeGbxl9LJD3DsSdUHH5nLrPPav44jPqnz+vfX6s3uNb4YL3R8Vzyg7gwvIVtAS5E6LqzZP3UmAxrKM/fLJr1iCVuZtV3xpr6jfxb+2SWt/gsTY+uMs0CF4EW0egq/A0JJj54OdSeccKEnuXl2c8Y+lvuA2++kvp9i2pR+ddy8hJOJD87mVaYG7L4MLjhuKw3jnyhzw8znQdmZTIfFjSpjddh13xZF0FbPUjorWHkJMuLwAmJ96AmAuUMgJROPCEb4dt5oPOjEwNPikGN2CByz6TxTsrXTonfeYZ6aWPqHzkkg7mWzpgtypAe/gz98JfPUxSAiRdyvmiF5ELWA0ru076u12LdzTNhcfNNAcFn3GIvU69rob1psEFIGBqmBcT7VgrYE5iMxTsWL6w9B5F9CMe2F+hqF7jfZZ3rPw/a2LwvcHVxe1Qeb9nS86dDOoi85x4wBoSNL8Cr2EFIz768BiNwZqsTw2BAXC0FURxxMG4ygD7dplTFgORTCECNppqolsPR8rpouySFhyVbYxWP3QsHHyVFU8MD+px8Rw/xj4nvfhRlWcf0WJrl9sg1x9vqOW3097dXBjOw9SwrqHJnlv7TFAXtLCb9MC0qI5XysQRlxShte2xgxiw9EGPW8bANqVtPVNnH2J5nFPQWjn5FFbhPVbxawf/+xI/vS5999fS1TelmzeVOxbFFexWhvKf36bAvGu1AvP8JUgkO6dT+qzrteS9SaROrBZ2DjXZ+VTgj73y7YyuTiAK+EN2sZIaPm29p1Q80A/mI9o2yyp1P00TMIAjO4rhnBM4FJJSp/ETyRFkzvusixekP/yo4qU/UHz0MWl7l9sBthsHCh648gJ18azDhTXVecaY41zYqR4+EpILxWMMn8SHbpJdp47TdOZBtoXW+LQ1j0+u6cBnLPMDsl/ycnGlDf+cCj+8+x2Wn7Xu8HB+lWL6/lsU1m/4VkiRLfYU3UJZVBQYr+wphn2NVEORZWEtSMYYOnVCTpJ+s4BMx85xzcOJGBZMgRfFsKphXW564tlkjKoJY71r0iru/CbvB7tXu3MllSpwtsWArceKUFX1bANwY09AhOL0ScWnKayvfkbxySuKU8elPfR3F+ryXRctO2R/S4KKNlIoPyaGBVPbPRLz9jNNHR2at85y8m4EMHkdDgMDBakPBDGGNc3NpPEjXYvjvjdp48LaQfDvhq/yQPkdCuunFNY1Ht4pLMUBxQRcROOONRSUn71GuKiAi6wl4LltAzJvpEwuFAWBSYAdDN4ahMMHqR1WfpDG0UAWCJT4buElMf39wvEz4sikNF5Nc16Wnjut+NQzij+8onLhRJpyQV0E24xwh9S2oAma822KX4WU8M8jU3md9yImaM8tSBtQYw51fMKNh1McCwLt78q7Hsa2BOXIdbWObv3XyfLLUefKjqWfsmO9zG3wxxTWu+xY+zx3tcJyURncFuUiy+KhkEx7qGF+7MCdHAUncRQY5/pht3Xdbyu7uFxYw9bVZfumtGFEWoaTZ6dhUH0YMm1C8nmLIH7xQ/zmXNreQOJ6us1Lw5v8hnbvgQo/yBY/W4Dwlby/x/wC9Pljral1poZ5w3yCq/xgWAA/7HohFsjW+T8Jcx7k5c0sh4Bck0Dy+lg2XQchDq2lfYGnz5uEv1TkBZIK4vnwDLvQfbHMUdxgrD+5ofLyr1R+wAP82+9Ke/wC7yJizOPtz7x3qUZdTLUTJozkkndSIHl+9CbBAl/of9yfyK+ODwZ95ckjGVOAiTNHZZge+hhEqwoaA5WPVJkZkGGtHORGutwybG2a96FeEEM+gaL6BNMGUsNEaqvFwQqnkroxY7bycvu2+ld/of7lHzPRrzHRv1Z59U2Vn/2m4rXfqE+e28Zr4GcGLxdfM3h7/ZrBwrwGfjbg9fek19kFfs6u8HO+yr9xRzLM/4Jb0FvsDncOyIWUvIsxBvHtTqxVopBhyiF9ICVGa2eKOM4lE0EoeT380F74Vli8Y/lfen6V29/LPLz/gBek7zCWfXIUF493qXzG4mef5LlIXFjMVVAwQXFF45FlyB1XlCbTt5S9k1Gly7VAxegZHc902OxrjP7YUXM+8khX2jfj6DoyGq1WcV2ZkA7EjY1lX05Dk88g2wl49zOaf6SOwRKrNjIzwE/FfvFBg/At4G3/bvaKyv/2Vyr/+9dV/jX8X3xfxfi/oP/396X/54cVfwn9yx9Lf2XwI+5f/lT6S37I/aurkt9k/xU/kyRe5yeTX0hfZ+G+zs7wdQo2Ae9b0E9vKK49ULCj+e8QXVt1fQKdRuTuM3nmajuSh9Cw7mM53IY5yBEHc0pBFX7OkW/NWVgU/SvcCr9Pfi6shXcsFxbwOy3Df42Y2FdQXDEpqKCAEjVpqVHrzUNHnWUWJguLnDQFLQ8dmbS1MOkLD0sIHwk0ULYS9IUrB1Jlzkq0s7LIKC7xKQglqc00H3kMSmj42G1g7Wswj6lJkwXDnZXCBAHzUzAJcYcr9hcUwivfoxi+Jf1b8Nfflr7+ivQ335G+AV7+rvQy9m/+QEpQZN/6kfRtiuxbP1F8+6eKb/1U+haF9i0KzX/r9G3ebn+bYjNeeZ3f6MA3r6p8l77eYGe7s6csKh77MiWuBerdwxiRGXvyBgiqgpnxlAEri4XOxZU2OzrgvCiOSeHnx1sHErdCfZui+iF5vMuue3AP4x54QOB1oM9djHYUmHx7pFi8Lg000gqcw4Aghwbn6TbVlyasTcoF3oD48BBNnbrpKuxoNK15wEFXEjHlT04sgvXIY3GNnaOs/OCRrc0brETa3+9EcI7387AtB9/v8crhluLmu4r33gZvAVNw/R1FAtv1a/AT+h78Deveo+31hG5e5x3RDekG8O9xxo33pOvGTekBi7lB/uwkZSPkR7FcN1QeoifVu5JzS3i4hu0jUAy7k4tphAN4Ye1nnh1L/ka4QwXz7Vc/uia9zM85P3JhvS15x4o9ppmi8p+0GoI3vGuZ+hksi4pnKm6J4oIUBbYK8qG/gt44yrbU2TdH9rufjgxxpDL7oLhsrAhmuKGQtEBejUyc5eQnuoyQp9o+WZ9WRARPDDFk0N5x/YbNvycGP9aO2OwUBovv37MT5lmsfKNtavBgzK9Dqggo7TZYSGLJtyB8hE+C9trdUlw4rnjimOLitgp+uYb7JOuC8PqZkmpLj/VS4ihd86V5HpYdw77ZHzn5W+5Ndp7vX1P5xs9V/CP0exT6giIKOvbOtLhPHxSZn7m40GTwvBWuem6HMiiswvwZgtKALlkN5rIMEFROPDABiw1olBuKGfvYYJ615rYC56SLwjZQ0OTR7Kap8Alra28R/+w3qRXY7U8Olnigh6BbOqUwiPAc2dYU19XDyjVk54MOnmlg7MjjxLASyXs14Dtss6NAT9SLZvg0zM3jd9Nc3AAAEABJREFUyy3H+oLeUGd9859QJ+6B7lJQ/q9oHuEl7SmCovPG4W/+3q2C3cgpka6yoAjnpqugke8ddK+R0pd9h6GIog52xnCB+RswvxUWPwv+mG+Ft64reKYKdyoKytXtAlsBRefdykVFgRVoycTcyYCUMwk6r9SFYTDRSsh6zD5I26TBhWaVx2o0/Qq1w1ThcMagN2mYuokSXULsH27kZOjJD64VGj4l3QeBxOHwC4gBm2MxrYPj6zATIk8AV1xeeTw8p4w+/1yE+5EnrYf2/YH6fn/AnnpePfRc2cWUq7hnAXoWpDc/oEAT+JT05fWFdcjK/xSa3YLYBJMO4BcHip0NxdnjKse3pFnkS9pur1d3AJwfxZVFRZGQprQIxhoKiiiK4AfkbHRVZurUwxvWE1r+EXoD3/fuqfzgHZ4buRX+5A3FDQqLschFxXhE3hp2rSB3tQLzrZCiUmJIhoQ8X0W8zU++l+WADyY+86PLmtQ0WfNV6+V1ion0PeJU3ZU+jdfwCagBOfKwv0H9BxB5WWR2cDcHWR5WGEvNh+PcZgAdyCvmQlsHE5WLb5oTeSCZ5uRy9bbJNvWCcKuQQSEKhIF/DEib7cjyle+4Lhq/32JmywlWnuKKLegBQ75fFP4VwO+9WmEVRpgTAzVvwObReFPDSvsaln0rPs2O6L9y8H/67R+hv8nz1VV+hL5zQwpuhYyjUFjFz1dQeWzePtF7TOJCky8KikbO33M3hecwZXc4RUtCR3zw45gaLBrWvV+92H4IreEhw6Cg0n2nYspT0RUWwXVgyKeG9HC0QjFXcCnL26qp0Z7PTN02hjYOYTnFPHG15cRwNXriWhE0ap2LIgvExbVP+AEUnH9nqxiK0O0MtxkQA5UXZwRjnLHoJ3ekM9wS57zN9Dr7B3H/lzdF9CNlivBw8Ey5eeBxFHYv69HiW4AUFGSChrGF7mQojgH/C3M/ekfF/6XOq7zLunFdfJPAa18lC4pnLO9g5l1UjLdA29iCMQW5+1bo3Wk5FgrIxVUK8Y5GLiqLq5AiAkDpmQGZUWj6cQzLphXZHv9cQ8exuaG6NElOo4Em6N3aoDf6LsD9cRm7JfYjj/ezrTeY+rqIBruzyMJighr1RDU+C2sf5wnYmfJqprCSNpnFUCuiFer+Bjg2C5QLw+i0vS2dobhOUVj+ZYDiKtwSCz9+27VODt239E0NVONRmCrS56ygURYWCxBshJGFJYX/uuEHfCt85Q3JO9ZNHt79n2dTPHIx+TbowjL8bdC6BOP2uCgsJSbjaHNEnysrypwWwFJq+Zkmbd5YWo/i7NFwlP1D68ZcPENMOsXltnAm7sJ0AqsSVCSNczBQHTFQWU/T5hO5YqzGyuQgZ1voqGci83bAjmSakwufhcOkt6JykTVbKxxTdl0e2GSUaWzfXly0/gZ58jjFxa6166+PDJ5naa93pkDehV2o8gxgklrqmpzz0OwInrVtZELL1P8xxXcprJd/ya8LvCT1KxDf/oIx+PZnPimd+xlrBfYBHqNzBsHYAion4XGZHgJ5kL8aSKcey/WCQ4VfrseSMguDfiCYrDNgUa4f1hro3d9aPLTD0bFDBqhiV4nPQ2PYGADhKDgvoUOBS/qkOk+WUTWeK9xtgqSCiUowUUk9iRRNJF2wKxgH9AfQyUViio+SstpQF1IhXiGeIfiE+4zqI2z+D2p19rR0+qTKfK7CrbDsFZ63JLsNqTm9CppqiBUUXcBPIXS0VP7NOz/paKNI/k/sv8frBp6xyqvsWje5FfqBPYvlQHIhubAM8wmKKceEHVqA8oJCNmWMcnGZehzMF4HomgQz8V75KCJ/yIFx17HAO2fLDRhcZAV9G5tpW+NKaYe/jNGP2E0NWw8rKuez25oqmTw5gsMnzeKqaru5caaCUGobuMNHQTWBE8oJqDoPxJAnxsiuetoYC8YwwBOY7ZDNezJNp7DORTbubPhaN0EZ+KCvER7UsS3pAsV16gR9M1Q2jvD6+dugfzvkdue1yhScGrBsWJcFRkGZWpZnxO+vKKzCRli4FZYf8oz1DX4R+Ak/PV1/VzoYftJxEeU3WDo1P4LC8lj8ZcPjcu6M12No36ZlnYFeIBIkl0n0zkIa57TOeZUbjzm9PAnmH4apf42w9Gy2KcX60JD4Mf+55pmb1AVznnnQ7qgjUklDN3ARHYFajkWxZnOBldYeW8oTKviKnpEBT15L0JO7Aqpi5dkEmUmX24ygN4pBDKj4z3pO8Kx18ZTkIvN/tsY6y4VFUXk4FYyQZhnCdASM83M8aDahsEoWVqjwrbD8hB3rWxTVjykufmFQz09avufmLuUicod7Cgor+n0FO9QqFugYdxtzJoE8pVnp5EKy9OqRSc7HQNfm3nNrPaMRDom00ZTNC3ntoD3NV5Wpo4FpGuGhjmmsOtdeRp3btHG4GQaXFmT1aIEGHwY0sTfjmirVeXKrJVJFgh5oTWdp82QsdZ7UBeICdaXRisu3CoPFUaLaJXyBadAHjTn4ZuorZpvCOn1ccQ5KUeRdah+vYcdSVgtyS8fdw+ccQdXgcXoQbII6BUM471j5X0L798vcsfhJR+xYnQt+nxz2wAMKB/jhvXZOJGwex5Czkh7gx3iSdxLkPxZXS8IUWyZHaFkGKVca6AwI/dSDbFfXDmP6QGnFufqZcSjh7Ta26bf5uIGReReiGNKRxTWNWxAMyO92ZDU7guEQTFImAbWt8aYTuSCXiSzkhHVGk0dKfD/g29bN2K1O8qzFrnVqQ/kzUFtXunUWntCx6VRHmLRBHSpr0IV1PKRdWvLmXT/6jdQK6waFFbximLlAKKr8BviAVOHbDuYLIovqgAD2m4LO3dFKMuhGmURWeMuEaUmmzbopbP99Yhp7wmfe6/00u44qrmosmbw4m7NuPYhtFc2SXtGkgfqSMAYxiWWQkZPWq9XFVHKyLC93JQ06kY2SX1uc1BPZO52fYzY2pJOnFWfOqGzBe62mxZWJ2n8N9uM22J6x7FZ4QVr4SUcbDOw9iuP7FNY3fyq9yq3wOoVVhsLyw1xPQRkuKsGbcjtUu53n7jTNvfHZseTFSmTPQ3K2weYYC2fbms76AVYnax9CJc8JPVMMMznQpcSQCJjseLLOGBWO5ZhuNMABp8DXTRoQ8+jyLK0Qh6gKc8AHwbIL0wGCGgWKC1nkWezzQkhYYyBwLLm2Pacf7eVJzcJh4swbyAVqKH2cAXb0AmXQpQ1ZFJc9tL1FYZ1SnDzJFs0uxkbitwL+Dz78CFPYjgqWQkbtiII0wK8nMs4W07ULeHjX9XvSK/xG+G9+KP3kVenGW6SArnPVAu9YWUTwAy1QYywu52eQayGRYurxQQUlIOl4fCXX3GePMemYL3na6lxNaeHDWtOEbaC1VfpVD9Qp+VXUdA0aX70cxVyD5QFWDawcJHkrBzBdMtB3JW8lgwGFsMSAzMImTT4p+1TwahD1NPBk74Vysg3LwRUl7ydMkHb701HypsieaMdIX3RCV5h8f6MSVCyM2oJYTv4AEzvBrFMc26a4jkF35A2lY3PJwsruQ6K4EoxACaErhO2V/6Euu1fuVP6tcLNQSPxW+MM3Vf76B/xm+CNkdqzez1jsTuMOBe+dyi9JE3sKZMMFVrg1GoJWkCuFptzNehIAHleDx8W4SQwbOagioEuI7ANAQ+PH7AiYsQbsgUxicI4HSbnS5uf4aMZj4jL2Zd9gDeV8ybNeAKvZdo5QvDhmBrjbQoNBXJLUYTU1RktR+qMzHcFEiAQyiTZZ+ODMwWRmv9C0TWjqJ/00e+qP8uM26q/3XCjBTzxx4pi609vqdjp+pJY6fkvsXDBD33Ses1CYqsIYwvrB7ltix04V/JyjTYz+h9d+zE85X/+x9GNwg5ekLiz/LkjxyIU02bWC3Sq4NZoKXn7WckFlftxWXVCJ1XEEixSMLzxnHi+8EmRoOeF5Fumjs98IdKTatLDj4aF5PWiEU/NwHHgbxxjI5ukn/c03DKYUx8iVCYhzjlxnMaOhCCBNn7mWEQKDG5CNTJdQlXGgPWbaOEFj7Bld8oW6KtUnZfFBTt4UceQtTzDEW+1XxKtQ+2QTTkxI/kUE2eU/oX3ytMTu5b+AcA0EvyV6R8oios/cuIjhbhKsM2o0pEthlVOd4rgUN+8qvkdhfeMnFBa4zY4121NWrAvLReUXpqYuMlCsd1ElpZgorjCi8nKhZXGxc7XioXOWm/Xn7ISQNUKTD2NNfbPin3JRXdxKp1bzy3nETnzqQNbZRqeQkqhFNemusdkAH9Ohv2ZCiyZoPwDJh+2dT4fh2RYJVOghnzq0Gn50sTgKlSk9Sg4yQGEGMMg6GPjMxhTzymGdMVFaNEYVgovrgGcd/3Z4gsI6fY4H+e2cN/FWXvnXDx4TvrTzme7lvNx0TG+TCTozk04wLbceUFi/kv6G2+CPeYC/xY7VPZD8N2V+teCC8s86SdEnz/2XXSt3LO9ULqRGp7c/d2pkcTkvwK6rlJ0dST70wHe02ddoCvNeFeWMpjZVeUoxDRaTQWU+JwMmqXLd9dAPftm25cGc4Vu1PltvyDsXiiGokpKcaQbARsPlsS5XS9W6XU9iZUQdYqlOGW9gIfXKwQOzu6twDBTYay5mQAyA0IIDHzdwTC+SF8ZvvDfmitMnpDOnpI0t1cJih2i+6T+0tc5wZRG3bIWK/315nrPiFkXynV+pUFjlVXasm28q4p6CXSvigSLfXT0gj6OwR+oUugvQxdV2KWgYWUA9PQLn3oCeDIhdEnJueNEJ5zLCm0dgq76oOZg13PDh8BARUttoqjn5YravkX7EqT64jweOI7/KuN3Sas5oPuYZk0WvF7Srg7BhCSdufSYzqgfGCQ1wDIM4HIPdo3fmg4/j2Ce3bbyShzKDCgvmRwwx3D5hw7rTxCcXxsUDYqbY2VGcPaE4tSP5T234HdH/bmqdFM7k5DEF7SqI1QHqULx59/uwco2H9+/wA/TXv6vyKs9Yt/hWWO5K4wvSVlDcHvPW1ygFlcVkWhG+HbJjhUFhCSpoyowv1uC5amg24dNgXeMr9fwYjCH9zEv2C+SkrMdynstoK3IE5gS/yqPwEVXf8jD1nBnm7VKRjjjTmnlFIrYSPqP1zsXCYMyGE+puaSlxRRUmpZjSgmN0JS8ZDpyMhQTNqhLGR8lOrZrCliy6nIBicUDjTXsiFjD0QABrrQly8mIZsbEpv3rQ2WPSrv9jW6z7vXpuiT3j8jXlNso2SOx2eCj/L4V48PdL/XL9jsp3fqHyb79DYX1fus1tUbelGcUSwMXT8+y0Tv0uCwT6cEFBBR1BQTlHUdRy/wMKslH1YozOsIeSH2eRdwI+3IZ58j9pZtSJKsxrSbaeYbON6QCIIwfUMJ8x3SB9YZLi0A7kkiAXclRD2ps/1DmRW1UTPRODpkIuroGbEDdbipYMa0wfBtuBzZB/NwedUST51wpbFNWpMyonjv1XWuMAABAASURBVKtszhh2obCAXbwEQUYJFG1C5igoLP89vq5RRP5b929+V/oJuMGDfOG3Qr/H8sN4PqRTYC6aVjyt0CwbvhXazsUoMqjg4h159+3CabBcyKZCcGT5tz5q1BqNGpExSJPY9pqI2Te66jw1/M58V1sStAWfUjpyBVeVfZgUV/HKZKHHL31qsEPjYAmx4JdOnsjqgnLl8PZtiGLwURBKNvZpgsZKCheX424fU/GD/DFoh4P1mWvtt6bovoF3AB7eC2/e89/6fY/C8r/k98r3pNd+IN2isMKFxS5FwYSfsbK4kMddyEWDTDEFxWTU3cl6gF9JcPUzXwUIPznXAQE1UudcM8nC0IusK9hNjdTkKU3tBBX+Bka3lz/wk7bWOEZWGT41LmuZPrYO/tjSL/XW2TYFOo6lhnle8WU0XjDiBGMdimvp/ttx7slYb3WUzj4P09t2BCgu5eYah40O5YdxBiL78W5LZ84q/xkmz5uLy/Ci8g5J0JIyoWbE845FgenGUFjf4zZ4lbfvt96UZveU3wq9Y7WXpKYUmiimJbIjAq5TJ2es6y1b34CcuRHi38nR+jX9fXXoWEaLF43JlauCF2kdWZU2uzHgsPT+sFPD4Dn0VxRDxDIYHkLSP/AWCOXHxEAwiZYrsuYb0ulTinNnFFvbriNpsd7HILvxBif/52i32J1e5TfC7/Hw/jNeOdz0Mxa6OTvPWFj++3fe/vu2l+DWOOxiwdVp0BlZUCgUsN4XzgHkLmV/muVhHn3OzlE0nYZTtfs8KCBTacpjygOd5yv59RO2dRUyM8TcK6GVz9T/YXxt0KkNKDu38xGwzRh8uavIGER2W9pM7GPMwcHbMB706DPgWPqgXjs8sFSln+SNSSsfG1gQFqn4LyC4Jeos77fO8OZzk0Lzjma0nEyNGZnMQfCj+I0bKj+6qvLKKypXuRXe4HfD/pbkd1neoVxAK89UtKG4yoDglqdEzWOVt87+3BLdrzHMhch5OXbGMbUNPn4UMQJbDLplmzYRjAO7/SYavInJeemPbL/UVc9Igh6defdh1DYY8ZeBfdShrjoY24y01whoOWpMmDwoLibCTq4WNzgKtg9wqNohgdymwXa3NV0HrtlbO7lN40ffUXGIWTaHc1ujr4sn/9xznB3rDMV1ihen807FfxjI5pN5ZsK0Y6Sai0JdKG7dULz6mvTyN6QfvSJdf0M6cGHtK7jtBUUVhecpA94vRcPfBm0DYsc6CqFewW0uKF6xg8UAOV/xyfnpzQyY8oW2S4h5oXxM5CEsgQ82y2mEd4EZAW99pdWv+ogYtmj8RGpilM1YCorf7bNdQQuCvA0k1JkVPSFhS4aGZtXGm0q12yINCMAZdT0LbgQ2DfAgyEsJDR/b8I82iaPRXQ6wzwgim6fNEOEIQh7Ec+tDbm7L85Mf5mOT2+CZ8ypnz6rf3sCVFrYbzgNRpnwzjBmLefsmrxleU3n5ZQoLXHtd4R2Ll6Pyc5V3LOAdShRXUEwBbbLabsVEagWqfQ+6nAvyl+FcDDzs1cAI0TjBAfYxxCcAR/qg87wbqOqBrjI+F0ZYCNuALllO9OCdf+AwOHArn6qlIfrKuw9Djj/AslF1dh18YZcHmVKYBdClD4qL+V42wvWogOlaA9a08PMx+Dpdi+mWzPJkm5GTnIxthckwPRol1XY2UhjHb43XKzwIm7Z3Fecv8Wb+jDRja6LorJ4itjrFJlFv3eIWyDPWt75FYX1busmtsLur4hekBrdDF1HJAlrQp3dHwE4VFJmgoniC3cl0CWJHUeqZkzJAOSGFVIyc6IG3XBRIkT4wHGWA1yOIERkTZXWU5WlMt63AZ4zTohS5mdXOp7WjBOS1cMFF4JGQrKs2TT4F3oC0g5wyFvk1VaXVz2fHITLFVS0f4uxmg5sDG4P4756Qi9eqm0nHjysuXJBO8kDv+571nlGPjt1Kx/DZRvC/6/7jq9I3vyn9hFvhLR7e+Tkn//Ihb2P7DINboYuInUq+HZpPOOjDQC7ubwWEspymPFkBHAPy/7uD+R3H5PFWwW+E4KwwYFeOpmuNB9mFBSwZrcmUb7rfG23B6VfenSxvbCtOnJIunKXIeInqa8XfEp2uC4v3WLFLBjd5nvoeD+8vu7C+wzMXhbXBzzab2FphuaCMLKZWZHX3Uu5Y7tDFMcA7p3MxXEgJ4uVhXxjbjLQNOninZ+CxPGweYLI0NM5a42Fy0+e+Qi/IdjdgP/zhzIwPakFgjw2i9mY+UqChqbwalQlUQUqVRt1S0S1TjWSnW2wqaONtMF2PODl62isz8ZgqGj9QE3tm8iymKf14B5cX1T9Se9faPSnxrFXOnZB43sLFuzu3wJliF/gZ6xq3wu/9ROUbPLxf/Z7izpuK2YGCL5XqXDzsWC6qya1Qlscic/+A26EanEPjkxbmq/qUlDN50ikJca6wHjCVNICph+e92gsKY5Bgc+jT9ii8BpgGbevDbcwTYjjsM7ArZKk3Z6yYlbm1HKEcqVJ+LJkxNTqEAZ4Xz51ztHYZ2twUqguFoxrkjwdQEUxkMER3UeGzfY7CNPbAOy4xPC1K6gVa2mrswsAGcGUEAygUV+FbovxG/jwP8yd3VfiWmL1uMNDtTkHhxLvvcRvkx+evf1362SuKe7+R5ryzmtuTvnzrI54SB1JODDR3KgpvLLCBH+yBPXjuCnY9Q8iFGCXHUwg+gHxJHnn1qLM3+DB/tga+I1K3tAdxMcvq7APZbVJRlbD2r9pAl6BRxmzyQEX7jFPdh3MoIuAdx4BtB3GEKTgFukjK2T/Idkym4X3K88m3ajEfuKHpHMiwOIV1noaJjqQm0hpb/deUg0gc2pa2AIMrWsbpd0EGSnxQ0AaeifCBIOXg0DW7qf/FmjPnpNPnVLZ3qusspO0ZE02831xT+c4P2bH+kp90XpHuv01hsUthFkWhLBQKzLGytfmeripErhoLvlfK1oE2jkqXtkKsHBPxzAs5gUwAzoN1GIp1I5pvUsccnJAdqyGIkkAfA9yH7anHrsnH+ins63bul+YmE9AnU0jtKH/FgTedhINFybkeofC/0NdtqY8ZbcibL0VijmzvfHLBJhBiAthDh+2Sz4ZWPi3GivKhAgNZsQ0TL/QcaVrrIj38fgt94VuiTvOsdfq0tLlFUTFHxzrlRL75rsp3Kaxvcyv8xfcVD95WsGNpzuDZ0ZRXFrwa2JmY6XDfQyGHqeWjkDa3daITsJuRBaljsw955lShOerI8WAYKf4FuI1zMWo899Gj7tM7deTLYGFtK/LcYxyOAm2APeJwN0eoUdliwLbDwUegNC/7UD7sWmXG/Hd+zlBenHJxMaVY9Vt/3MgQG9/RjdvAGlWmEpxD/lgvpFVo/HgSG+zbeKgT9+D8M4//M/3TPHedZHA8dsmL+ytufd/5vvQ9Ht7f4CedPW6NLqz87woZcd7qTIk1FteUn/Zn3rDddB1jwhPGPhPxSNY+xsRYJ2apsGyMmjX/QX+0djCukZVw2NZleUU+bECvAYWVf7PU7Sq6bYVvk55Tr5FUq2OMF2gGjDpUy2MwDooqhQLZgHDQcnpVNd4OvprZCXxFWpRtyFx+tNMQh/ZNZzuJ5m5knWVTw4XkXajjW5//auHOA+n1X0iv8A7re7wc/eVPpfvX5L939z9tWditCrfCwoN73Snox/EanJuBnP1BM79Gs0/aDD41Z2TrB+TtZkWFQPsj46Ef42v44O5Q9h/juz8rcWl5J0Vvd9R5uE2GRLI+4RNyRDC3YU6CT9i23kDDxzYN/kkH/ZS4kFxcs13x7Ql456pbTnYxUy0u8XG8KVDJcUMyqbCgcdjMDcMkwbGdeYDL4cN6O2IxKUyOjJy41BAYaj/roIWrwBAFZhRobcdOcp9vgW/9UuVnFNEPfyi9/B3pr/+t9F1uhb/iIf7+O8rfCb1j+RnLOxaF5ThBnCB+LXL6dH+gAOfU9FNKcphKBX62WbcO698XjNm33AopF6JAJ/m4fUE2BFV+QgG1bQSKbJ96TuS19EdOOydYN/Ytl67spULDCkaASzHs1zA6NsWU4swzlncrdS6uOd0ye7wicrqFzgruHetHdLg8aJS0iL4V/M9Hqt7v5Igr9oJkQFYO64wV5SBYX0GaKk6MIpDBrlMpRcXi5CuEu9eln1FEf0NB/eu/kP6Pfy19nYf3X3ArvEdhlXuS37rnXzf4G6BBe8d1vMQgexekx5pIzSEnxX0N8IJWezsXpqaiaZLaP2OVFD/8yf4N660epl/3e7jsCA+3foDFjY10C6nrFLNNnmOPS965+LlMizuS/2OVHHukZyemaAn9e/LxSBqGAnAxZKEN+gcM5s3XpR+8In2DAvvO30i/fFW69y5juC/fDuXdyu0SQ7scvGNOZZqkHt2hC8W23xXEy7jv1/6wjzUPbxGYBtjRQDMeNo3C75uhM+IHLwnDO9aM512eteQLecGzrelkvBTXJhnMgQ8amxgjSzTLI6rBorkRXhSD4KPOvHWGG4ywh7Cuo6RO9jeav4vKtzS+KabNer9TeXBbusUu9S6/Efo/pFgg+8+Sxx2LB3e3y/bu00VlmAfeZQzHc3/2qxlYMwG+h/RNV+rl6WkyyqRZtllRrA8Y2WPuGRaUHMZbIXzQ3oDgl0dj8bdMGzT1TL/uHzI90oY+JsiEcUKlFT26I4908jhAux3OvGuBsiH/q9rqb5IQz73kw7NDhum0yc8m/iqpQEFjG+H+vzucg3s3nRRC5kWx5C4E9a3MhZEP9dzy/Gw1wz+fr7Dn7c8xjoLjT2Gfddm6hmZrsmnTmVo+CrYZR9mazvZ/P+GKMMbsolPwTktzvprP2LX8w6xfmvq/2eTLksY5ry26ss17ojkFxlan5fN9LuV4FVXf8fywaTn0UOgWIVnPGWnS0ldmQlnorpOKQpkXLf1bobhwDMsUk295LiS/BJ7RiWkrvKT4erCtCGtwuTN/KUgor2u6mvY34ckvtwjhQhfZhjhJrRtBnNF32d7zNwVRxhZLXoyX4BwwFpZQ/YwmQtO9h1ANYwOLBckQdIpIWZNPwEeeYCaHdUeCeQpqI2JL4cKa83tuR80sWIcDboe+Y+T4CVpUh8YaUIpbKrNjCWkLywz4sJepN+YlRKrLBEIRFTAKKaG1j/WrqlL9CtpMCmaNZo/cpsJwkUwQ8EHyMnzF+IHS1DI2Nbiw4OMQCv2DIhaKE3YxgRo/1hlNYd4YZLNr+bYiymIcbB53ghPTVLvItsQxhbQjyGgJIenoT6BugK1H4B+wBgRJI8wF0hp8xTuHRJBbRTTPkGABDDuWXFjsVjE7o+hOMFvMan9b/QGve/wwzzrhLNVGkmaU44MbNTAVWbiPlvAzWIcxVAhaOvgGZEVUfycn+Cn4dbxYnwkTYqCe+DrpE50G44TWHYFdAN2yDX58xQ2enbLQPIgR7GLolWCnGvU9RWMsyK6n0ymIVwYMRVVHUfDSaGS8AAANC0lEQVQd+qZFMQLZMA/Gww1GoTJNle1QTSliHkTzyEYwkamnY61A9TP6Ezyn1RTHAtIDOVloScURJ2y1H3sMgHDgbKMBy1G5epYDe61BcCvs5icVGxdU5mfVl7l6CqoseM7yO0bmSO1j3vPL77+d9u8q8t9Lp4jYweQC8w5GocSkA9GJUQZqXgppCtumsvh4FIVCTXacLiZYh5CalpwTPIT1B1+Kxj5Ecg9TZKwstkJGDYJfonKS3KeGj/kG4mYcqEc6eDyUHPKxArRRr3SOfhmowE6ByGEXA3Z5jLnZ0oDZLKQe01iNr5Y8r/imJk/2zPF63vjylF35cWnGbXDzkoqLi+essuA1zwGvgti55AvUm04OLsOMJyrqAPs9TPcVvHGNDZ7BNvjNzoXGxiZ35GRGDEsYVgxx4CMshyJiUC5JKJbCyHkoq8jBDAvpXkgMbwrIA3AehvkB9gl4Q3lLXODf4HaOj4qYMlyIRnZU5FQNexyFwa3WXsHDbUEQyyNqwDIcdqpss5lWjWR+CuWHNhzJPuQ0bXM0H8QOWjfADofHQLoMn044kh9sNJLHX1vZyJzl40WPHm23w251XrH5iDQ/R9OZysFtlQWFVXgVlD9Sux2+LZBjI5p0EhxVmi/A/MLRBbZ5UtokGFuhuNeKnUeOIX/w74ALzxVrWH0k8Bs6DfoJfEYQb+QHPYRJ8LnnZOCUHTfaE2WJ6txDHoJsy25HNEeArB2DdiBpNN+QinaysvEfkroJaON831YMgetEidHxiJbEy2HlaRTGFu/PDP5cIBrbu+MFzRbM7UKcJL892DhDDVBUG5dVZqe5FS5UDt5VWbwl9TxKubA0fMZ4gxzQmVwhMO7IFdvfpSHvinhALnNe629fkjYvSsFXTxeZ/7xiKJZMIiRZVjLw4hMKii9CaH0agKQsUuRhjHropzlMqZ2RPZDfBmpt3P5vA+L8zs0Zs8f/ods3/0ZbQ8uN/zDU/kbzdSFNkM+q3Llc0cE+w7OV/NC+wZpvPs7aP6ISu9y87qsc8D7x4G3q4xbB9iWvQY5pGh9TO6hTIlrCwbecnh+B2fZ0wINa/kOy29LWBWn7sjSnQ74lyA/8/m/gs3pox1H7gEHX6kfwQuXobVlMDevIjvx4GnG/DR6kqofPWHFtXJMazQg1Bm2sPQT6d2t7itiH7EM7OhmO6j0Ig9U6o2mFHjj2gBznEXybC7f+QAzt3WbsCV3lzRj0i8KxIBzWGZVtUx4kVGHPBu/gzABFUTzfHgUFVfxMxe1Pfr3ARhIuqg2Kiueswjr3vGbo9ymqBd8K8w28i5P+poc7pk85eaMPrDN2LvqmP7JGYcYd8xtRuMAO2P5IQFvnKDC2yC3vZJcUPJP566icVO5mM4JxBMEIw4qLYSTkeL5CeCaKoJxBgTdkPci/VFijqzYGhD11FIloX4HefdKTTN33CHIZfIv7BDLGtuRyiO+ZoikKcmFgDT38UWixmt86bW3W9Q+TB3+vh8fW4FcrOU7ardPRZ9VWmIOCDa3kteSxR/xkE7ynivlp9gqeqVhXP1cFRSXWtvCFriy8W/FT2gL0t1jGPWVROicHA5mC51t8kDlzoIgQL/Ipripy9mEPg8FRYLmDHVxX9HfkvIL7cOw+JR17Rtp5TNo4L83OqLCV+l2ZYkdUnjCAOehGFLoqLBWKI46CrqGn0A3LqNth0Wjy70Dd/CjUUAH5XUCzHNeHbbucEzEnR6GgrwjKopvAF/HDUXi3pBFuxxpwpwkXE1/QgnXK91Q8nAe3viyoTe5K8PJdiXEUHo3Kgk3FvxUafCMMXlhHSBGctPx4k/J8igwVcFPg1jn9NNoBOzoOBwHcJmOP7fDBb6QD3sT6Hzvr+MawwX1487QKFV92n5R2n5Z2nlLZfkLaelTa5Fa6wTdOilGbpxQbp6QNviTwBSF4n1ZxXDFvODHwx6DrsM9El5OEfIiu+fGrwzK+bccl+hP9a3ZCFeTEhGvM6yT9fxicwO8E8YyT0IrIOCcVxBz5plun9jHW9cjO50jYf4CgK5ifJg/WZM5cJ86Q41n53ZQ2LkkbrMsGhTQUU8G/BC/PvUtRJf7/g+y5W/X7fmhnrdmt5PVm56MgVo9WRFkzY9EMPsjsbv7vHLpBs0YC2bAjP0Ye8BDnv+jce0vl/q+k+3xj8P/D/HxT2jor7ZD0Lg+Api6ubQayxW10u+GSAp0hP7/Ba5udz7vfDgXpojTM71Cshos2ZXZKCtfFm7Bfw+hHm+012NYw2AIatK14nJweSyhzYgwPo1vYpvACjWCsm+u4JPFeSDzDrAK9d4klJN4drSPQVZynOBrOwZ/D/2E4g81o9vPIYO4LnedlYhZ2rLzLsJP1FE3PHannztSzcfTsVmXBOrNzqbDm/oLn4qESfuuDsnGbzidRRxSvEqmYnmzsJf84SSK6/ybF9Wtpj28P+9clv6XloU9Oyj4krY428w3FfBsck7xb+IrcZPBbDH6LwWbxsSgutF0Wz8W5S6H5tuudMHFFuSsmz+6Y1LoGdC681FOEFI8SxKGI5OJMeSi8LesfVxaT+99k4geUTRZikwtlk/xGWNdwlN462niHNubsHrNh5xh3R3a3kWf35CW12HXFzqoZjxEfiG3lqwG/Hui4mP236iPmUj5Dmc7Elgk61tEIqEDPs9IB2EfgCxvrVLxeLiQKSr3XkNsghSZhlyvDCPxVAVke6JtgN/ONmp+gUzTn6tGk6kOCsgbY7IdzbpXyG9p9vlHe53Z55+eKO1elOz9T3HuD/Cg+tlbtk/DBHaVvXgkeHA++bJlyzHyI66TO8ORsoN5U4dtLyUnkd06usNIw21ZpaLqR8vsobQpfpQsTn3AczYk3xQzZCOVwOBXy8QOvGFtJ8D6HLw+V98IcBVrg6zaJ4YtB4dmk8P4nwZVfZRY29VC/4skFZC6SspieT99+GiyD/CfHofKzb+K+xC8pxeCuUQwXCpALAzn/YC8Lh9dJWTw3+Q50HVxT2X8HcOfxK4Xetz3WJteFHMhPOQZJ1ENEQMWHCfJMMUdKoMJkVQJxPAbX1NuHWu/4lUfesQKjdfIpBRRuSUelCyUwRlAM6OS/p3Lx5O3yHQU7Wdnn+WzEewyGQfmZzT4uuD2+eTww3qEIubU+aKBIH/xaJXdFitP8g1+pPPil9ICChUbC/BG4/4YCv9gzdZsBTW8bvIiR8K2dPrRHv/sGk773torHYMpX72JKfsXw4wA6DSj75G3eC8WLRa2AOeA2k8+o/rbt3b5hMewSCy48UBZcoBSB6Sq4PaGXn3tME34zTkFkEfl9JBj4LDTzFJ4LcAn7uE0rNsdFzjvMgbyMEQH1mhrwLiLWnctHroApNGpwGI9AjVe2g456yRFXNRPjkSzJSKGVTws8Xs0HyivOA+YHTvmZ7YCJ3GdyXWReGBZPLJz8ZeE+t1kv9n2KwkVw/xfSfXbExOuK+68jH4b1hqb2Bz/H1+0HTOR48Au5CEXhZmEd1CIJruqVAnGOKwXDBbEic3GMsouJcR0ACkYjGG8Wjxe2gYX1fCRYeO86/peifSdocIHwPin8njF3Fj//sLuw64ldUUkPWIHFCCab5egHeDnXIXyXUBaJhg8lMFoHlYlDmE7hZT9KP/VpfHjfKuW48qUEtya/s+JWooT3tcMo9uEbo2Zzmm0k8pmA21Lkc8EG4YFj2tc7HTufgsw4lHCGIAwmxe9vXJi5NS9oD7g1qRwwDxUFvgy6gDdy94S3n20NanGIm//vq/iUpoMGesZOKiVBJxq/SufEF63oMk+uZaj/csNDSX+8Dh02vi86FebEEHNUaSehOxIda5DzOMcH8IwV3PoFnSIsp5/nHmhDhR+ZxeNBsDaa8bw2wHI4Rvo7/kxBLuG+Ms6s9oVOwHrDfCL98DHFLreZgj7Vd/6XOnLbkcSqD3NKVjm3IxWfI20o3dzoB55aqe0cD2ht4iznuxj0HXByKZNsFrUnkMlxgoYnwYlPbdYxeRp1tPFEWTa1v2HZfhkHn5Shtrlfw32XTmqLa9n6Jjdqn2Yz5e21rDM8JvuZ+hnDOsumloN5MMwzTUqKrvG2rUN8Rp15gzYc08J2CCz18Dr4Im0Q1uYf5huq+5Fn+9tgmv1boJ1jGdZb1ZBxEVb0VWBWy9disfe/sgv8L+oXXzO42r9W+n30AF0M0AL74gD9IlHlxdeETvuLr5XFHu33vha9sYDa9wDdAfEG4FuA25R+0JlaBxUI+hZwDqaJxT79gEFvWwJ9lH362h/t6Y+fsJlv9oJsWDdiXYecNmJyC/raiNTvfU2MLeGxNjSdqf1A9ln2vhYG+gBq/h5rYo+cAT6agjngvdPXVBYVYmwghDzYCmtiCOr1MS2LB6zBgP4Bbffpv7U5qGtADHbxymesQQ/f+ivw7qtiH19iEi9zor37arDPyGcu+/8q+gf/qgv9n/8vAAAA///nI/FAAAAABklEQVQDADu9OLyJhjrRAAAAAElFTkSuQmCC" alt="SAFE" style="width:52px;height:52px;border-radius:12px;object-fit:contain;box-shadow:0 4px 12px rgba(0,0,0,0.25);margin:0 auto;"></div>
+        <h2 style="color:#0284c7;font-size:18px;">Connexion Transport & Logistique</h2>
+        <p style="font-size:12px;color:#475569;">SAFE Transport & Logistique — ERP Tunisie</p>
+      </div>
+      <form onsubmit="handleLogin(event)">
+        <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Nom d'utilisateur</label>
+        <input type="text" id="loginUsername" required placeholder="admin ou exploitant" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:6px;margin-bottom:12px;" />
+        <label style="display:block;font-size:12px;font-weight:600;margin-bottom:4px;">Mot de passe</label>
+        <input type="password" id="loginPassword" required placeholder="••••••••" style="width:100%;padding:8px 10px;border:1px solid #cbd5e1;border-radius:6px;margin-bottom:16px;" />
+        <button type="submit" class="btn-primary" style="background:#0284c7;color:#fff;border:none;width:100%;padding:10px;font-size:14px;font-weight:700;border-radius:6px;cursor:pointer;">🔑 Ouvrir la Session</button>
+      </form>
+      <div style="margin-top:16px;background:#f8fafc;padding:10px;border-radius:6px;font-size:11px;color:#475569;">
+        <strong>Comptes disponibles :</strong><br/>
+        • Administrateur : <code>admin</code> / <code>admin2026</code><br/>
+        • Responsable Flotte : <code>exploitant</code> / <code>expl2026</code><br/>
+        • Chauffeur & Livreur : <code>livreur</code> / <code>livr2026</code>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

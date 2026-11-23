@@ -1,0 +1,175 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── ERP Tunisien — bleu nuit & or ─────────────────────────────────────────── */
+:root {
+  --radius: 0.625rem;
+
+  --background: hsl(40 33% 97%);
+  --foreground: hsl(215 45% 12%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(215 45% 12%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(215 45% 12%);
+
+  --primary: hsl(215 68% 14%);
+  --primary-foreground: hsl(40 40% 96%);
+  --secondary: hsl(40 25% 93%);
+  --secondary-foreground: hsl(215 45% 16%);
+  --muted: hsl(40 20% 94%);
+  --muted-foreground: hsl(215 15% 45%);
+  --accent: hsl(45 65% 47%);
+  --accent-foreground: hsl(215 68% 12%);
+  --destructive: hsl(0 68% 48%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(40 18% 88%);
+  --input: hsl(40 18% 88%);
+  --ring: hsl(45 65% 47%);
+
+  --gold: hsl(45 65% 47%);
+  --gold-soft: hsl(45 70% 92%);
+  --navy: hsl(215 68% 14%);
+  --navy-soft: hsl(215 40% 22%);
+  --success: hsl(152 55% 34%);
+  --success-soft: hsl(152 50% 93%);
+  --info: hsl(210 70% 42%);
+  --info-soft: hsl(210 70% 94%);
+  --danger-soft: hsl(0 70% 95%);
+}
+
+.dark {
+  --background: hsl(215 45% 8%);
+  --foreground: hsl(40 30% 94%);
+  --card: hsl(215 42% 11%);
+  --card-foreground: hsl(40 30% 94%);
+  --popover: hsl(215 42% 11%);
+  --popover-foreground: hsl(40 30% 94%);
+  --primary: hsl(45 65% 52%);
+  --primary-foreground: hsl(215 68% 10%);
+  --secondary: hsl(215 30% 18%);
+  --secondary-foreground: hsl(40 30% 94%);
+  --muted: hsl(215 30% 17%);
+  --muted-foreground: hsl(215 15% 62%);
+  --accent: hsl(45 65% 52%);
+  --accent-foreground: hsl(215 68% 10%);
+  --destructive: hsl(0 62% 45%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(215 25% 20%);
+  --input: hsl(215 25% 20%);
+  --ring: hsl(45 65% 52%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-danger-soft: var(--danger-soft);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "tnum";
+  }
+  h1, h2, h3, h4 {
+    letter-spacing: -0.015em;
+  }
+  /* Montants : chiffres tabulaires, alignés à droite */
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+}
+
+@layer components {
+  .erp-table {
+    @apply w-full border-collapse text-[13px];
+  }
+  .erp-table thead th {
+    @apply sticky top-0 z-10 bg-secondary/80 px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-wider text-muted-foreground backdrop-blur;
+  }
+  .erp-table tbody td {
+    @apply border-b border-border/60 px-3 py-2 align-middle;
+  }
+  .erp-table tbody tr:hover {
+    @apply bg-gold-soft/40;
+  }
+  .erp-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+  .erp-label {
+    @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground;
+  }
+  .erp-input {
+    @apply h-9 w-full rounded-md border border-input bg-card px-3 text-[13px] outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/25;
+  }
+  .erp-select {
+    @apply h-9 w-full rounded-md border border-input bg-card px-2 text-[13px] outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/25;
+  }
+  .erp-btn {
+    @apply inline-flex h-9 items-center justify-center gap-2 rounded-md bg-primary px-4 text-[13px] font-medium text-primary-foreground transition hover:opacity-90 disabled:opacity-50;
+  }
+  .erp-btn-gold {
+    @apply inline-flex h-9 items-center justify-center gap-2 rounded-md bg-gold px-4 text-[13px] font-semibold text-navy transition hover:brightness-105 disabled:opacity-50;
+  }
+  .erp-btn-ghost {
+    @apply inline-flex h-9 items-center justify-center gap-2 rounded-md border border-border bg-card px-3 text-[13px] font-medium transition hover:bg-secondary;
+  }
+  .erp-card {
+    @apply rounded-xl border border-border bg-card shadow-[0_1px_2px_rgba(15,30,55,0.04),0_8px_24px_-12px_rgba(15,30,55,0.12)];
+  }
+  .erp-chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold;
+  }
+}
+
+/* Scrollbar discrète */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(40 15% 82%); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: hsl(40 15% 72%); background-clip: content-box; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+}

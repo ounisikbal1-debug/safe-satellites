@@ -1,0 +1,51 @@
+{
+    "folder": "SAFE_Immobilisations",
+    "app_id": "comptabilite",
+    "name": "SAFE Immobilisations & Amortissements",
+    "tagline": "Gestion des actifs corporels/incorporels, tableaux d'amortissement linéaire/dégressif, écritures d'inventaire",
+    "badge": "Barèmes Fiscaux DGI",
+    "icon": "/icons/immobilisations.png",
+    "version": "1.0.0",
+    "accent": "#7C3AED",
+    "modules": [
+        "assetsManagement",
+        "generalBalance",
+        "generalLedger",
+        "financialStatements",
+        "reportsExport"
+    ],
+    "default_module": "assetsManagement",
+    "legislation": [
+        "Norme Comptable Tunisienne NCT 05 relative aux immobilisations corporelles",
+        "Barèmes des taux d'amortissement fiscalement admis par la Direction Générale des Impôts (DGI tunisienne)",
+        "Règles d'amortissement linéaire (constat constant prorata temporis) et dégressif prévu par le Code de l'IRPP/IS"
+    ],
+    "features": [
+        "Fichier exhaustif des immobilisations avec code barre d'inventaire, localisation et centre de coût",
+        "Plans d'amortissement prévisionnels automatiques calculés au prorata temporis exact",
+        "Application des taux d'amortissement légaux : Bâtiments (5%), Matériel industriel (10%-20%), Informatique (33.3%)",
+        "Génération en un clic des écritures comptables annuelles de dotation aux amortissements (681 / 28x)",
+        "Gestion des cessions, mises au rebut et calcul des plus-values ou moins-values fiscales de cession",
+        "Édition du tableau d'inventaire physique des immobilisations conforme aux exigences des commissaires aux comptes"
+    ],
+    "security": {
+        "key_format": "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
+        "hardware_lock": "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
+        "crypto_algorithm": "HMAC-SHA256"
+    },
+    "fiscal_compliance_tunisia": {
+        "currency": "TND (Dinar Tunisien à 3 décimales)",
+        "timbre_fiscal": "1.000 DT",
+        "accounting_standard": "Système Comptable des Entreprises (SCE NC 01)",
+        "vat_rates": [
+            19,
+            13,
+            7
+        ],
+        "withholding_tax_rates": [
+            1.5,
+            10
+        ]
+    },
+    "icon_image": "/icons/immobilisations.png"
+}

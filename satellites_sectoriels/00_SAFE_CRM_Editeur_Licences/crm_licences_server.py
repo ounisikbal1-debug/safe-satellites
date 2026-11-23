@@ -8,9 +8,8 @@ import threading
 import time
 from datetime import datetime, date
 from typing import Optional
-from fastapi import FastAPI, Response
-from fastapi.responses import FileResponse, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Response, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse
 from pydantic import BaseModel
 import uvicorn
 

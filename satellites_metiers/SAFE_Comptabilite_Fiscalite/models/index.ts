@@ -1,0 +1,2 @@
+// Modeles metiers specifiques
+export {};

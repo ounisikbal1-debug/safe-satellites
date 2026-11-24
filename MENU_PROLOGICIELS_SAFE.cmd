@@ -34,7 +34,7 @@ echo   [0]  ❌ Quitter
 echo ===============================================================================
 set /p CHOIX="Entrez votre numéro (0 à 16) : "
 
-:: Détection du dossier de base
+REM Détection du dossier de base
 set "BASE_DIR=%~dp0"
 if not exist "%BASE_DIR%SAFE_ERP_DRAFT 3" (
     if exist "%BASE_DIR%SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3" (

@@ -13,18 +13,18 @@ REM Recherche intelligente du script unified_suite_server.py
 if exist "%SCRIPT_DIR%unified_suite_server.py" (
     set "TARGET=%SCRIPT_DIR%unified_suite_server.py"
     set "WORK_DIR=%SCRIPT_DIR%"
-) else if exist "%SCRIPT_DIR%SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py" (
-    set "TARGET=%SCRIPT_DIR%SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py"
-    set "WORK_DIR=%SCRIPT_DIR%SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3\satellites_sectoriels"
-) else if exist "%SCRIPT_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py" (
-    set "TARGET=%SCRIPT_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py"
-    set "WORK_DIR=%SCRIPT_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels"
-) else if exist "%SCRIPT_DIR%..\SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py" (
-    set "TARGET=%SCRIPT_DIR%..\SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py"
-    set "WORK_DIR=%SCRIPT_DIR%..\SAFE_ERP_DRAFT 3\satellites_sectoriels"
-) else if exist "C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py" (
-    set "TARGET=C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3\satellites_sectoriels\unified_suite_server.py"
-    set "WORK_DIR=C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3\satellites_sectoriels"
+) else if exist "%SCRIPT_DIR%SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py" (
+    set "TARGET=%SCRIPT_DIR%SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py"
+    set "WORK_DIR=%SCRIPT_DIR%SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises\satellites_sectoriels"
+) else if exist "%SCRIPT_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py" (
+    set "TARGET=%SCRIPT_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py"
+    set "WORK_DIR=%SCRIPT_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels"
+) else if exist "%SCRIPT_DIR%..\SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py" (
+    set "TARGET=%SCRIPT_DIR%..\SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py"
+    set "WORK_DIR=%SCRIPT_DIR%..\SAFE_Grandes_Entreprises\satellites_sectoriels"
+) else if exist "C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py" (
+    set "TARGET=C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises\satellites_sectoriels\unified_suite_server.py"
+    set "WORK_DIR=C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises\satellites_sectoriels"
 ) else (
     echo [ERREUR CRITIQUE] Fichier unified_suite_server.py introuvable !
     echo Verifiez l'emplacement du fichier et reessayez.

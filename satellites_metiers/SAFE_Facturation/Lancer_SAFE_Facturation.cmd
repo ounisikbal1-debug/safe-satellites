@@ -10,9 +10,9 @@ echo ===========================================================================
 echo.
 echo Initialisation du service en local...
 
-set "CORE_DIR=%~dp0..\SAFE_ERP_DRAFT 3"
+set "CORE_DIR=%~dp0..\SAFE_Grandes_Entreprises"
 if not exist "%CORE_DIR%\LANCER_SAFE_ERP_LOCAL.ps1" (
-    set "CORE_DIR=C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3"
+    set "CORE_DIR=C:\Users\USER\OneDrive\Desktop\SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises"
 )
 
 if not exist "%CORE_DIR%\LANCER_SAFE_ERP_LOCAL.ps1" (

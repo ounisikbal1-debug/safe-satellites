@@ -8,7 +8,7 @@ echo                SAFE SUITE TUNISIE - CATALOGUE DES LOGICIELS 2026
 echo             Conformes à la Législation Tunisienne & aux Normes SCE
 echo ===============================================================================
 echo.
-echo  --- 1. PROGICIELS METIERS CIBLES (SUR NOYAU SAFE ERP DRAFT 3 - PORT 3001) ---
+echo  --- 1. PROGICIELS METIERS CIBLES (SUR NOYAU SAFE Grandes Entreprises - PORT 3001) ---
 echo   [1]  🧾 SAFE Facturation        (Achats, Ventes, Retenues RS, e-Fatoura)
 echo   [2]  📦 SAFE Gestion des Stocks (Multi-Dépôts, PUMP, Inventaires)
 echo   [3]  💵 SAFE Paie Tunisie       (IRPP 8 tranches, CNSS 9.68%% / 17.07%%, CSS)
@@ -36,38 +36,38 @@ set /p CHOIX="Entrez votre numéro (0 à 16) : "
 
 REM Détection du dossier de base
 set "BASE_DIR=%~dp0"
-if not exist "%BASE_DIR%SAFE_ERP_DRAFT 3" (
-    if exist "%BASE_DIR%SAFE_ERP_DRAFT 4\SAFE_ERP_DRAFT 3" (
+if not exist "%BASE_DIR%SAFE_Grandes_Entreprises" (
+    if exist "%BASE_DIR%SAFE_ERP_DRAFT 4\SAFE_Grandes_Entreprises" (
         set "BASE_DIR=%BASE_DIR%SAFE_ERP_DRAFT 4\"
     )
 )
 
 if "%CHOIX%"=="1" (
-    call "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_metiers\SAFE_Facturation\Lancer_SAFE_Facturation.cmd"
+    call "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_metiers\SAFE_Facturation\Lancer_SAFE_Facturation.cmd"
     goto MENU
 )
 if "%CHOIX%"=="2" (
-    call "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_metiers\SAFE_Gestion_des_Stocks\Lancer_SAFE_Gestion_des_Stocks.cmd"
+    call "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_metiers\SAFE_Gestion_des_Stocks\Lancer_SAFE_Gestion_des_Stocks.cmd"
     goto MENU
 )
 if "%CHOIX%"=="3" (
-    call "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_metiers\SAFE_Paie\Lancer_SAFE_Paie.cmd"
+    call "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_metiers\SAFE_Paie\Lancer_SAFE_Paie.cmd"
     goto MENU
 )
 if "%CHOIX%"=="4" (
-    call "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_metiers\SAFE_Gestion_RH\Lancer_SAFE_Gestion_RH.cmd"
+    call "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_metiers\SAFE_Gestion_RH\Lancer_SAFE_Gestion_RH.cmd"
     goto MENU
 )
 if "%CHOIX%"=="5" (
-    call "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_metiers\SAFE_Comptabilite_Fiscalite\Lancer_SAFE_Comptabilite_Fiscalite.cmd"
+    call "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_metiers\SAFE_Comptabilite_Fiscalite\Lancer_SAFE_Comptabilite_Fiscalite.cmd"
     goto MENU
 )
 if "%CHOIX%"=="6" (
-    call "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_metiers\SAFE_Production_GPAO\Lancer_SAFE_Production_GPAO.cmd"
+    call "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_metiers\SAFE_Production_GPAO\Lancer_SAFE_Production_GPAO.cmd"
     goto MENU
 )
 if "%CHOIX%"=="7" (
-    call "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_metiers\SAFE_Immobilisations\Lancer_SAFE_Immobilisations.cmd"
+    call "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_metiers\SAFE_Immobilisations\Lancer_SAFE_Immobilisations.cmd"
     goto MENU
 )
 if "%CHOIX%"=="8" (
@@ -75,23 +75,23 @@ if "%CHOIX%"=="8" (
     goto MENU
 )
 if "%CHOIX%"=="9" (
-    start "" "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\01_SAFE_Negoce_Distribution\LANCER_SAFE_ERP.bat"
+    start "" "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\01_SAFE_Negoce_Distribution\LANCER_SAFE_ERP.bat"
     goto MENU
 )
 if "%CHOIX%"=="10" (
-    start "" "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\02_SAFE_Services_Cabinets\LANCER_SAFE_ERP.bat"
+    start "" "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\02_SAFE_Services_Cabinets\LANCER_SAFE_ERP.bat"
     goto MENU
 )
 if "%CHOIX%"=="11" (
-    start "" "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\03_SAFE_Industrie_Production\LANCER_SAFE_ERP.bat"
+    start "" "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\03_SAFE_Industrie_Production\LANCER_SAFE_ERP.bat"
     goto MENU
 )
 if "%CHOIX%"=="12" (
-    start "" "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\04_SAFE_Restauration_POS\LANCER_SAFE_ERP.bat"
+    start "" "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\04_SAFE_Restauration_POS\LANCER_SAFE_ERP.bat"
     goto MENU
 )
 if "%CHOIX%"=="13" (
-    start "" "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\05_SAFE_Transport_Logistique\LANCER_SAFE_TRANSPORT.bat"
+    start "" "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\05_SAFE_Transport_Logistique\LANCER_SAFE_TRANSPORT.bat"
     goto MENU
 )
 if "%CHOIX%"=="14" (
@@ -99,7 +99,7 @@ if "%CHOIX%"=="14" (
     goto MENU
 )
 if "%CHOIX%"=="15" (
-    start "" "%BASE_DIR%SAFE_ERP_DRAFT 3\satellites_sectoriels\00_SAFE_CRM_Editeur_Licences\LANCER_CRM_LICENCES.bat"
+    start "" "%BASE_DIR%SAFE_Grandes_Entreprises\satellites_sectoriels\00_SAFE_CRM_Editeur_Licences\LANCER_CRM_LICENCES.bat"
     goto MENU
 )
 if "%CHOIX%"=="16" (

@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 SAFE ERP - MODULE 04 : RESTAURATION, CAFÉ & PÂTISSERIE POS (TUNISIE) - STANDALONE PORT 8004
 Point de Vente tactile, Menu restaurant & pâtisserie riche, Tables & Comptoir, TVA 7%/19%, SCE NC 01

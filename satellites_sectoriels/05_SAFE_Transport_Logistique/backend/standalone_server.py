@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 ================================================================================
 SAFE ERP - MODULE 05 : TRANSPORT DE MARCHANDISES & LIVRAISON DE COLIS (TUNISIE)

@@ -1,4 +1,4 @@
-// ── AGENT-OWNED: tRPC API surface (Controller) ───────────────────────────────
+﻿// ── AGENT-OWNED: tRPC API surface (Controller) ───────────────────────────────
 // Architecture MVC : ce fichier = Controller (validation + orchestration),
 // server/services/* = métier, server/db.ts = accès données, pages React = View.
 // Toutes les procédures métier sont `protectedProcedure` et scopées par

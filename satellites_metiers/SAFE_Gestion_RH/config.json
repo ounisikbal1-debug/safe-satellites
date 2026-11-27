@@ -2,7 +2,7 @@
     "folder": "SAFE_Gestion_RH",
     "app_id": "rh",
     "name": "SAFE Gestion des Ressources Humaines & Talents",
-    "tagline": "Dossiers collaborateurs, contrats CDI/CDD/CIVP, suivi congés légaux, médecine du travail & GPEC",
+    "tagline": "Dossiers collaborateurs, contrats CDI/CDD/CIVP, suivi congÃ©s lÃ©gaux, mÃ©decine du travail & GPEC",
     "badge": "Code du Travail Tunisien",
     "icon": "/icons/rh.png",
     "version": "1.0.0",
@@ -16,31 +16,31 @@
     ],
     "default_module": "hrDeep",
     "legislation": [
-        "Code du Travail Tunisien (Loi n° 66-27 modifiée) régissant les contrats et conditions de travail",
-        "Réglementation ANETI pour les contrats d'insertion professionnelle (CIVP / SIVP, CAIP, Contrat Karama)",
-        "Articles 112 et suivants du Code du Travail : Droit au congé payé (1 jour par mois + bonifications d'ancienneté)",
-        "Décrets fixant la liste officielle des jours fériés chômés et payés en République Tunisienne",
-        "Réglementation relative à la Médecine du Travail et à la Prévention des Risques Professionnels"
+        "Code du Travail Tunisien (Loi nÂ° 66-27 modifiÃ©e) rÃ©gissant les contrats et conditions de travail",
+        "RÃ©glementation ANETI pour les contrats d'insertion professionnelle (CIVP / SIVP, CAIP, Contrat Karama)",
+        "Articles 112 et suivants du Code du Travail : Droit au congÃ© payÃ© (1 jour par mois + bonifications d'anciennetÃ©)",
+        "DÃ©crets fixant la liste officielle des jours fÃ©riÃ©s chÃ´mÃ©s et payÃ©s en RÃ©publique Tunisienne",
+        "RÃ©glementation relative Ã  la MÃ©decine du Travail et Ã  la PrÃ©vention des Risques Professionnels"
     ],
     "features": [
-        "Dossier collaborateur dématérialisé (Identité, CIN, Matricule CNSS, Diplômes, Pièces jointes)",
-        "Gestion du cycle de vie des contrats de travail : Période d'essai, CDI, CDD et conventions ANETI (CIVP)",
-        "Module de demande et validation dématérialisée des congés payés avec calcul automatique des droits",
-        "Calendrier officiel des jours fériés nationaux et religieux tunisiens avec calcul des ponts",
-        "Suivi de la Médecine du Travail (visites d'embauche, visites périodiques, attestations d'aptitude)",
-        "Cartographie des compétences, évaluation annuelle des performances et plans de formation (GPEC)",
-        "Édition automatique d'attestations de travail, certificats d'emploi et soldes de tout compte",
-        "Registre du personnel légal et archivage sécurisé des sanctions, promotions et avenants"
+        "Dossier collaborateur dÃ©matÃ©rialisÃ© (IdentitÃ©, CIN, Matricule CNSS, DiplÃ´mes, PiÃ¨ces jointes)",
+        "Gestion du cycle de vie des contrats de travail : PÃ©riode d'essai, CDI, CDD et conventions ANETI (CIVP)",
+        "Module de demande et validation dÃ©matÃ©rialisÃ©e des congÃ©s payÃ©s avec calcul automatique des droits",
+        "Calendrier officiel des jours fÃ©riÃ©s nationaux et religieux tunisiens avec calcul des ponts",
+        "Suivi de la MÃ©decine du Travail (visites d'embauche, visites pÃ©riodiques, attestations d'aptitude)",
+        "Cartographie des compÃ©tences, Ã©valuation annuelle des performances et plans de formation (GPEC)",
+        "Ã‰dition automatique d'attestations de travail, certificats d'emploi et soldes de tout compte",
+        "Registre du personnel lÃ©gal et archivage sÃ©curisÃ© des sanctions, promotions et avenants"
     ],
     "security": {
         "key_format": "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
-        "hardware_lock": "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
+        "hardware_lock": "HW-XXXXXXXXXXXX (MAC + Carte MÃ¨re)",
         "crypto_algorithm": "HMAC-SHA256"
     },
     "fiscal_compliance_tunisia": {
-        "currency": "TND (Dinar Tunisien à 3 décimales)",
+        "currency": "TND (Dinar Tunisien Ã  3 dÃ©cimales)",
         "timbre_fiscal": "1.000 DT",
-        "accounting_standard": "Système Comptable des Entreprises (SCE NC 01)",
+        "accounting_standard": "SystÃ¨me Comptable des Entreprises (SCE NC 01)",
         "vat_rates": [
             19,
             13,
@@ -53,3 +53,4 @@
     },
     "icon_image": "/icons/rh.png"
 }
+

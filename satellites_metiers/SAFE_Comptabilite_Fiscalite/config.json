@@ -1,63 +1,65 @@
 {
-    "folder": "SAFE_Comptabilite_Fiscalite",
-    "app_id": "comptabilite",
-    "name": "SAFE Comptabilité Générale & Fiscalité Tunisienne",
-    "tagline": "Système Comptable des Entreprises (SCE), Grand Livre, Balance 8 colonnes, Déclarations G50, Rapprochement bancaire",
-    "badge": "SCE & Liasse Fiscale G50",
-    "icon": "/icons/comptabilite.png",
-    "version": "1.0.0",
-    "accent": "#1E3A8A",
-    "modules": [
-        "generalBalance",
-        "generalLedger",
-        "accountingEntry",
-        "taxation",
-        "financialStatements",
-        "bankReconciliation",
-        "assetsManagement",
-        "cashflow",
-        "monthlyClose",
-        "controlling",
-        "anomalies",
-        "incomeStatement",
-        "reportsExport"
-    ],
-    "default_module": "generalBalance",
-    "legislation": [
-        "Loi n° 96-112 relative au Système Comptable des Entreprises (SCE) et normes comptables tunisiennes (NCT)",
-        "Plan de comptes officiel tunisien (Classes 1 à 7) avec tenue des écritures en partie double",
-        "Code des Droits et Procédures Fiscaux (CDPF) : Déclaration mensuelle d'impôt G50 avant le 28 de chaque mois",
-        "Code de l'IRPP et de l'IS : Taux normal d'Impôt sur les Sociétés de 20 % (Loi de Finances)",
-        "Normes internationales d'audit (ISA) : Piste d'audit immuable et irréversibilité des écritures closes"
-    ],
-    "features": [
-        "Saisie comptable horizontale ergonomique et journaux auxiliaires (Achats, Ventes, Banque, Caisse, OD)",
-        "Balance Générale des Comptes à 8 colonnes (Balances d'ouverture, Mouvements débit/crédit, Soldes de clôture)",
-        "Grand Livre Général (GL) dynamique avec filtrage par compte, période, lettrage et devise",
-        "Rapprochement bancaire multi-banques tunisiennes (STB, BIAT, BH Bank, BNA, Attijariwafa, UIB)",
-        "Génération automatique des liasses fiscales mensuelles Déclaration G50 (TVA, Timbre, RS)",
-        "Calcul et déclaration de l'Impôt sur les Sociétés (IS) au taux légal de 20 % avec acomptes provisionnels",
-        "Immutabilité et protection des périodes clôturées (interdiction absolue d'écritures antidatées)",
-        "Piste d'audit cryptographique continue scellée par hachage SHA-256 (JournalEntryAuditChainHead)"
-    ],
-    "security": {
-        "key_format": "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
-        "hardware_lock": "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
-        "crypto_algorithm": "HMAC-SHA256"
-    },
-    "fiscal_compliance_tunisia": {
-        "currency": "TND (Dinar Tunisien à 3 décimales)",
-        "timbre_fiscal": "1.000 DT",
-        "accounting_standard": "Système Comptable des Entreprises (SCE NC 01)",
-        "vat_rates": [
-            19,
-            13,
-            7
-        ],
-        "withholding_tax_rates": [
-            1.5,
-            10
-        ]
-    },
-    "icon_image": "/icons/comptabilite.png"
+    "folder":  "SAFE_Comptabilite_Fiscalite",
+    "app_id":  "comptabilite",
+    "name":  "SAFE Comptabilité Générale \u0026 Fiscalité Tunisienne",
+    "tagline":  "Système Comptable des Entreprises (SCE), Grand Livre, Balance 8 colonnes, Déclarations G50, Rapprochement bancaire",
+    "badge":  "SCE \u0026 Liasse Fiscale G50",
+    "icon":  "⚖️",
+    "version":  "1.0.0",
+    "accent":  "#1E3A8A",
+    "modules":  [
+                    "generalBalance",
+                    "generalLedger",
+                    "accountingEntry",
+                    "balanceSheet",
+                    "taxation",
+                    "financialStatements",
+                    "bankReconciliation",
+                    "assetsManagement",
+                    "cashflow",
+                    "monthlyClose",
+                    "controlling",
+                    "anomalies",
+                    "incomeStatement",
+                    "generalSettings",
+                    "reportsExport"
+                ],
+    "default_module":  "generalBalance",
+    "legislation":  [
+                        "Loi n° 96-112 relative au Système Comptable des Entreprises (SCE) et normes comptables tunisiennes (NCT)",
+                        "Plan de comptes officiel tunisien (Classes 1 à 7) avec tenue des écritures en partie double",
+                        "Code des Droits et Procédures Fiscaux (CDPF) : Déclaration mensuelle d\u0027impôt G50 avant le 28 de chaque mois",
+                        "Code de l\u0027IRPP et de l\u0027IS : Taux normal d\u0027Impôt sur les Sociétés de 20 % (Loi de Finances)",
+                        "Normes internationales d\u0027audit (ISA) : Piste d\u0027audit immuable et irréversibilité des écritures closes"
+                    ],
+    "features":  [
+                     "Saisie comptable horizontale ergonomique et journaux auxiliaires (Achats, Ventes, Banque, Caisse, OD)",
+                     "Balance Générale des Comptes à 8 colonnes (Balances d\u0027ouverture, Mouvements débit/crédit, Soldes de clôture)",
+                     "Grand Livre Général (GL) dynamique avec filtrage par compte, période, lettrage et devise",
+                     "Rapprochement bancaire multi-banques tunisiennes (STB, BIAT, BH Bank, BNA, Attijariwafa, UIB)",
+                     "Génération automatique des liasses fiscales mensuelles Déclaration G50 (TVA, Timbre, RS)",
+                     "Calcul et déclaration de l\u0027Impôt sur les Sociétés (IS) au taux légal de 20 % avec acomptes provisionnels",
+                     "Immutabilité et protection des périodes clôturées (interdiction absolue d\u0027écritures antidatées)",
+                     "Piste d\u0027audit cryptographique continue scellée par hachage SHA-256 (JournalEntryAuditChainHead)"
+                 ],
+    "security":  {
+                     "key_format":  "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
+                     "hardware_lock":  "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
+                     "crypto_algorithm":  "HMAC-SHA256"
+                 },
+    "fiscal_compliance_tunisia":  {
+                                      "currency":  "TND (Dinar Tunisien à 3 décimales)",
+                                      "timbre_fiscal":  "1.000 DT",
+                                      "accounting_standard":  "Système Comptable des Entreprises (SCE NC 01)",
+                                      "vat_rates":  [
+                                                        19,
+                                                        13,
+                                                        7
+                                                    ],
+                                      "withholding_tax_rates":  [
+                                                                    1.5,
+                                                                    10
+                                                                ]
+                                  }
 }
+

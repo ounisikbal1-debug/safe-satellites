@@ -1,4 +1,4 @@
-// ── SERVICE : rapports financiers (Bilan & Compte de Résultat) ───────────────
+﻿// ── SERVICE : rapports financiers (Bilan & Compte de Résultat) ───────────────
 // Construit les deux états à partir des soldes du grand livre, par classe de
 // comptes du plan comptable tunisien. Montants en millimes.
 import { getAccountBalances } from "../db";

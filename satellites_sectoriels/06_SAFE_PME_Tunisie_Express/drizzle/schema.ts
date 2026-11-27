@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, timestamp, index, bigint, integer, boolean, date, jsonb } from "drizzle-orm/pg-core";
+﻿import { pgTable, uuid, text, timestamp, index, bigint, integer, boolean, date, jsonb } from "drizzle-orm/pg-core";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SYSTEM TABLES — managed by the scaffold. Do not redefine or drop.

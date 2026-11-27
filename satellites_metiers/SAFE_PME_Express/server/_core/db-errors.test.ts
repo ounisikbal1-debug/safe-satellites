@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+﻿import { describe, expect, it } from "vitest";
 import { DrizzleQueryError } from "drizzle-orm/errors";
 
 import { isUniqueViolation } from "./db-errors";

@@ -1,11 +1,11 @@
-# ERP Tunisie — déploiement Docker (serveur + PostgreSQL)
+﻿# ERP Tunisie â€” dÃ©ploiement Docker (serveur + PostgreSQL)
 #
 #   docker compose up -d
-#   → http://localhost:3000
+#   â†’ http://localhost:3000
 #
-# Depuis les autres postes du réseau local : http://<IP-du-serveur>:3000
+# Depuis les autres postes du rÃ©seau local : http://<IP-du-serveur>:3000
 #
-# Les données PostgreSQL sont conservées dans le volume « pgdata ».
+# Les donnÃ©es PostgreSQL sont conservÃ©es dans le volume Â« pgdata Â».
 # Sauvegarde : docker compose exec db pg_dump -U erp erp_tunisie > backup.sql
 
 services:
@@ -16,7 +16,7 @@ services:
       POSTGRES_DB: erp_tunisie
       POSTGRES_USER: erp
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-motdepasse_fort}
-      # Collation française : les tris de noms (é, è, à) restent naturels.
+      # Collation franÃ§aise : les tris de noms (Ã©, Ã¨, Ã ) restent naturels.
       LANG: fr_FR.UTF-8
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -41,7 +41,7 @@ services:
       NODE_ENV: production
       PORT: 3000
     ports:
-      # « 0.0.0.0 » rend l'ERP accessible depuis le réseau local.
+      # Â« 0.0.0.0 Â» rend l'ERP accessible depuis le rÃ©seau local.
       - "0.0.0.0:3000:3000"
 
 volumes:

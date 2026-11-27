@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+﻿import { beforeEach, describe, expect, it, vi } from "vitest";
 
 // Both mocks are hoisted by vitest, so storage.ts sees them at import time.
 // This matters: env.ts calls required("DATABASE_URL") at module load and db.ts

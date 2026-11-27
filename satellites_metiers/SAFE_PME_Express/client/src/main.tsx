@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+﻿import { ThemeProvider } from '../../shared/theme';
+
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { trpc, makeTrpcClient } from "./_core/trpc";
@@ -24,7 +25,9 @@ function Root() {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ErrorBoundary>
-      <Root />
+      <ThemeProvider>
+        <Root />
+      </ThemeProvider>
     </ErrorBoundary>
   </React.StrictMode>,
 );

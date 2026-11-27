@@ -1,4 +1,4 @@
-import "dotenv/config"; // so `drizzle-kit generate/migrate` sees DATABASE_URL from .env
+﻿import "dotenv/config"; // so `drizzle-kit generate/migrate` sees DATABASE_URL from .env
 import { defineConfig } from "drizzle-kit";
 
 // Postgres dialect is FIXED by the template (DESIGN §5.1). Runtime queries pick

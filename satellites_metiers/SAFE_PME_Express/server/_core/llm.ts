@@ -1,4 +1,4 @@
-// Platform-mediated LLM access (DESIGN §5.1.2 / §8.5).
+﻿// Platform-mediated LLM access (DESIGN §5.1.2 / §8.5).
 //
 // Routed through the platform so usage is metered to the owner's account and
 // rate-limited per app — a public app calling an LLM on every anonymous request

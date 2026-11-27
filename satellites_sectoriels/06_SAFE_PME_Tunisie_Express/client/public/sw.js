@@ -1,4 +1,4 @@
-// Service worker minimal — rend l'ERP installable et consultable hors ligne
+﻿// Service worker minimal — rend l'ERP installable et consultable hors ligne
 // pour la coquille de l'application. Les données restent servies par l'API.
 const CACHE = "erp-tn-v1";
 const SHELL = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png"];

@@ -1,4 +1,4 @@
-// Where this app is reachable from OUTSIDE itself.
+﻿// Where this app is reachable from OUTSIDE itself.
 //
 // `location.origin` answers that correctly only when the app is served from its own
 // public origin — true once published, and true in the Daytona sandbox. It is NOT

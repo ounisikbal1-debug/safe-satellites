@@ -1,4 +1,4 @@
-import "dotenv/config"; // load .env into process.env before env.ts reads it.
+﻿import "dotenv/config"; // load .env into process.env before env.ts reads it.
 // No-op when .env is absent (platform injects real env) and never overrides
 // already-set vars — so it's safe in prod. MUST stay the first import.
 import { serve } from "@hono/node-server";

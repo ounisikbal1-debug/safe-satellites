@@ -28,3 +28,4 @@ if (-not (Test-Path -LiteralPath $LauncherScript -PathType Leaf)) {
 }
 
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $LauncherScript -Port $Port -App "rh"
+

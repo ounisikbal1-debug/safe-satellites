@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Module de Sécurité & Verrou Matériel Hardware ID (HMAC-SHA256)
  * SAFE ERP - Protection Commerciale Officielle pour Satellites Métiers
  */
@@ -17,7 +17,7 @@ export function getHardwareId(): string {
 
 export function computeValidLicenseKey(hardwareId: string, expiryDate: string): string {
   const cleanExp = expiryDate.replace(/-/g, '');
-  const payload = `SAFE_ERP_GLOBAL|${hardwareId.toUpperCase()}|${cleanExp}`;
+  const payload = `SAFE_Grandes_Entreprises|${hardwareId.toUpperCase()}|${cleanExp}`;
   const hmac = crypto.createHmac('sha256', SECRET_SALT).update(payload).digest('hex').toUpperCase();
   const parts = [
     hmac.substring(0, 4),
@@ -56,3 +56,5 @@ export function verifySatelliteLicense(licenseKey: string): { valid: boolean; ha
 
   return { valid: true, hardwareId: hwId, message: `Licence vérifiée et valide jusqu'au ${expiryDate.toLocaleDateString('fr-FR')}.` };
 }
+
+

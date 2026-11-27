@@ -1,4 +1,4 @@
-// ── AGENT-OWNED: business data-access ─────────────────────────────────────────
+﻿// ── AGENT-OWNED: business data-access ─────────────────────────────────────────
 // Architecture MVC : ce fichier est la couche d'accès aux données (Model).
 // Chaque requête est scopée par `ownerId` — deux comptes ne voient jamais les
 // livres de l'autre. Les montants sont en millimes (entiers).

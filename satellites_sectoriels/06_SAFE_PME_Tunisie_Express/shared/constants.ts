@@ -1,4 +1,4 @@
-// Shared client/server constants.
+﻿// Shared client/server constants.
 
 // Session cookie name is per-app (derived from APP_SLUG) so two apps served on
 // the same host cannot clobber each other's session cookie (DESIGN #13). The

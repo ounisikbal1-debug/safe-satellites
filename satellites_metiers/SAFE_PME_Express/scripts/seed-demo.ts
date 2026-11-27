@@ -1,4 +1,4 @@
-// Script de développement : crée un compte de démonstration et charge les
+﻿// Script de développement : crée un compte de démonstration et charge les
 // 900 enregistrements répartis sur les 12 mois. Exécution : pnpm tsx scripts/seed-demo.ts
 import { db } from "../server/_core/db";
 import { users } from "../drizzle/schema";

@@ -10,20 +10,19 @@ echo ===========================================================================
 echo.
 echo   Choisissez le Prologiciel Metier a lancer :
 echo.
-echo   [1] 🧾 SAFE Facturation           (Achats, Ventes, E-Facture TTN, Retenue RS)
-echo   [2] 📦 SAFE Gestion des Stocks    (Multi-Depots, Valorisation PUMP, Douanes AT)
-echo   [3] 💵 SAFE Paie Tunisie          (Moteur IRPP 8 tranches, CNSS 9.68%%, CSS)
-echo   [4] 👔 SAFE Gestion RH            (Contrats CDI/CDD/CIVP, Conges Legaux, GPEC)
-echo   [5] ⚖️ SAFE Comptabilite          (SCE, Balance 8 col, Declarations G50, IS)
-echo   [6] ⚙️ SAFE Production GPAO       (Nomenclatures BOM, Ordres OF, MRP)
-echo   [7] 🏢 SAFE Immobilisations       (Amortissements Lineaires & Degressifs DGI)
-echo   [8] 🚀 SAFE PME Express           (Facturation, Paie, TEIF e-Fatoura & Millimes)
+echo   [1] ðŸ§¾ SAFE Facturation           (Achats, Ventes, E-Facture TTN, Retenue RS)
+echo   [2] ðŸ“¦ SAFE Gestion des Stocks    (Multi-Depots, Valorisation PUMP, Douanes AT)
+echo   [3] ðŸ’µ SAFE Paie Tunisie          (Moteur IRPP 8 tranches, CNSS 9.68%%, CSS)
+echo   [4] ðŸ‘” SAFE Gestion RH            (Contrats CDI/CDD/CIVP, Conges Legaux, GPEC)
+echo   [5] âš–ï¸ SAFE Comptabilite          (SCE, Balance 8 col, Declarations G50, IS)
+echo   [6] âš™ï¸ SAFE Production GPAO       (Nomenclatures BOM, Ordres OF, MRP)
+echo   [7] ðŸ¢ SAFE Immobilisations       (Amortissements Lineaires & Degressifs DGI)
 echo.
-echo   [9] 🌐 SAFE ERP Global            (Suite Complete Integree - 28 Modules)
-echo   [0] ❌ Quitter
+echo   [8] ðŸŒ SAFE ERP Global            (Suite Complete Integree - 28 Modules)
+echo   [0] âŒ Quitter
 echo.
 echo ===============================================================================
-set /p CHOIX="Entrez votre numero (1-9 ou 0) : "
+set /p CHOIX="Entrez votre numero (1-8 ou 0) : "
 
 if "%CHOIX%"=="1" (
     call "%~dp0SAFE_Facturation\Lancer_SAFE_Facturation.cmd"
@@ -54,10 +53,6 @@ if "%CHOIX%"=="7" (
     goto MENU
 )
 if "%CHOIX%"=="8" (
-    call "%~dp0SAFE_PME_Express\Lancer_SAFE_PME_Express.cmd"
-    goto MENU
-)
-if "%CHOIX%"=="9" (
     start http://localhost:3001/
     goto MENU
 )

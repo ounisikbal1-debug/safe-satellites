@@ -1,39 +1,39 @@
-# 👔 SAFE Gestion des Ressources Humaines & Talents
-> **Dossiers collaborateurs, contrats CDI/CDD/CIVP, suivi congés légaux, médecine du travail & GPEC**
-> *Conformité certifiée : Code du Travail Tunisien • Version 1.0.0*
+﻿# ðŸ‘” SAFE Gestion des Ressources Humaines & Talents
+> **Dossiers collaborateurs, contrats CDI/CDD/CIVP, suivi congÃ©s lÃ©gaux, mÃ©decine du travail & GPEC**
+> *ConformitÃ© certifiÃ©e : Code du Travail Tunisien â€¢ Version 1.0.0*
 
 ---
 
-## 1. Présentation du Prologiciel
+## 1. PrÃ©sentation du Prologiciel
 
-**SAFE Gestion des Ressources Humaines & Talents** est un progiciel vertical dédié, conçu pour répondre avec une précision absolue aux exigences opérationnelles, comptables et fiscales des entreprises établies en **République Tunisienne**.
+**SAFE Gestion des Ressources Humaines & Talents** est un progiciel vertical dÃ©diÃ©, conÃ§u pour rÃ©pondre avec une prÃ©cision absolue aux exigences opÃ©rationnelles, comptables et fiscales des entreprises Ã©tablies en **RÃ©publique Tunisienne**.
 
-Il fonctionne de manière entièrement autonome pour les équipes opérationnelles tout en restant nativement synchronisé avec le noyau sécurisé **SAFE ERP**, garantissant l'intégrité transactionnelle globale de l'organisation.
-
----
-
-## 2. Cadre Réglementaire & Fiscal Tunisien
-
-- **Code du Travail Tunisien (Loi n° 66-27 modifiée) régissant les contrats et conditions de travail**\n- **Réglementation ANETI pour les contrats d'insertion professionnelle (CIVP / SIVP, CAIP, Contrat Karama)**\n- **Articles 112 et suivants du Code du Travail : Droit au congé payé (1 jour par mois + bonifications d'ancienneté)**\n- **Décrets fixant la liste officielle des jours fériés chômés et payés en République Tunisienne**\n- **Réglementation relative à la Médecine du Travail et à la Prévention des Risques Professionnels**
+Il fonctionne de maniÃ¨re entiÃ¨rement autonome pour les Ã©quipes opÃ©rationnelles tout en restant nativement synchronisÃ© avec le noyau sÃ©curisÃ© **SAFE ERP**, garantissant l'intÃ©gritÃ© transactionnelle globale de l'organisation.
 
 ---
 
-## 3. Fonctionnalités Clés Livrées
+## 2. Cadre RÃ©glementaire & Fiscal Tunisien
 
-- Dossier collaborateur dématérialisé (Identité, CIN, Matricule CNSS, Diplômes, Pièces jointes)\n- Gestion du cycle de vie des contrats de travail : Période d'essai, CDI, CDD et conventions ANETI (CIVP)\n- Module de demande et validation dématérialisée des congés payés avec calcul automatique des droits\n- Calendrier officiel des jours fériés nationaux et religieux tunisiens avec calcul des ponts\n- Suivi de la Médecine du Travail (visites d'embauche, visites périodiques, attestations d'aptitude)\n- Cartographie des compétences, évaluation annuelle des performances et plans de formation (GPEC)\n- Édition automatique d'attestations de travail, certificats d'emploi et soldes de tout compte\n- Registre du personnel légal et archivage sécurisé des sanctions, promotions et avenants
+- **Code du Travail Tunisien (Loi nÂ° 66-27 modifiÃ©e) rÃ©gissant les contrats et conditions de travail**\n- **RÃ©glementation ANETI pour les contrats d'insertion professionnelle (CIVP / SIVP, CAIP, Contrat Karama)**\n- **Articles 112 et suivants du Code du Travail : Droit au congÃ© payÃ© (1 jour par mois + bonifications d'anciennetÃ©)**\n- **DÃ©crets fixant la liste officielle des jours fÃ©riÃ©s chÃ´mÃ©s et payÃ©s en RÃ©publique Tunisienne**\n- **RÃ©glementation relative Ã  la MÃ©decine du Travail et Ã  la PrÃ©vention des Risques Professionnels**
 
 ---
 
-## 4. Démarrage Rapide
+## 3. FonctionnalitÃ©s ClÃ©s LivrÃ©es
 
-Double-cliquez simplement sur le fichier exécutable suivant situé dans ce répertoire :
+- Dossier collaborateur dÃ©matÃ©rialisÃ© (IdentitÃ©, CIN, Matricule CNSS, DiplÃ´mes, PiÃ¨ces jointes)\n- Gestion du cycle de vie des contrats de travail : PÃ©riode d'essai, CDI, CDD et conventions ANETI (CIVP)\n- Module de demande et validation dÃ©matÃ©rialisÃ©e des congÃ©s payÃ©s avec calcul automatique des droits\n- Calendrier officiel des jours fÃ©riÃ©s nationaux et religieux tunisiens avec calcul des ponts\n- Suivi de la MÃ©decine du Travail (visites d'embauche, visites pÃ©riodiques, attestations d'aptitude)\n- Cartographie des compÃ©tences, Ã©valuation annuelle des performances et plans de formation (GPEC)\n- Ã‰dition automatique d'attestations de travail, certificats d'emploi et soldes de tout compte\n- Registre du personnel lÃ©gal et archivage sÃ©curisÃ© des sanctions, promotions et avenants
+
+---
+
+## 4. DÃ©marrage Rapide
+
+Double-cliquez simplement sur le fichier exÃ©cutable suivant situÃ© dans ce rÃ©pertoire :
 
 ```bat
 Lancer_SAFE_Gestion_RH.cmd
 ```
 
-Le progiciel démarre immédiatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dédié.
+Le progiciel dÃ©marre immÃ©diatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dÃ©diÃ©.
 
 ---
 
-*SAFE Suite Tunisie • Système d'Analyse Financière des Entreprises • Normes Tunisiennes & Internationales*
+*SAFE Suite Tunisie â€¢ SystÃ¨me d'Analyse FinanciÃ¨re des Entreprises â€¢ Normes Tunisiennes & Internationales*

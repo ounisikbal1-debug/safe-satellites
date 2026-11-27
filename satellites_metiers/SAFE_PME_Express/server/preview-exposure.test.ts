@@ -1,4 +1,4 @@
-// Guards the two `server` options in vite.config.ts that decide what a stranger
+﻿// Guards the two `server` options in vite.config.ts that decide what a stranger
 // on the public internet can reach. Both are invisible in normal use — nothing
 // about a working preview tells you either one is still set — and both fail in
 // directions that are hard to attribute, so they get a test rather than a

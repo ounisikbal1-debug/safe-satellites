@@ -1,4 +1,4 @@
--- ============================================================================
+﻿-- ============================================================================
 -- SAFE ERP - MODULE 05 : TRANSPORT & LOGISTIQUE DE MARCHANDISES (TUNISIE)
 -- Normes comptables tunisiennes (NC 01), Millimes NUMERIC(15,3), TVA Transport 7%/19%
 -- ============================================================================
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS transport_orders (
     vat_rate NUMERIC(5,2) NOT NULL DEFAULT 7.00, -- 7% Transport marchandises en Tunisie (ou 19% prestations annexes)
     vat_amount NUMERIC(15,3) NOT NULL DEFAULT 0.000,
     stamp_duty NUMERIC(15,3) NOT NULL DEFAULT 1.000,
-    withholding_tax_rate NUMERIC(5,2) NOT NULL DEFAULT 1.00, -- RS 1% ou 3% selon régime
+    withholding_tax_rate NUMERIC(5,2) NOT NULL DEFAULT 1.00, -- RS 1% ou 3% selon rÃ©gime
     withholding_tax_amount NUMERIC(15,3) NOT NULL DEFAULT 0.000,
     total_ttc NUMERIC(15,3) NOT NULL DEFAULT 0.000,
     net_payable NUMERIC(15,3) NOT NULL DEFAULT 0.000,

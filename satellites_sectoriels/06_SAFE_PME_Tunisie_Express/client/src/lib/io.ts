@@ -1,4 +1,4 @@
-// ── Import / Export : CSV, Excel (.xlsx) et PDF ──────────────────────────────
+﻿// ── Import / Export : CSV, Excel (.xlsx) et PDF ──────────────────────────────
 // Tout se fait côté navigateur : aucun serveur, aucun envoi de fichier.
 //  · CSV   — natif, séparateur « ; » (convention française) + BOM UTF-8
 //  · Excel — classeur .xlsx réel (SpreadsheetML), pas un CSV renommé

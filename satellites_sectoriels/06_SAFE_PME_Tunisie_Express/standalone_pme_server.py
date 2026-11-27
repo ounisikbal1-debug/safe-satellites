@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 SAFE PME Express - Serveur Autonome Standalone
@@ -518,15 +518,27 @@ def get_dashboard():
     annee = datetime.now().year
     mois = datetime.now().month
 
-    ca = db.execute(
+    ca_ht = db.execute(
+        "SELECT COALESCE(SUM(montant_ht),0) as v FROM factures WHERE statut IN ('validée','payée') AND strftime('%Y',date_facture)=?",
+        [str(annee)]
+    ).fetchone()["v"]
+
+    ca_ttc = db.execute(
         "SELECT COALESCE(SUM(montant_ttc),0) as v FROM factures WHERE statut IN ('validée','payée') AND strftime('%Y',date_facture)=?",
         [str(annee)]
     ).fetchone()["v"]
 
-    achats = db.execute(
-        "SELECT COALESCE(SUM(montant_ttc),0) as v FROM achats WHERE statut IN ('validé','payé') AND strftime('%Y',date_achat)=?",
+    achats_ht = db.execute(
+        "SELECT COALESCE(SUM(montant_ht),0) as v FROM achats WHERE statut IN ('validé','payé') AND strftime('%Y',date_achat)=?",
         [str(annee)]
     ).fetchone()["v"]
+
+    salaires_row = db.execute(
+        "SELECT COALESCE(SUM(brut_imposable),0) as b, COALESCE(SUM(cnss_patronal+tfp+foprolos),0) as c FROM bulletins_paie WHERE annee=?",
+        [annee]
+    ).fetchone()
+    masse_sal = (salaires_row["b"] or 0) + (salaires_row["c"] or 0)
+    charges_totales = achats_ht + masse_sal
 
     tresorerie = db.execute(
         "SELECT COALESCE(SUM(solde_actuel),0) as v FROM comptes_tresorerie"
@@ -559,9 +571,11 @@ def get_dashboard():
 
     db.close()
     return {
-        "ca_annuel": round(ca, 3),
-        "charges_annuelles": round(achats, 3),
-        "resultat": round(ca - achats, 3),
+        "ca_annuel": round(ca_ht, 3),
+        "ca_ttc": round(ca_ttc, 3),
+        "achats_annuels": round(achats_ht, 3),
+        "charges_annuelles": round(charges_totales, 3),
+        "resultat": round(ca_ht - charges_totales, 3),
         "tresorerie": round(tresorerie, 3),
         "nb_clients": nb_clients,
         "nb_fournisseurs": nb_fournisseurs,
@@ -778,38 +792,98 @@ def get_efatoura_xml(id_: str):
     f = db.execute("SELECT * FROM factures WHERE id=?", [id_]).fetchone()
     lignes = db.execute("SELECT * FROM lignes_facture WHERE facture_id=?", [id_]).fetchall()
     settings = db.execute("SELECT * FROM settings WHERE id=1").fetchone()
+    client = db.execute("SELECT * FROM tiers WHERE id=?", [f["client_id"]]).fetchone() if f else None
     db.close()
     if not f:
         raise HTTPException(404, "Facture introuvable")
+    client_mf = client["matricule_fiscal"] if client and "matricule_fiscal" in client.keys() and client["matricule_fiscal"] else "0000000/X/A/000"
+    timbre = float(f["timbre"] or 1.0)
     xml_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">',
-        f'  <ID>{f["numero"]}</ID>',
-        f'  <IssueDate>{f["date_facture"]}</IssueDate>',
-        f'  <AccountingSupplierParty>',
-        f'    <Party><PartyName><Name>{settings["societe_nom"]}</Name></PartyName>',
-        f'    <PartyTaxScheme><CompanyID>{settings["societe_matricule"]}</CompanyID></PartyTaxScheme></Party>',
-        f'  </AccountingSupplierParty>',
-        f'  <AccountingCustomerParty>',
-        f'    <Party><PartyName><Name>{f["client_nom"]}</Name></PartyName></Party>',
-        f'  </AccountingCustomerParty>',
-        f'  <LegalMonetaryTotal>',
-        f'    <LineExtensionAmount currencyID="TND">{f["montant_ht"]}</LineExtensionAmount>',
-        f'    <TaxInclusiveAmount currencyID="TND">{f["montant_ttc"]}</TaxInclusiveAmount>',
-        f'    <PayableAmount currencyID="TND">{f["montant_ttc"]}</PayableAmount>',
-        f'  </LegalMonetaryTotal>',
+        '<TEIF controlingAgency="TTN" version="1.8.8">',
+        '  <InvoiceHeader>',
+        f'    <MessageSenderIdentifier type="I-01">{settings["societe_matricule"]}</MessageSenderIdentifier>',
+        f'    <MessageReceiverIdentifier type="I-01">{client_mf}</MessageReceiverIdentifier>',
+        '  </InvoiceHeader>',
+        '  <InvoiceBody>',
+        '    <Bgm>',
+        f'      <DocumentIdentifier>{f["numero"]}</DocumentIdentifier>',
+        '      <DocumentType code="I-11">Facture</DocumentType>',
+        '    </Bgm>',
+        '    <Dtm>',
+        f'      <DateText format="ddMMyy" functionCode="I-31">{f["date_facture"]}</DateText>',
+        '    </Dtm>',
+        '    <PartnerSection>',
+        '      <PartnerDetails functionCode="I-62">',
+        '        <Nad>',
+        f'          <PartnerIdentifier type="I-01">{settings["societe_matricule"]}</PartnerIdentifier>',
+        f'          <PartnerName nameType="Qualification">{settings["societe_nom"]}</PartnerName>',
+        '        </Nad>',
+        '      </PartnerDetails>',
+        '      <PartnerDetails functionCode="I-64">',
+        '        <Nad>',
+        f'          <PartnerIdentifier type="I-01">{client_mf}</PartnerIdentifier>',
+        f'          <PartnerName nameType="Qualification">{f["client_nom"]}</PartnerName>',
+        '        </Nad>',
+        '      </PartnerDetails>',
+        '    </PartnerSection>',
+        '    <LinSection>',
     ]
     for idx, l in enumerate(lignes, 1):
         xml_lines += [
-            f'  <InvoiceLine>',
-            f'    <ID>{idx}</ID>',
-            f'    <InvoicedQuantity>{l["quantite"]}</InvoicedQuantity>',
-            f'    <LineExtensionAmount currencyID="TND">{l["total_ht"]}</LineExtensionAmount>',
-            f'    <Item><Description>{l["designation"]}</Description></Item>',
-            f'    <Price><PriceAmount currencyID="TND">{l["prix_ht"]}</PriceAmount></Price>',
-            f'  </InvoiceLine>',
+            '      <Lin>',
+            f'        <ItemIdentifier>{idx}</ItemIdentifier>',
+            '        <LinImd>',
+            f'          <ItemCode>{l["article_id"] if "article_id" in l.keys() else idx}</ItemCode>',
+            f'          <ItemDescription>{l["designation"]}</ItemDescription>',
+            '        </LinImd>',
+            '        <LinQty>',
+            f'          <Quantity measurementUnit="PCE">{l["quantite"]}</Quantity>',
+            '        </LinQty>',
+            '        <LinTax>',
+            f'          <TaxRate>{l["taux_tva"] if "taux_tva" in l.keys() else 19.0}</TaxRate>',
+            '        </LinTax>',
+            '        <LinMoa>',
+            '          <MoaDetails>',
+            '            <Moa amountTypeCode="I-183" currencyCodeList="ISO_4217">',
+            f'              <Amount currencyIdentifier="TND">{l["prix_ht"]:.3f}</Amount>',
+            '            </Moa>',
+            '          </MoaDetails>',
+            '          <MoaDetails>',
+            '            <Moa amountTypeCode="I-171" currencyCodeList="ISO_4217">',
+            f'              <Amount currencyIdentifier="TND">{l["total_ht"]:.3f}</Amount>',
+            '            </Moa>',
+            '          </MoaDetails>',
+            '        </LinMoa>',
+            '      </Lin>',
         ]
-    xml_lines.append('</Invoice>')
+    xml_lines += [
+        '    </LinSection>',
+        '    <InvoiceMoa>',
+        '      <AmountDetails>',
+        '        <Moa amountTypeCode="I-176" currencyCodeList="ISO_4217">',
+        f'          <Amount currencyIdentifier="TND">{float(f["montant_ht"]):.3f}</Amount>',
+        '        </Moa>',
+        '      </AmountDetails>',
+        '      <AmountDetails>',
+        '        <Moa amountTypeCode="I-178" currencyCodeList="ISO_4217">',
+        f'          <Amount currencyIdentifier="TND">{float(f["montant_tva"]):.3f}</Amount>',
+        '        </Moa>',
+        '      </AmountDetails>',
+        '      <AmountDetails>',
+        '        <Moa amountTypeCode="I-180" currencyCodeList="ISO_4217">',
+        f'          <Amount currencyIdentifier="TND">{timbre:.3f}</Amount>',
+        '        </Moa>',
+        '      </AmountDetails>',
+        '      <AmountDetails>',
+        '        <Moa amountTypeCode="I-181" currencyCodeList="ISO_4217">',
+        f'          <Amount currencyIdentifier="TND">{float(f["montant_ttc"]):.3f}</Amount>',
+        '        </Moa>',
+        '      </AmountDetails>',
+        '    </InvoiceMoa>',
+        '  </InvoiceBody>',
+        '</TEIF>',
+    ]
     return HTMLResponse(content="\n".join(xml_lines), media_type="application/xml")
 
 # ─── API ACHATS ───────────────────────────────────────────────────────────────
@@ -1004,22 +1078,38 @@ def get_fiscalite(annee: Optional[int] = None):
         [str(annee)]
     ).fetchone()["v"]
 
+    ca_ttc = db.execute(
+        "SELECT COALESCE(SUM(montant_ttc),0) as v FROM factures WHERE statut IN ('validée','payée') AND strftime('%Y',date_facture)=?",
+        [str(annee)]
+    ).fetchone()["v"]
+
+    tva_col = db.execute(
+        "SELECT COALESCE(SUM(montant_tva),0) as v FROM factures WHERE statut IN ('validée','payée') AND strftime('%Y',date_facture)=?",
+        [str(annee)]
+    ).fetchone()["v"]
+
+    tva_ded = db.execute(
+        "SELECT COALESCE(SUM(montant_tva),0) as v FROM achats WHERE statut IN ('validé','payé') AND strftime('%Y',date_achat)=?",
+        [str(annee)]
+    ).fetchone()["v"]
+
     charges = db.execute(
         "SELECT COALESCE(SUM(montant_ht),0) as v FROM achats WHERE statut IN ('validé','payé') AND strftime('%Y',date_achat)=?",
         [str(annee)]
     ).fetchone()["v"]
 
     masse_salariale = db.execute(
-        "SELECT COALESCE(SUM(net_a_payer),0) as v FROM bulletins_paie WHERE annee=?",
+        "SELECT COALESCE(SUM(brut_imposable + cnss_patronal + tfp + foprolos),0) as v FROM bulletins_paie WHERE annee=?",
         [annee]
     ).fetchone()["v"]
 
     benefice = max(0, ca_ht - charges - masse_salariale)
     taux_is = settings["is_taux_pme"] if benefice <= 100000 else settings["is_taux_normal"]
     is_du = round(benefice * taux_is / 100, 3)
-    tcl = round(ca_ht * settings["tcl_taux"] / 100, 3)
+    tcl_taux = settings["tcl_taux"] if settings["tcl_taux"] else 0.2
+    tcl = round(ca_ttc * tcl_taux / 100, 3)
     timbres = db.execute(
-        "SELECT COALESCE(SUM(timbre),0) as v FROM factures WHERE statut IN ('validée','payée') AND strftime('%Y',date_facture)=?",
+        "SELECT COALESCE(SUM(CASE WHEN COALESCE(timbre,0) > 0 THEN timbre ELSE 1.0 END),0) as v FROM factures WHERE statut IN ('validée','payée') AND strftime('%Y',date_facture)=?",
         [str(annee)]
     ).fetchone()["v"]
 
@@ -1027,6 +1117,10 @@ def get_fiscalite(annee: Optional[int] = None):
     return {
         "annee": annee,
         "ca_ht": round(ca_ht, 3),
+        "ca_ttc": round(ca_ttc, 3),
+        "tva_collectee": round(tva_col, 3),
+        "tva_deductible": round(tva_ded, 3),
+        "tva_nette": round(tva_col - tva_ded, 3),
         "charges": round(charges, 3),
         "masse_salariale": round(masse_salariale, 3),
         "benefice": round(benefice, 3),
@@ -1034,7 +1128,7 @@ def get_fiscalite(annee: Optional[int] = None):
         "is_du": is_du,
         "tcl": tcl,
         "timbres": round(timbres, 3),
-        "total_fiscal": round(is_du + tcl + timbres, 3),
+        "total_fiscal": round(is_du + tcl + timbres + max(0, tva_col - tva_ded), 3),
     }
 
 # ─── API IMMOBILISATIONS ──────────────────────────────────────────────────────
@@ -1303,19 +1397,41 @@ def report_payroll(annee: Optional[int] = None):
 def report_pnl(annee: Optional[int] = None):
     db = get_db()
     annee = annee or datetime.now().year
-    ca = db.execute("SELECT COALESCE(SUM(montant_ht), 0) as v FROM factures WHERE strftime('%Y', date_facture)=?", [str(annee)]).fetchone()["v"]
-    achats = db.execute("SELECT COALESCE(SUM(montant_ht), 0) as v FROM achats WHERE strftime('%Y', date_achat)=?", [str(annee)]).fetchone()["v"]
+    settings = db.execute("SELECT * FROM settings WHERE id=1").fetchone()
+    ca = db.execute("SELECT COALESCE(SUM(montant_ht), 0) as v, COALESCE(SUM(montant_ttc), 0) as ttc, COALESCE(SUM(timbre), 0) as timbres FROM factures WHERE statut IN ('validée','payée') AND strftime('%Y', date_facture)=?", [str(annee)]).fetchone()
+    achats = db.execute("SELECT COALESCE(SUM(montant_ht), 0) as v FROM achats WHERE statut IN ('validé','payé') AND strftime('%Y', date_achat)=?", [str(annee)]).fetchone()["v"]
     salaires = db.execute("SELECT COALESCE(SUM(brut_imposable), 0) as b, COALESCE(SUM(cnss_patronal+tfp+foprolos), 0) as c FROM bulletins_paie WHERE annee=?", [annee]).fetchone()
-    masse_sal = salaires["b"] + salaires["c"]
-    resultat = ca - achats - masse_sal
+    dotations = db.execute("SELECT COALESCE(SUM(amort_annuel), 0) as v FROM immobilisations").fetchone()["v"]
+    ca_ht = ca["v"] or 0
+    ca_ttc = ca["ttc"] or 0
+    salaires_bruts = salaires["b"] or 0
+    charges_sociales = salaires["c"] or 0
+    masse_sal = salaires_bruts + charges_sociales
+    tcl = round(ca_ttc * ((settings["tcl_taux"] if settings and settings["tcl_taux"] else 0.2) / 100), 3)
+    timbres = ca["timbres"] or 0
+    autres_impots = round(tcl + timbres, 3)
+    marge_brute = ca_ht - achats
+    ebe = marge_brute - masse_sal - autres_impots
+    resultat_exploitation = ebe - dotations
+    taux_is = (settings["is_taux_pme"] if settings else 15.0) if resultat_exploitation <= 100000 else (settings["is_taux_normal"] if settings else 25.0)
+    impot_is = round(max(0, resultat_exploitation) * taux_is / 100, 3)
+    resultat_net = resultat_exploitation - impot_is
     db.close()
     return {
         "annee": annee,
-        "chiffre_affaires_ht": round(ca, 3),
+        "chiffre_affaires_ht": round(ca_ht, 3),
         "achats_consommes_ht": round(achats, 3),
-        "marge_brute": round(ca - achats, 3),
+        "marge_brute": round(marge_brute, 3),
+        "salaires_bruts": round(salaires_bruts, 3),
+        "charges_sociales": round(charges_sociales, 3),
         "charges_personnel": round(masse_sal, 3),
-        "resultat_exploitation": round(resultat, 3)
+        "impots_taxes_tcl_timbre": autres_impots,
+        "ebe": round(ebe, 3),
+        "dotations_amortissements": round(dotations, 3),
+        "resultat_exploitation": round(resultat_exploitation, 3),
+        "taux_is": taux_is,
+        "impot_societes": impot_is,
+        "resultat_net": round(resultat_net, 3),
     }
 
 # ─── API RÉINITIALISATION & RECHARGEMENT DU JEU DE DONNÉES (900 LIGNES) ───────

@@ -1,39 +1,39 @@
-# ⚖️ SAFE Comptabilité Générale & Fiscalité Tunisienne
-> **Système Comptable des Entreprises (SCE), Grand Livre, Balance 8 colonnes, Déclarations G50, Rapprochement bancaire**
-> *Conformité certifiée : SCE & Liasse Fiscale G50 • Version 1.0.0*
+﻿# âš–ï¸ SAFE ComptabilitÃ© GÃ©nÃ©rale & FiscalitÃ© Tunisienne
+> **SystÃ¨me Comptable des Entreprises (SCE), Grand Livre, Balance 8 colonnes, DÃ©clarations G50, Rapprochement bancaire**
+> *ConformitÃ© certifiÃ©e : SCE & Liasse Fiscale G50 â€¢ Version 1.0.0*
 
 ---
 
-## 1. Présentation du Prologiciel
+## 1. PrÃ©sentation du Prologiciel
 
-**SAFE Comptabilité Générale & Fiscalité Tunisienne** est un progiciel vertical dédié, conçu pour répondre avec une précision absolue aux exigences opérationnelles, comptables et fiscales des entreprises établies en **République Tunisienne**.
+**SAFE ComptabilitÃ© GÃ©nÃ©rale & FiscalitÃ© Tunisienne** est un progiciel vertical dÃ©diÃ©, conÃ§u pour rÃ©pondre avec une prÃ©cision absolue aux exigences opÃ©rationnelles, comptables et fiscales des entreprises Ã©tablies en **RÃ©publique Tunisienne**.
 
-Il fonctionne de manière entièrement autonome pour les équipes opérationnelles tout en restant nativement synchronisé avec le noyau sécurisé **SAFE ERP**, garantissant l'intégrité transactionnelle globale de l'organisation.
-
----
-
-## 2. Cadre Réglementaire & Fiscal Tunisien
-
-- **Loi n° 96-112 relative au Système Comptable des Entreprises (SCE) et normes comptables tunisiennes (NCT)**\n- **Plan de comptes officiel tunisien (Classes 1 à 7) avec tenue des écritures en partie double**\n- **Code des Droits et Procédures Fiscaux (CDPF) : Déclaration mensuelle d'impôt G50 avant le 28 de chaque mois**\n- **Code de l'IRPP et de l'IS : Taux normal d'Impôt sur les Sociétés de 20 % (Loi de Finances)**\n- **Normes internationales d'audit (ISA) : Piste d'audit immuable et irréversibilité des écritures closes**
+Il fonctionne de maniÃ¨re entiÃ¨rement autonome pour les Ã©quipes opÃ©rationnelles tout en restant nativement synchronisÃ© avec le noyau sÃ©curisÃ© **SAFE ERP**, garantissant l'intÃ©gritÃ© transactionnelle globale de l'organisation.
 
 ---
 
-## 3. Fonctionnalités Clés Livrées
+## 2. Cadre RÃ©glementaire & Fiscal Tunisien
 
-- Saisie comptable horizontale ergonomique et journaux auxiliaires (Achats, Ventes, Banque, Caisse, OD)\n- Balance Générale des Comptes à 8 colonnes (Balances d'ouverture, Mouvements débit/crédit, Soldes de clôture)\n- Grand Livre Général (GL) dynamique avec filtrage par compte, période, lettrage et devise\n- Rapprochement bancaire multi-banques tunisiennes (STB, BIAT, BH Bank, BNA, Attijariwafa, UIB)\n- Génération automatique des liasses fiscales mensuelles Déclaration G50 (TVA, Timbre, RS)\n- Calcul et déclaration de l'Impôt sur les Sociétés (IS) au taux légal de 20 % avec acomptes provisionnels\n- Immutabilité et protection des périodes clôturées (interdiction absolue d'écritures antidatées)\n- Piste d'audit cryptographique continue scellée par hachage SHA-256 (JournalEntryAuditChainHead)
+- **Loi nÂ° 96-112 relative au SystÃ¨me Comptable des Entreprises (SCE) et normes comptables tunisiennes (NCT)**\n- **Plan de comptes officiel tunisien (Classes 1 Ã  7) avec tenue des Ã©critures en partie double**\n- **Code des Droits et ProcÃ©dures Fiscaux (CDPF) : DÃ©claration mensuelle d'impÃ´t G50 avant le 28 de chaque mois**\n- **Code de l'IRPP et de l'IS : Taux normal d'ImpÃ´t sur les SociÃ©tÃ©s de 20 % (Loi de Finances)**\n- **Normes internationales d'audit (ISA) : Piste d'audit immuable et irrÃ©versibilitÃ© des Ã©critures closes**
 
 ---
 
-## 4. Démarrage Rapide
+## 3. FonctionnalitÃ©s ClÃ©s LivrÃ©es
 
-Double-cliquez simplement sur le fichier exécutable suivant situé dans ce répertoire :
+- Saisie comptable horizontale ergonomique et journaux auxiliaires (Achats, Ventes, Banque, Caisse, OD)\n- Balance GÃ©nÃ©rale des Comptes Ã  8 colonnes (Balances d'ouverture, Mouvements dÃ©bit/crÃ©dit, Soldes de clÃ´ture)\n- Grand Livre GÃ©nÃ©ral (GL) dynamique avec filtrage par compte, pÃ©riode, lettrage et devise\n- Rapprochement bancaire multi-banques tunisiennes (STB, BIAT, BH Bank, BNA, Attijariwafa, UIB)\n- GÃ©nÃ©ration automatique des liasses fiscales mensuelles DÃ©claration G50 (TVA, Timbre, RS)\n- Calcul et dÃ©claration de l'ImpÃ´t sur les SociÃ©tÃ©s (IS) au taux lÃ©gal de 20 % avec acomptes provisionnels\n- ImmutabilitÃ© et protection des pÃ©riodes clÃ´turÃ©es (interdiction absolue d'Ã©critures antidatÃ©es)\n- Piste d'audit cryptographique continue scellÃ©e par hachage SHA-256 (JournalEntryAuditChainHead)
+
+---
+
+## 4. DÃ©marrage Rapide
+
+Double-cliquez simplement sur le fichier exÃ©cutable suivant situÃ© dans ce rÃ©pertoire :
 
 ```bat
 Lancer_SAFE_Comptabilite_Fiscalite.cmd
 ```
 
-Le progiciel démarre immédiatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dédié.
+Le progiciel dÃ©marre immÃ©diatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dÃ©diÃ©.
 
 ---
 
-*SAFE Suite Tunisie • Système d'Analyse Financière des Entreprises • Normes Tunisiennes & Internationales*
+*SAFE Suite Tunisie â€¢ SystÃ¨me d'Analyse FinanciÃ¨re des Entreprises â€¢ Normes Tunisiennes & Internationales*

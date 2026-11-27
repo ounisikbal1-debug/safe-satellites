@@ -1,59 +1,61 @@
 {
-    "folder": "SAFE_Facturation",
-    "app_id": "facturation",
-    "name": "SAFE Facturation (Achat & Vente)",
-    "tagline": "Facturation achats/ventes, conformité TTN El Fatoora, retenues à la source RS, créances & dettes",
-    "badge": "TTN & TVA Tunisienne",
-    "icon": "/icons/facturation.png",
-    "version": "1.0.0",
-    "accent": "#E11D48",
-    "modules": [
-        "sales",
-        "purchases",
-        "tunisianEInvoices",
-        "agedReceivables",
-        "agedPayables",
-        "taxation",
-        "reportsExport"
-    ],
-    "default_module": "sales",
-    "legislation": [
-        "Décret n° 2016-1098 et Décret-loi n° 2021-21 (Facturation Électronique Nationale El Fatoora / TTN)",
-        "Code de la Taxe sur la Valeur Ajoutée (TVA) : Taux de 19 %, 13 %, 7 % et 0 %",
-        "Droit de Timbre Fiscal légal de 1,000 DT par facture client (Article 432)",
-        "Article 52 du Code de l'IRPP et de l'IS : Retenue à la Source (RS) de 1.5 % sur marchés et achats >= 1000 DT TTC, 0.5 % et 15 % sur honoraires",
-        "Système Comptable des Entreprises (SCE) - Norme NCT 03 (Revenus des activités ordinaires)"
-    ],
-    "features": [
-        "Émission de devis et bons de commande clients convertibles en factures en un clic",
-        "Facturation des ventes avec ventilation automatique des taux de TVA tunisiens (19%, 13%, 7%, 0%)",
-        "Facturation des achats et lettrage 3-way matching avec bons de commande et réceptions",
-        "Module Facturation Électronique Tunisienne (El Fatoora) homologué Tunisie TradeNet (TTN)",
-        "Génération de flux XML conformes au standard international OASIS UBL 2.1 Invoice",
-        "Signature électronique qualifiée TunTrust PKI (certificat X.509 délivré par l'ANCE)",
-        "Cachet Électronique Visible (CEV / 2D-Doc) avec QR Code haute densité pour contrôle DGI",
-        "Génération et émission automatique des certificats de Retenue à la Source (RS) pour les fournisseurs",
-        "Suivi rigoureux du délai moyen de paiement (DSO) et balance âgée des créances clients",
-        "Gestion des échéanciers fournisseurs et évitement des pénalités de retard"
-    ],
-    "security": {
-        "key_format": "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
-        "hardware_lock": "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
-        "crypto_algorithm": "HMAC-SHA256"
-    },
-    "fiscal_compliance_tunisia": {
-        "currency": "TND (Dinar Tunisien à 3 décimales)",
-        "timbre_fiscal": "1.000 DT",
-        "accounting_standard": "Système Comptable des Entreprises (SCE NC 01)",
-        "vat_rates": [
-            19,
-            13,
-            7
-        ],
-        "withholding_tax_rates": [
-            1.5,
-            10
-        ]
-    },
-    "icon_image": "/icons/facturation.png"
+    "folder":  "SAFE_Facturation",
+    "app_id":  "facturation",
+    "name":  "SAFE Facturation (Achat \u0026 Vente)",
+    "tagline":  "Facturation achats/ventes, conformité TTN El Fatoora, retenues à la source RS, créances \u0026 dettes",
+    "badge":  "TTN \u0026 TVA Tunisienne",
+    "icon":  "🧾",
+    "version":  "1.0.0",
+    "accent":  "#E11D48",
+    "modules":  [
+                    "sales",
+                    "purchases",
+                    "tunisianEInvoices",
+                    "agedReceivables",
+                    "agedPayables",
+                    "taxation",
+                    "bankReconciliation",
+                    "generalSettings",
+                    "reportsExport"
+                ],
+    "default_module":  "sales",
+    "legislation":  [
+                        "Décret n° 2016-1098 et Décret-loi n° 2021-21 (Facturation Électronique Nationale El Fatoora / TTN)",
+                        "Code de la Taxe sur la Valeur Ajoutée (TVA) : Taux de 19 %, 13 %, 7 % et 0 %",
+                        "Droit de Timbre Fiscal légal de 1,000 DT par facture client (Article 432)",
+                        "Article 52 du Code de l\u0027IRPP et de l\u0027IS : Retenue à la Source (RS) de 1.5 % sur marchés et achats \u003e= 1000 DT TTC, 0.5 % et 15 % sur honoraires",
+                        "Système Comptable des Entreprises (SCE) - Norme NCT 03 (Revenus des activités ordinaires)"
+                    ],
+    "features":  [
+                     "Émission de devis et bons de commande clients convertibles en factures en un clic",
+                     "Facturation des ventes avec ventilation automatique des taux de TVA tunisiens (19%, 13%, 7%, 0%)",
+                     "Facturation des achats et lettrage 3-way matching avec bons de commande et réceptions",
+                     "Module Facturation Électronique Tunisienne (El Fatoora) homologué Tunisie TradeNet (TTN)",
+                     "Génération de flux XML conformes au standard international OASIS UBL 2.1 Invoice",
+                     "Signature électronique qualifiée TunTrust PKI (certificat X.509 délivré par l\u0027ANCE)",
+                     "Cachet Électronique Visible (CEV / 2D-Doc) avec QR Code haute densité pour contrôle DGI",
+                     "Génération et émission automatique des certificats de Retenue à la Source (RS) pour les fournisseurs",
+                     "Suivi rigoureux du délai moyen de paiement (DSO) et balance âgée des créances clients",
+                     "Gestion des échéanciers fournisseurs et évitement des pénalités de retard"
+                 ],
+    "security":  {
+                     "key_format":  "SAFE-YYYYMMDD-XXXX-XXXX-XXXX-XXXX",
+                     "hardware_lock":  "HW-XXXXXXXXXXXX (MAC + Carte Mère)",
+                     "crypto_algorithm":  "HMAC-SHA256"
+                 },
+    "fiscal_compliance_tunisia":  {
+                                      "currency":  "TND (Dinar Tunisien à 3 décimales)",
+                                      "timbre_fiscal":  "1.000 DT",
+                                      "accounting_standard":  "Système Comptable des Entreprises (SCE NC 01)",
+                                      "vat_rates":  [
+                                                        19,
+                                                        13,
+                                                        7
+                                                    ],
+                                      "withholding_tax_rates":  [
+                                                                    1.5,
+                                                                    10
+                                                                ]
+                                  }
 }
+

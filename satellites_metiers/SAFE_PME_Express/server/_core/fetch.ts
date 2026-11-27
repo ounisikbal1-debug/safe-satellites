@@ -1,4 +1,4 @@
-// Controlled outbound HTTP for business `services/`.
+﻿// Controlled outbound HTTP for business `services/`.
 //
 // SECURITY POSTURE (DESIGN §5.1.2 / §8.1): this is a DEV-CONVENIENCE + coding
 // convention (uniform timeout/observability), NOT a security boundary. It runs

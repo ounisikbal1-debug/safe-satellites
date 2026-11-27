@@ -1,4 +1,4 @@
-// ── AGENT-OWNED: transmission vers la Télédéclaration (TTN) et e-Fatoura ─────
+﻿// ── AGENT-OWNED: transmission vers la Télédéclaration (TTN) et e-Fatoura ─────
 // Appels HTTP réels vers les plateformes, avec les identifiants fournis par
 // l'utilisateur dans Web Admin → Secrets. Aucun envoi simulé : si les clés ne
 // sont pas configurées, la fonction le dit et n'écrit rien.

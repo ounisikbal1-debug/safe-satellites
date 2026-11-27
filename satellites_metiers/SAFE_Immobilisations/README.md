@@ -1,39 +1,39 @@
-# 🏢 SAFE Immobilisations & Amortissements
-> **Gestion des actifs corporels/incorporels, tableaux d'amortissement linéaire/dégressif, écritures d'inventaire**
-> *Conformité certifiée : Barèmes Fiscaux DGI • Version 1.0.0*
+﻿# ðŸ¢ SAFE Immobilisations & Amortissements
+> **Gestion des actifs corporels/incorporels, tableaux d'amortissement linÃ©aire/dÃ©gressif, Ã©critures d'inventaire**
+> *ConformitÃ© certifiÃ©e : BarÃ¨mes Fiscaux DGI â€¢ Version 1.0.0*
 
 ---
 
-## 1. Présentation du Prologiciel
+## 1. PrÃ©sentation du Prologiciel
 
-**SAFE Immobilisations & Amortissements** est un progiciel vertical dédié, conçu pour répondre avec une précision absolue aux exigences opérationnelles, comptables et fiscales des entreprises établies en **République Tunisienne**.
+**SAFE Immobilisations & Amortissements** est un progiciel vertical dÃ©diÃ©, conÃ§u pour rÃ©pondre avec une prÃ©cision absolue aux exigences opÃ©rationnelles, comptables et fiscales des entreprises Ã©tablies en **RÃ©publique Tunisienne**.
 
-Il fonctionne de manière entièrement autonome pour les équipes opérationnelles tout en restant nativement synchronisé avec le noyau sécurisé **SAFE ERP**, garantissant l'intégrité transactionnelle globale de l'organisation.
-
----
-
-## 2. Cadre Réglementaire & Fiscal Tunisien
-
-- **Norme Comptable Tunisienne NCT 05 relative aux immobilisations corporelles**\n- **Barèmes des taux d'amortissement fiscalement admis par la Direction Générale des Impôts (DGI tunisienne)**\n- **Règles d'amortissement linéaire (constat constant prorata temporis) et dégressif prévu par le Code de l'IRPP/IS**
+Il fonctionne de maniÃ¨re entiÃ¨rement autonome pour les Ã©quipes opÃ©rationnelles tout en restant nativement synchronisÃ© avec le noyau sÃ©curisÃ© **SAFE ERP**, garantissant l'intÃ©gritÃ© transactionnelle globale de l'organisation.
 
 ---
 
-## 3. Fonctionnalités Clés Livrées
+## 2. Cadre RÃ©glementaire & Fiscal Tunisien
 
-- Fichier exhaustif des immobilisations avec code barre d'inventaire, localisation et centre de coût\n- Plans d'amortissement prévisionnels automatiques calculés au prorata temporis exact\n- Application des taux d'amortissement légaux : Bâtiments (5%), Matériel industriel (10%-20%), Informatique (33.3%)\n- Génération en un clic des écritures comptables annuelles de dotation aux amortissements (681 / 28x)\n- Gestion des cessions, mises au rebut et calcul des plus-values ou moins-values fiscales de cession\n- Édition du tableau d'inventaire physique des immobilisations conforme aux exigences des commissaires aux comptes
+- **Norme Comptable Tunisienne NCT 05 relative aux immobilisations corporelles**\n- **BarÃ¨mes des taux d'amortissement fiscalement admis par la Direction GÃ©nÃ©rale des ImpÃ´ts (DGI tunisienne)**\n- **RÃ¨gles d'amortissement linÃ©aire (constat constant prorata temporis) et dÃ©gressif prÃ©vu par le Code de l'IRPP/IS**
 
 ---
 
-## 4. Démarrage Rapide
+## 3. FonctionnalitÃ©s ClÃ©s LivrÃ©es
 
-Double-cliquez simplement sur le fichier exécutable suivant situé dans ce répertoire :
+- Fichier exhaustif des immobilisations avec code barre d'inventaire, localisation et centre de coÃ»t\n- Plans d'amortissement prÃ©visionnels automatiques calculÃ©s au prorata temporis exact\n- Application des taux d'amortissement lÃ©gaux : BÃ¢timents (5%), MatÃ©riel industriel (10%-20%), Informatique (33.3%)\n- GÃ©nÃ©ration en un clic des Ã©critures comptables annuelles de dotation aux amortissements (681 / 28x)\n- Gestion des cessions, mises au rebut et calcul des plus-values ou moins-values fiscales de cession\n- Ã‰dition du tableau d'inventaire physique des immobilisations conforme aux exigences des commissaires aux comptes
+
+---
+
+## 4. DÃ©marrage Rapide
+
+Double-cliquez simplement sur le fichier exÃ©cutable suivant situÃ© dans ce rÃ©pertoire :
 
 ```bat
 Lancer_SAFE_Immobilisations.cmd
 ```
 
-Le progiciel démarre immédiatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dédié.
+Le progiciel dÃ©marre immÃ©diatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dÃ©diÃ©.
 
 ---
 
-*SAFE Suite Tunisie • Système d'Analyse Financière des Entreprises • Normes Tunisiennes & Internationales*
+*SAFE Suite Tunisie â€¢ SystÃ¨me d'Analyse FinanciÃ¨re des Entreprises â€¢ Normes Tunisiennes & Internationales*

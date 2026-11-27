@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+﻿import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AppDB } from "./db";
 
 // db.ts 在模块加载时就按 env.dbDriver 建 driver。两个 driver 都 mock 掉，于是这个

@@ -1,4 +1,4 @@
-CREATE TABLE "transmissions" (
+﻿CREATE TABLE "transmissions" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"platform" text NOT NULL,
 	"subject_type" text NOT NULL,

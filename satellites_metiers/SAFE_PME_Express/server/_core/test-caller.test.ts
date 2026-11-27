@@ -1,4 +1,4 @@
-// makeCaller exists so a generated app never re-derives how to call its own
+﻿// makeCaller exists so a generated app never re-derives how to call its own
 // router. A real run invented its own `makeCaller`, then spent 24 turns
 // reverse-engineering tRPC's createCaller out of node_modules to fix it. Living
 // in _core means the agent imports it and cannot lose it: _core is frozen.

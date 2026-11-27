@@ -1,4 +1,4 @@
-// ── SERVICE : comptabilité en partie double ──────────────────────────────────
+﻿// ── SERVICE : comptabilité en partie double ──────────────────────────────────
 // Couche métier distincte (MVC : ce fichier = Service, routers = Controller,
 // pages React = View). Toute écriture générée ici est équilibrée par
 // construction : débit total = crédit total, sinon elle est refusée.

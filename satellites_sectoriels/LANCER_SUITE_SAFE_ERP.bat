@@ -3,19 +3,19 @@ chcp 65001 >nul
 title SAFE ERP - Lanceur Multi-Logiciels Tunisie (Architecture Standalone)
 cls
 echo ===============================================================================
-echo   🛡️ SAFE ERP - SUITE DE GESTION COMMERCIALE, SERVICES, INDUSTRIE & TRANSPORT
-echo   Architecture Multi-Serveurs Standalone Dédiés par Logiciel
-echo   Verrou Matériel Hardware ID & HMAC-SHA256 (SCE NC 01)
+echo   ðŸ›¡ï¸ SAFE ERP - SUITE DE GESTION COMMERCIALE, SERVICES, INDUSTRIE & TRANSPORT
+echo   Architecture Multi-Serveurs Standalone DÃ©diÃ©s par Logiciel
+echo   Verrou MatÃ©riel Hardware ID & HMAC-SHA256 (SCE NC 01)
 echo ===============================================================================
 echo.
-echo   Choisissez le logiciel SAFE à démarrer :
+echo   Choisissez le logiciel SAFE Ã  dÃ©marrer :
 echo.
-echo   [1] SAFE Négoce & Distribution Commerciale (Port 8001)
+echo   [1] SAFE NÃ©goce & Distribution Commerciale (Port 8001)
 echo   [2] SAFE Services, Conseils & Cabinets (Port 8002)
 echo   [3] SAFE Industrie & Production (Port 8003)
-echo   [4] SAFE Restauration, Café & Pâtisserie POS (Port 8004)
+echo   [4] SAFE Restauration, CafÃ© & PÃ¢tisserie POS (Port 8004)
 echo   [5] SAFE Transport Routier, Fret & Colis Express (Port 8005)
-echo   [0] Console CRM Éditeur & Générateur de Licences Matérielles (Port 8080)
+echo   [0] Console CRM Ã‰diteur & GÃ©nÃ©rateur de Licences MatÃ©rielles (Port 8080)
 echo   [Q] Quitter
 echo.
 set /p choix="Entrez votre choix [1-5, 0, Q] : "

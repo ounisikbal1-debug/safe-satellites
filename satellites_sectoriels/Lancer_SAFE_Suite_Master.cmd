@@ -3,7 +3,7 @@ chcp 65001 >nul
 title SAFE ERP - Suite Master (Port 8000)
 cls
 echo ===============================================================================
-echo        SAFE ERP - SUITE MASTER (SERVEUR UNIFIÉ TOUT-EN-UN) - PORT 8000
+echo        SAFE ERP - SUITE MASTER (SERVEUR UNIFIÃ‰ TOUT-EN-UN) - PORT 8000
 echo ===============================================================================
 echo.
 
@@ -52,3 +52,4 @@ if errorlevel 1 (
     echo ===============================================================================
     pause
 )
+

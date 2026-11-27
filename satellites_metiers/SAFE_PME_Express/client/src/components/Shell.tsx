@@ -1,4 +1,4 @@
-import { Link, useLocation } from "wouter";
+﻿import { Link, useLocation } from "wouter";
 import { trpc } from "@/_core/trpc";
 import { cn } from "@/lib/utils";
 import { fmtTND } from "../../../shared/fiscal";
@@ -45,13 +45,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
   const sidebar = (
     <div className="flex h-full flex-col bg-navy text-[hsl(40_25%_88%)]">
-      <div className="flex items-center gap-2.5 border-b border-white/10 px-4 py-4">
-        <div className="flex size-8 items-center justify-center rounded-md bg-gold text-[15px] font-bold text-navy">
-          ت
-        </div>
+      <div className="flex items-center gap-2.5 border-b border-white/10 px-4 py-3.5">
+        <img src="/safe-logo.png" alt="SAFE ERP" className="h-8 w-auto object-contain rounded" />
         <div className="min-w-0">
-          <p className="truncate text-[13px] font-semibold text-white">ERP Tunisie</p>
-          <p className="truncate text-[10.5px] tracking-wide text-white/50">Gestion & Fiscalité</p>
+          <p className="truncate text-[13px] font-bold text-white">SAFE PME Express</p>
+          <p className="truncate text-[10px] tracking-wide text-gold">Suite SAFE ERP Tunisie</p>
         </div>
       </div>
 

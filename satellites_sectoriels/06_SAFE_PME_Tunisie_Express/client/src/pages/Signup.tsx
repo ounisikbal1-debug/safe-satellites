@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+﻿import { useState, type FormEvent } from "react";
 import { Link, Redirect } from "wouter";
 import { useAuth } from "@/_core/useAuth";
 import { Button } from "@/components/ui/button";

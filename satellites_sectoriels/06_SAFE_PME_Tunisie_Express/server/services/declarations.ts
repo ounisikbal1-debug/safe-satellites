@@ -1,4 +1,4 @@
-// ── SERVICE : déclarations sociales et fiscales ──────────────────────────────
+﻿// ── SERVICE : déclarations sociales et fiscales ──────────────────────────────
 // Calcule les déclarations à partir des données réelles de l'ERP :
 //   · CNSS mensuelle (salarié 9,68 % + employeur 17,07 % + CSS 0,5 %)
 //   · TVA mensuelle / trimestrielle (collectée − déductible)

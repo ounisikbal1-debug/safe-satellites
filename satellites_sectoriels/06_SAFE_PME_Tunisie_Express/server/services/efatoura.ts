@@ -1,4 +1,4 @@
-// ── SERVICE : fichier XML e-Fatoura (schéma TEIF) ────────────────────────────
+﻿// ── SERVICE : fichier XML e-Fatoura (schéma TEIF) ────────────────────────────
 // Produit un document XML conforme à la structure TEIF (Tunisian Electronic
 // Invoice Format) utilisée par la plateforme e-Fatoura : en-tête, vendeur,
 // acheteur, lignes, totaux, TVA par taux et timbre fiscal.

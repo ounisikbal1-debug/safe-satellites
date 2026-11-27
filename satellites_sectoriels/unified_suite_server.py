@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 ================================================================================
 SAFE ERP - SUITE DE GESTION INTÉGRÉE TUNISIENNE (SERVEUR MASTER UNIQUE)
@@ -1371,11 +1371,9 @@ def index_page():
                 </div>
             </div>
 
-            <!-- Badges & Profil Utilisateur & Bouton Déconnexion (Sortie) -->
+            <!-- Badges & Profil Utilisateur & Bouton Déconnexion -->
             <div class="d-flex align-items-center gap-2">
                 <span class="badge bg-danger-subtle text-danger border border-danger">🇹🇳 TND (3 déc.) | TVA 19/13/7% | Timbre 1.000 DT | SCE NC 01</span>
-                <span class="badge bg-secondary font-monospace" title="Hardware ID machine">{hw_id}</span>
-                {status_badge}
                 
                 <!-- Identité utilisateur connecté -->
                 <div class="bg-dark px-2 py-1 rounded border border-secondary text-end d-flex align-items-center gap-2">
@@ -1383,9 +1381,9 @@ def index_page():
                         <div class="fw-bold text-white" id="user-display-name">Administrateur</div>
                         <div class="text-warning fw-bold" style="font-size:0.65rem;" id="user-display-role">ADMIN</div>
                     </div>
-                    <!-- BOUTON DE DÉCONNEXION (SORTIE) - EXIGENCE 1 -->
+                    <!-- BOUTON DE DÉCONNEXION -->
                     <button class="btn btn-outline-danger btn-sm py-1 px-2 fw-bold" onclick="logout()" title="Quitter et verrouiller la session">
-                        🚪 Sortie
+                        🚪 Déconnexion
                     </button>
                 </div>
             </div>

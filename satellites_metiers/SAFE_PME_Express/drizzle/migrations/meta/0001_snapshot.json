@@ -101,7 +101,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'Matériel'"
+          "default": "'MatÃ©riel'"
         },
         "acquisition_date": {
           "name": "acquisition_date",
@@ -592,7 +592,7 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'Société Tunisienne SARL'"
+          "default": "'SociÃ©tÃ© Tunisienne SARL'"
         },
         "matricule_fiscal": {
           "name": "matricule_fiscal",
@@ -2042,3 +2042,4 @@
     "tables": {}
   }
 }
+

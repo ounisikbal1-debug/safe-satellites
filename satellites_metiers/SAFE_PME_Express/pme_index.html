@@ -184,17 +184,25 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             overflow: hidden;
         }
+        .form-control, .form-select, input:not([type="checkbox"]):not([type="radio"]), select, textarea {
+            box-sizing: border-box;
+            min-height: 36px;
+        }
     </style>
 </head>
 <body>
 
     <!-- OVERLAY CONNEXION (LOGIN) -->
-    <div id="login-overlay" style="display: none;">
+    <div id="login-overlay" style="display: flex;">
         <div class="login-box">
             <div class="bg-primary text-white p-4 text-center">
-                <i class="fa-solid fa-cube fa-3x mb-2"></i>
+                <svg width="48" height="48" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-2">
+                    <path d="M50 5 L90 20 L90 55 C90 75 50 95 50 95 C50 95 10 75 10 55 L10 20 Z" fill="#0F1E3A" stroke="#F59E0B" stroke-width="4"/>
+                    <path d="M50 12 L82 24 L82 52 C82 68 50 85 50 85 C50 85 18 68 18 52 L18 24 Z" fill="#1E3A8A"/>
+                    <text x="50" y="58" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" text-anchor="middle">SAFE</text>
+                </svg>
                 <h4 class="mb-1">SAFE PME Express</h4>
-                <div class="small opacity-75">Progiciel de Gestion Intégré Tunisie 2.0</div>
+                <div class="small opacity-75">Progiciel de Gestion Intégré Tunisie 2026</div>
             </div>
             <div class="p-4">
                 <div id="login-error" class="alert alert-danger py-2 small" style="display: none;"></div>
@@ -327,7 +335,7 @@
                 <span class="badge bg-primary">SAFE Suite 2026</span>
                 <span class="fw-bold" style="font-size: 0.9rem;" id="nav-company-name">Atlas Distribution SARL</span>
             </div>
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
                 <span class="badge bg-success"><i class="fa-solid fa-signal me-1"></i> Mode Autonome Connecté</span>
                 <div class="dropdown">
                     <button class="btn btn-sm btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -337,10 +345,11 @@
                         <li><h6 class="dropdown-header" id="current-user-role">Rôle : Administrateur</h6></li>
                         <li><a class="dropdown-item" onclick="showScreen('screen-workspace')"><i class="fa-solid fa-shapes me-2"></i> Espace de Travail</a></li>
                         <li><a class="dropdown-item" onclick="showScreen('screen-settings')"><i class="fa-solid fa-sliders me-2"></i> Paramètres</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Déconnexion</a></li>
                     </ul>
                 </div>
+                <button type="button" class="btn btn-sm btn-outline-danger fw-bold" onclick="doLogout()" title="Fermer la session">
+                    <i class="fa-solid fa-right-from-bracket me-1"></i> Déconnexion
+                </button>
             </div>
         </div>
 
@@ -936,48 +945,149 @@
             </div>
         </div>
 
-        <!-- ==================== ÉCRAN 8 : PAIE & IRPP / CNSS ==================== -->
+        <!-- ==================== ÉCRAN 8 : GESTION DE PAIE ET SALAIRES ==================== -->
         <div id="screen-paie" class="screen-view">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="mb-0"><i class="fa-solid fa-money-check-dollar text-primary me-2"></i>8. Paie & Déclarations Sociales</h4>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCalculPaie"><i class="fa-solid fa-calculator me-1"></i> Calculer un Bulletin</button>
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <h4 class="mb-0"><i class="fa-solid fa-money-check-dollar text-primary me-2"></i>8. Gestion de Paie et Salaires</h4>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCalculPaie"><i class="fa-solid fa-calculator me-1"></i> Calculer &amp; Enregistrer un Bulletin</button>
             </div>
 
             <div class="alert alert-info py-2" style="font-size: 0.85rem;">
-                <i class="fa-solid fa-check-double me-1"></i> Barème Officiel Conforme : CNSS Salariale <strong>9.68%</strong> | Patronale <strong>17.07%</strong> | CSS <strong>0.5%</strong> | IRPP 8 tranches (<strong>0% - 15% - 25% - 30% - 33% - 36% - 38% - 40%</strong>) | TFP <strong>1%</strong> | FOPROLOS <strong>1%</strong>
+                <i class="fa-solid fa-check-double me-1"></i> Barème Officiel Tunisien : CNSS Salariale <strong>9.68%</strong> | Patronale <strong>16.57%</strong> + AT <strong>0.5%</strong> | CSS <strong>0.5%</strong> | IRPP 8 tranches (<strong>0% - 15% - 25% - 30% - 33% - 36% - 38% - 40%</strong>) | TFP <strong>1%</strong> | FOPROLOS <strong>1%</strong> | Rubrique 10200 Mutuelle Salariale | 3 Assurances Patronales <strong>1.766%</strong>
             </div>
 
-            <div class="export-bar justify-content-between">
-                <div class="d-flex gap-2 align-items-center">
-                    <span class="small fw-bold text-muted me-2"><i class="fa-solid fa-file-export me-1"></i> Exporter :</span>
-                    <button class="btn btn-sm btn-outline-success" onclick="exportTableToExcel('table-paie', 'bulletins_paie.xlsx')"><i class="fa-solid fa-file-excel me-1"></i> Excel (.xlsx)</button>
-                    <button class="btn btn-sm btn-outline-primary" onclick="exportTableToCSV('table-paie', 'bulletins_paie.csv')"><i class="fa-solid fa-file-csv me-1"></i> CSV</button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="exportTableToPDF('table-paie-container', 'bulletins_paie.pdf')"><i class="fa-solid fa-file-pdf me-1"></i> PDF</button>
+            <!-- BANDEAU DATE LIMITE MODULABLE & ALERTE PAIE DYNAMIQUE (DATE LIMITE - DATE DU JOUR, REMISE A 0 APRES CALCUL) -->
+            <div class="card p-3 mb-3 border-primary shadow-sm bg-light">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <label for="pme_date_limite" class="form-label mb-0 fw-bold"><i class="fa-solid fa-calendar-days text-primary me-1"></i> Date Limite :</label>
+                        <input type="date" id="pme_date_limite" class="form-control form-control-sm w-auto fw-bold" value="2026-11-17" onchange="onPmeDeadlineChange()">
+                        <span class="small text-muted" id="pme_formule_detail">(Formule dynamique : Date Limite − Date du jour)</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <div id="pme_alerte_badge" class="badge bg-success p-2 fs-6">
+                            <i class="fa-solid fa-circle-check me-1"></i> Alerte : <span id="pme_alerte_val" class="fw-bold">0</span> jour (Salaires calculés &amp; validés)
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-success fw-bold" onclick="recalcAndValidatePmePaie()">
+                            <i class="fa-solid fa-bolt me-1"></i> Calculer les salaires (Remise à 0)
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="card" id="table-paie-container">
-                <div class="card-header">Historique des 144 Bulletins Émis (12 Salariés × 12 Mois)</div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0" id="table-paie">
-                            <thead>
-                                <tr>
-                                    <th>Mois / Année</th>
-                                    <th>Matricule</th>
-                                    <th>Salarié</th>
-                                    <th class="text-end">Brut</th>
-                                    <th class="text-end">CNSS 9.68%</th>
-                                    <th class="text-end">CSS 0.5%</th>
-                                    <th class="text-end">IRPP</th>
-                                    <th class="text-end fw-bold text-success">Net à Payer</th>
-                                    <th class="text-end text-muted">Patronal</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-paie-body">
-                                <tr><td colspan="9" class="text-center py-4 text-muted">Chargement...</td></tr>
-                            </tbody>
+            <ul class="nav nav-tabs mb-3" role="tablist">
+                <li class="nav-item"><button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#paie-tab-sim" type="button">📑 Simulateur &amp; Bulletin de Paie</button></li>
+                <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#paie-tab-rates" type="button">⚙️ Feuille des Taux Modulables</button></li>
+                <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#paie-tab-hist" type="button">📋 Historique des Bulletins</button></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="paie-tab-sim">
+                    <div class="card p-3 mb-3">
+                        <div class="row g-3">
+                            <div class="col-md-3"><label class="form-label small fw-bold">Salaire de Base (TND)</label><input type="number" step="0.001" id="sim_base" class="form-control" value="2500" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">Prime de Présence (TND)</label><input type="number" step="0.001" id="sim_presence" class="form-control" value="150" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">Prime Transport (TND)</label><input type="number" step="0.001" id="sim_transport" class="form-control" value="80" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">Enfants à charge</label><input type="number" min="0" id="sim_enfants" class="form-control" value="1" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">Parents à charge</label><select id="sim_parents" class="form-select" onchange="recalcPmePaie()"><option value="0">Aucun</option><option value="1">1 Parent</option><option value="2">2 Parents</option></select></div>
+                            <div class="col-md-3 d-flex align-items-end"><div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="sim_chef" checked onchange="recalcPmePaie()"><label class="form-check-label fw-bold" for="sim_chef">Chef de famille</label></div></div>
+                            <div class="col-md-6 d-flex align-items-end justify-content-end"><button type="button" class="btn btn-dark btn-sm" onclick="exportTableToPDF('pme-payslip-card', 'bulletin_paie.pdf')"><i class="fa-solid fa-print me-1"></i> Imprimer / PDF Bulletin</button></div>
+                        </div>
+                    </div>
+                    <div class="card p-3" id="pme-payslip-card">
+                        <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                            <strong>BULLETIN DE PAIE MENSUEL (TND)</strong>
+                            <span class="badge bg-primary" id="sim-net-badge">Net à Payer : 0.000 TND</span>
+                        </div>
+                        <table class="table table-sm table-bordered mb-0">
+                            <thead class="table-light"><tr><th>Rubrique</th><th class="text-end">Base</th><th class="text-end">Taux</th><th class="text-end">Gain</th><th class="text-end">Retenue</th></tr></thead>
+                            <tbody id="sim-payslip-rows"></tbody>
                         </table>
+                    </div>
+
+                    <!-- VOLET GÉNÉRATION OD DE PAIE (MOIS EN COURS) -->
+                    <div class="card p-3 mt-3 border-secondary shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+                            <h6 class="fw-bold text-dark text-uppercase mb-0"><i class="fa-solid fa-file-invoice-dollar text-primary me-2"></i>Génération OD de Paie (Mois en cours)</h6>
+                            <button type="button" class="btn btn-sm btn-primary fw-bold" onclick="comptabiliserOdPme()"><i class="fa-solid fa-book me-1"></i> Comptabiliser OD Paie</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered text-center align-middle mb-0" style="font-size: 0.82rem;">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-start">Compte Général</th>
+                                        <th class="text-start">Intitulé</th>
+                                        <th class="text-end">Débit (TND)</th>
+                                        <th class="text-end">Crédit (TND)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td class="text-start fw-bold text-primary">640</td><td class="text-start">Salaires et émoluments bruts</td><td class="text-end fw-bold" id="od_pme_debit_640">0.000</td><td class="text-end">—</td></tr>
+                                    <tr><td class="text-start fw-bold text-primary">647</td><td class="text-start">Charges sociales patronales &amp; 3 Assurances</td><td class="text-end fw-bold" id="od_pme_debit_647">0.000</td><td class="text-end">—</td></tr>
+                                    <tr><td class="text-start fw-bold text-primary">421</td><td class="text-start">Personnel - Net à payer</td><td class="text-end">—</td><td class="text-end fw-bold text-danger" id="od_pme_credit_421">0.000</td></tr>
+                                    <tr><td class="text-start fw-bold text-primary">431</td><td class="text-start">Organismes sociaux (CNSS Sal. + Pat. + AT + FOP.)</td><td class="text-end">—</td><td class="text-end fw-bold text-danger" id="od_pme_credit_431">0.000</td></tr>
+                                    <tr><td class="text-start fw-bold text-primary">431</td><td class="text-start">Mutuelle Sal. 10200 + 3 Assurances patronales</td><td class="text-end">—</td><td class="text-end fw-bold text-danger" id="od_pme_credit_mutuelle">0.000</td></tr>
+                                    <tr><td class="text-start fw-bold text-primary">447</td><td class="text-start">État - Retenue à la source (IRPP)</td><td class="text-end">—</td><td class="text-end fw-bold text-danger" id="od_pme_credit_447">0.000</td></tr>
+                                    <tr><td class="text-start fw-bold text-primary">448</td><td class="text-start">État - Contribution Sociale (CSS)</td><td class="text-end">—</td><td class="text-end fw-bold text-danger" id="od_pme_credit_448">0.000</td></tr>
+                                    <tr class="table-primary fw-bold">
+                                        <td colspan="2" class="text-start">TOTAL ÉQUILIBRÉ OD PAIE</td>
+                                        <td class="text-end" id="od_pme_total_debit">0.000</td>
+                                        <td class="text-end" id="od_pme_total_credit">0.000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="od_pme_alert" class="alert alert-success mt-2 py-2 mb-0 d-none" style="font-size: 0.8rem;"></div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="paie-tab-rates">
+                    <div class="card p-3">
+                        <h6 class="fw-bold text-primary mb-3">Taux Sociaux, Assurance Mutuelle &amp; Barème IRPP Modulables</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-3"><label class="form-label small fw-bold">CNSS Salarié (%)</label><input type="number" step="0.01" id="rate_cnss_sal" class="form-control" value="9.68" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">CNSS Patronale (%)</label><input type="number" step="0.01" id="rate_cnss_pat" class="form-control" value="16.57" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">CSS (%)</label><input type="number" step="0.1" id="rate_css" class="form-control" value="0.5" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">Assurance Mutuelle Patr. (%)</label><input type="number" step="0.1" id="rate_assur_pat" class="form-control" value="6.0" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-3"><label class="form-label small fw-bold">Assurance Mutuelle Sal. (%)</label><input type="number" step="0.1" id="rate_assur_sal" class="form-control" value="0.0" oninput="recalcPmePaie()"></div>
+                            <div class="col-md-9 d-flex align-items-end"><div class="small text-muted" id="sim-assiette-detail"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="paie-tab-hist">
+                    <div class="export-bar justify-content-between">
+                        <div class="d-flex gap-2 align-items-center">
+                            <span class="small fw-bold text-muted me-2"><i class="fa-solid fa-file-export me-1"></i> Exporter :</span>
+                            <button class="btn btn-sm btn-outline-success" onclick="exportTableToExcel('table-paie', 'bulletins_paie.xlsx')"><i class="fa-solid fa-file-excel me-1"></i> Excel (.xlsx)</button>
+                            <button class="btn btn-sm btn-outline-primary" onclick="exportTableToCSV('table-paie', 'bulletins_paie.csv')"><i class="fa-solid fa-file-csv me-1"></i> CSV</button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="exportTableToPDF('table-paie-container', 'bulletins_paie.pdf')"><i class="fa-solid fa-file-pdf me-1"></i> PDF</button>
+                        </div>
+                    </div>
+                    <div class="card" id="table-paie-container">
+                        <div class="card-header">Historique des Bulletins Émis</div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0" id="table-paie">
+                                    <thead>
+                                        <tr>
+                                            <th>Mois / Année</th>
+                                            <th>Matricule</th>
+                                            <th>Salarié</th>
+                                            <th class="text-end">Brut</th>
+                                            <th class="text-end">CNSS 9.68%</th>
+                                            <th class="text-end">CSS 0.5%</th>
+                                            <th class="text-end">IRPP</th>
+                                            <th class="text-end fw-bold text-success">Net à Payer</th>
+                                            <th class="text-end text-muted">Patronal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="table-paie-body">
+                                        <tr><td colspan="9" class="text-center py-4 text-muted">Chargement...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1118,7 +1228,7 @@
         <div id="screen-immobilisations" class="screen-view">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="mb-0"><i class="fa-solid fa-building-circle-check text-primary me-2"></i>12. Immobilisations & Amortissements</h4>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewImmo"><i class="fa-solid fa-plus me-1"></i> Nouvelle Immo</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewImmo"><i class="fa-solid fa-plus me-1"></i> Nouvelle Immobilisation</button>
             </div>
 
             <div class="card">
@@ -1166,6 +1276,13 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="mb-0"><i class="fa-solid fa-file-contract text-primary me-2"></i>14. Déclarations Fiscales Déposées</h4>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewDeclaration"><i class="fa-solid fa-plus me-1"></i> Enregistrer Dépôt</button>
+            </div>
+            <div class="row g-3 mb-3">
+                <div class="col-md-2"><div class="card p-2 border-primary"><div class="small text-muted">TVA Collectée</div><div class="fw-bold text-primary" id="decl-tva-col">0.000 TND</div></div></div>
+                <div class="col-md-2"><div class="card p-2 border-secondary"><div class="small text-muted">TVA Déductible</div><div class="fw-bold text-secondary" id="decl-tva-ded">0.000 TND</div></div></div>
+                <div class="col-md-3"><div class="card p-2 border-success"><div class="small text-muted">TVA Nette à payer</div><div class="fw-bold text-success" id="decl-tva-net">0.000 TND</div></div></div>
+                <div class="col-md-2"><div class="card p-2 border-info"><div class="small text-muted">Timbre Fiscal</div><div class="fw-bold text-info" id="decl-timbre">0.000 TND</div></div></div>
+                <div class="col-md-3"><div class="card p-2 border-warning"><div class="small text-muted">TCL (0.2% CA)</div><div class="fw-bold text-dark" id="decl-tcl">0.000 TND</div></div></div>
             </div>
             <div class="card">
                 <div class="card-header">Historique des 12 Déclarations Mensuelles de TVA</div>
@@ -1599,6 +1716,140 @@
         </div>
     </div>
 
+    <!-- Modal Nouvel Article -->
+    <div class="modal fade" id="modalNewArticle" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Nouvel Article</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-md-4"><label class="form-label small">Référence</label><input type="text" id="art_ref" class="form-control" placeholder="ART-001"></div>
+                    <div class="col-md-8"><label class="form-label small">Désignation</label><input type="text" id="art_des" class="form-control"></div>
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Catégorie</label><input type="text" id="art_cat" class="form-control" value="Marchandises"></div>
+                    <div class="col-md-6"><label class="form-label small">TVA (%)</label><input type="number" id="art_tva" class="form-control" value="19"></div>
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Prix Achat HT</label><input type="number" step="0.001" id="art_pa" class="form-control" value="0"></div>
+                    <div class="col-md-6"><label class="form-label small">Prix Vente HT</label><input type="number" step="0.001" id="art_pv" class="form-control" value="0"></div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-6"><label class="form-label small">Stock Initial</label><input type="number" id="art_stock" class="form-control" value="0"></div>
+                    <div class="col-md-6"><label class="form-label small">Stock Alerte Min</label><input type="number" id="art_min" class="form-control" value="5"></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="button" class="btn btn-primary" onclick="submitArticle()">Enregistrer</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal Nouveau Salarié -->
+    <div class="modal fade" id="modalNewSalarie" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Nouveau Salarié</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-md-4"><label class="form-label small">Matricule</label><input type="text" id="sal_mat" class="form-control" placeholder="EMP-013"></div>
+                    <div class="col-md-8"><label class="form-label small">Nom Complet</label><input type="text" id="sal_nom" class="form-control"></div>
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">CIN</label><input type="text" id="sal_cin" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label small">N° CNSS</label><input type="text" id="sal_cnss" class="form-control"></div>
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Poste</label><input type="text" id="sal_poste" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label small">Salaire de Base (TND)</label><input type="number" step="0.001" id="sal_base" class="form-control" value="1200"></div>
+                </div>
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-6"><label class="form-label small">Enfants à charge</label><input type="number" id="sal_enf" class="form-control" value="0"></div>
+                    <div class="col-md-6 pt-3"><div class="form-check"><input class="form-check-input" type="checkbox" id="sal_chef"><label class="form-check-label small fw-bold" for="sal_chef">Chef de famille</label></div></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="button" class="btn btn-primary" onclick="submitSalarie()">Enregistrer</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal Nouvelle Écriture -->
+    <div class="modal fade" id="modalNewEcriture" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Nouvelle Écriture Comptable</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-md-4"><label class="form-label small">Journal</label><select id="ecr_journal" class="form-select"><option value="OD">OD</option><option value="VT">VT (Ventes)</option><option value="AC">AC (Achats)</option><option value="BQ">BQ (Banque)</option></select></div>
+                    <div class="col-md-4"><label class="form-label small">Date</label><input type="date" id="ecr_date" class="form-control"></div>
+                    <div class="col-md-4"><label class="form-label small">Pièce</label><input type="text" id="ecr_piece" class="form-control" placeholder="OD-001"></div>
+                </div>
+                <div class="mb-2"><label class="form-label small">Libellé</label><input type="text" id="ecr_libelle" class="form-control"></div>
+                <div class="row g-2">
+                    <div class="col-md-4"><label class="form-label small">Compte Débit</label><input type="text" id="ecr_c_debit" class="form-control" value="607000"></div>
+                    <div class="col-md-4"><label class="form-label small">Compte Crédit</label><input type="text" id="ecr_c_credit" class="form-control" value="401000"></div>
+                    <div class="col-md-4"><label class="form-label small">Montant (TND)</label><input type="number" step="0.001" id="ecr_montant" class="form-control" value="0"></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="button" class="btn btn-primary" onclick="submitEcriture()">Enregistrer</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal Nouvelle Immobilisation -->
+    <div class="modal fade" id="modalNewImmo" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Nouvelle Immobilisation</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-md-4"><label class="form-label small">Code</label><input type="text" id="immo_code" class="form-control" placeholder="IMM-013"></div>
+                    <div class="col-md-8"><label class="form-label small">Désignation</label><input type="text" id="immo_des" class="form-control"></div>
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Famille</label><input type="text" id="immo_fam" class="form-control" value="Matériel Informatique"></div>
+                    <div class="col-md-6"><label class="form-label small">Date Acquisition</label><input type="date" id="immo_date" class="form-control"></div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-md-6"><label class="form-label small">Valeur d'Origine (TND)</label><input type="number" step="0.001" id="immo_val" class="form-control" value="0"></div>
+                    <div class="col-md-6"><label class="form-label small">Taux Amortissement (%)</label><input type="number" step="0.1" id="immo_taux" class="form-control" value="20"></div>
+                </div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="button" class="btn btn-primary" onclick="submitImmo()">Enregistrer</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal Mouvement Trésorerie -->
+    <div class="modal fade" id="modalMvtTresorerie" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Enregistrer Opération de Trésorerie</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Compte de Trésorerie</label><select id="treso_cpt" class="form-select"></select></div>
+                    <div class="col-md-6"><label class="form-label small">Type d'Opération</label><select id="treso_type" class="form-select"><option value="encaissement">Encaissement</option><option value="decaissement">Décaissement</option></select></div>
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Montant (TND)</label><input type="number" step="0.001" id="treso_montant" class="form-control" value="0"></div>
+                    <div class="col-md-6"><label class="form-label small">Date</label><input type="date" id="treso_date" class="form-control"></div>
+                </div>
+                <div class="mb-2"><label class="form-label small">Libellé</label><input type="text" id="treso_lib" class="form-control"></div>
+                <div><label class="form-label small">Référence</label><input type="text" id="treso_ref" class="form-control"></div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="button" class="btn btn-success" onclick="submitMvtTresorerie()">Enregistrer Opération</button></div>
+        </div></div>
+    </div>
+
+    <!-- Modal Nouvelle Déclaration Fiscale -->
+    <div class="modal fade" id="modalNewDeclaration" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Enregistrer Dépôt Fiscal</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Type Déclaration</label><select id="decl_type" class="form-select"><option value="Déclaration Mensuelle (TVA/TCL/Timbre)">Déclaration Mensuelle (TVA/TCL/Timbre)</option><option value="Acompte Provisionnel IS">Acompte Provisionnel IS</option><option value="Déclaration Annuelle IS">Déclaration Annuelle IS</option></select></div>
+                    <div class="col-md-6"><label class="form-label small">Période</label><input type="text" id="decl_periode" class="form-control" placeholder="11/2026"></div>
+                </div>
+                <div class="row g-2 mb-2">
+                    <div class="col-md-6"><label class="form-label small">Date Dépôt</label><input type="date" id="decl_date" class="form-control"></div>
+                    <div class="col-md-6"><label class="form-label small">Montant Versé (TND)</label><input type="number" step="0.001" id="decl_montant" class="form-control" value="0"></div>
+                </div>
+                <div><label class="form-label small">Notes</label><input type="text" id="decl_notes" class="form-control"></div>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button><button type="button" class="btn btn-primary" onclick="submitDeclaration()">Enregistrer Dépôt</button></div>
+        </div></div>
+    </div>
+
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -1759,18 +2010,26 @@
             const title = document.getElementById('report-render-title');
 
             if (type === 'pnl') {
-                title.innerText = `Compte de Résultat Simplifié (P&L) - Exercice ${year}`;
+                title.innerText = `Compte de Résultat Détaillé (SCE NC 01) - Exercice ${year}`;
                 const res = await fetch(`${API}/reports/pnl?annee=${year}`);
                 const d = await res.json();
+                const ca = d.chiffre_affaires_ht || 0;
+                const pct = (val) => ca > 0 ? ((val / ca) * 100).toFixed(1) + ' %' : '—';
                 container.innerHTML = `
                     <table class="table table-bordered mb-0">
-                        <thead class="table-light"><tr><th>Poste Comptable</th><th class="text-end">Montant (TND)</th><th>% du C.A.</th></tr></thead>
+                        <thead class="table-light"><tr><th>Poste Comptable (SCE NC 01)</th><th class="text-end">Montant (TND)</th><th class="text-end">% du C.A.</th></tr></thead>
                         <tbody>
-                            <tr class="fw-bold table-primary"><td>Chiffre d'Affaires HT (Ventes)</td><td class="text-end">${d.chiffre_affaires_ht.toFixed(3)}</td><td>100.0 %</td></tr>
-                            <tr class="text-danger"><td>- Achats de marchandises & matières HT</td><td class="text-end">-${d.achats_consommes_ht.toFixed(3)}</td><td>${((d.achats_consommes_ht/d.chiffre_affaires_ht)*100).toFixed(1)} %</td></tr>
-                            <tr class="fw-bold table-light"><td>= Marge Commerciale Brute</td><td class="text-end">${d.marge_brute.toFixed(3)}</td><td>${((d.marge_brute/d.chiffre_affaires_ht)*100).toFixed(1)} %</td></tr>
-                            <tr class="text-danger"><td>- Charges de Personnel (Salaires Bruts + Charges Patr.)</td><td class="text-end">-${d.charges_personnel.toFixed(3)}</td><td>${((d.charges_personnel/d.chiffre_affaires_ht)*100).toFixed(1)} %</td></tr>
-                            <tr class="fw-bold table-success fs-5"><td>= RÉSULTAT D'EXPLOITATION ESTIMÉ</td><td class="text-end text-success">${d.resultat_exploitation.toFixed(3)} TND</td><td>${((d.resultat_exploitation/d.chiffre_affaires_ht)*100).toFixed(1)} %</td></tr>
+                            <tr class="fw-bold table-primary"><td>70 — Chiffre d'Affaires HT (Ventes)</td><td class="text-end">${ca.toFixed(3)}</td><td class="text-end">100.0 %</td></tr>
+                            <tr class="text-danger"><td>60 — Achats consommés de marchandises &amp; matières HT</td><td class="text-end">-${(d.achats_consommes_ht || 0).toFixed(3)}</td><td class="text-end">${pct(d.achats_consommes_ht || 0)}</td></tr>
+                            <tr class="fw-bold table-light"><td>= Marge Commerciale Brute</td><td class="text-end">${(d.marge_brute || 0).toFixed(3)}</td><td class="text-end">${pct(d.marge_brute || 0)}</td></tr>
+                            <tr class="text-danger"><td>641 — Salaires et traitements bruts</td><td class="text-end">-${(d.salaires_bruts || 0).toFixed(3)}</td><td class="text-end">${pct(d.salaires_bruts || 0)}</td></tr>
+                            <tr class="text-danger"><td>647 — Charges sociales patronales (CNSS, TFP, FOPROLOS)</td><td class="text-end">-${(d.charges_sociales || 0).toFixed(3)}</td><td class="text-end">${pct(d.charges_sociales || 0)}</td></tr>
+                            <tr class="text-danger"><td>66 — Impôts, taxes et versements assimilés (TCL, Timbre fiscal)</td><td class="text-end">-${(d.impots_taxes_tcl_timbre || 0).toFixed(3)}</td><td class="text-end">${pct(d.impots_taxes_tcl_timbre || 0)}</td></tr>
+                            <tr class="fw-bold table-info"><td>= Excédent Brut d'Exploitation (EBE)</td><td class="text-end">${(d.ebe || 0).toFixed(3)}</td><td class="text-end">${pct(d.ebe || 0)}</td></tr>
+                            <tr class="text-danger"><td>681 — Dotations aux amortissements</td><td class="text-end">-${(d.dotations_amortissements || 0).toFixed(3)}</td><td class="text-end">${pct(d.dotations_amortissements || 0)}</td></tr>
+                            <tr class="fw-bold table-light"><td>= Résultat d'Exploitation (EBIT)</td><td class="text-end">${(d.resultat_exploitation || 0).toFixed(3)}</td><td class="text-end">${pct(d.resultat_exploitation || 0)}</td></tr>
+                            <tr class="text-danger"><td>69 — Impôt sur les Sociétés (IS ${d.taux_is || 15}%)</td><td class="text-end">-${(d.impot_societes || 0).toFixed(3)}</td><td class="text-end">${pct(d.impot_societes || 0)}</td></tr>
+                            <tr class="fw-bold table-success fs-5"><td>= RÉSULTAT NET DE L'EXERCICE</td><td class="text-end text-success">${(d.resultat_net ?? d.resultat_exploitation ?? 0).toFixed(3)} TND</td><td class="text-end">${pct(d.resultat_net ?? d.resultat_exploitation ?? 0)}</td></tr>
                         </tbody>
                     </table>
                 `;
@@ -2175,6 +2434,10 @@
                 const [rCpt, rMvt] = await Promise.all([fetch(`${API}/tresorerie`), fetch(`${API}/tresorerie/mouvements`)]);
                 const comptes = await rCpt.json();
                 const mvts = await rMvt.json();
+                const selCpt = document.getElementById('treso_cpt');
+                if (selCpt) {
+                    selCpt.innerHTML = comptes.map(c => `<option value="${c.id}">${c.intitule} (${c.solde_actuel.toFixed(3)} TND)</option>`).join('');
+                }
                 document.getElementById('tresorerie-cards-container').innerHTML = comptes.map(c => `
                     <div class="col-md-4"><div class="card p-3 border-primary"><span class="badge bg-primary w-25 mb-1">${c.type.toUpperCase()}</span><h4 class="mt-1 mb-1">${c.intitule}</h4><h3 class="fw-bold text-success">${c.solde_actuel.toFixed(3)} TND</h3><div class="small text-muted">${c.banque || 'Caisse'}</div></div></div>
                 `).join('');
@@ -2186,8 +2449,14 @@
 
         async function loadDeclarations() {
             try {
-                const res = await fetch(`${API}/declarations`);
+                const [res, resFisc] = await Promise.all([fetch(`${API}/declarations`), fetch(`${API}/fiscalite`)]);
                 const list = await res.json();
+                const fisc = await resFisc.json();
+                if (document.getElementById('decl-tva-col')) document.getElementById('decl-tva-col').innerText = (fisc.tva_collectee || 0).toFixed(3) + ' TND';
+                if (document.getElementById('decl-tva-ded')) document.getElementById('decl-tva-ded').innerText = (fisc.tva_deductible || 0).toFixed(3) + ' TND';
+                if (document.getElementById('decl-tva-net')) document.getElementById('decl-tva-net').innerText = (fisc.tva_nette || 0).toFixed(3) + ' TND';
+                if (document.getElementById('decl-timbre')) document.getElementById('decl-timbre').innerText = (fisc.timbres || 0).toFixed(3) + ' TND';
+                if (document.getElementById('decl-tcl')) document.getElementById('decl-tcl').innerText = (fisc.tcl || 0).toFixed(3) + ' TND';
                 document.getElementById('table-declarations-body').innerHTML = list.map(d => `
                     <tr><td><strong>${d.type_declaration}</strong></td><td>${d.periode}</td><td>${d.date_depot || '-'}</td><td class="text-end fw-bold">${d.montant.toFixed(3)} TND</td><td><span class="badge bg-success">${d.statut}</span></td><td>${d.notes || '-'}</td></tr>
                 `).join('');
@@ -2365,6 +2634,293 @@
             loadPaie();
         }
 
+        function closeModalById(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            try {
+                bootstrap.Modal.getOrCreateInstance(el).hide();
+            } catch (e) {
+                el.classList.remove('show');
+                el.style.display = 'none';
+            }
+        }
+
+        async function submitArticle() {
+            try {
+                const res = await fetch(`${API}/articles`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        code: document.getElementById('art_ref').value,
+                        designation: document.getElementById('art_des').value,
+                        famille: document.getElementById('art_cat').value,
+                        prix_achat_ht: parseFloat(document.getElementById('art_pa').value) || 0,
+                        prix_vente_ht: parseFloat(document.getElementById('art_pv').value) || 0,
+                        taux_tva: parseFloat(document.getElementById('art_tva').value) || 19,
+                        stock_actuel: parseFloat(document.getElementById('art_stock').value) || 0,
+                        stock_min: parseFloat(document.getElementById('art_min').value) || 5
+                    })
+                });
+                if (!res.ok) throw new Error('Erreur enregistrement article');
+                closeModalById('modalNewArticle');
+                loadArticles();
+            } catch (e) { alert('Erreur : ' + e.message); }
+        }
+
+        async function submitSalarie() {
+            try {
+                const fullName = (document.getElementById('sal_nom').value || '').trim();
+                const parts = fullName.split(/\s+/);
+                const prenom = parts.length > 1 ? parts[0] : '';
+                const nom = parts.length > 1 ? parts.slice(1).join(' ') : fullName;
+                const res = await fetch(`${API}/salaries`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        matricule: document.getElementById('sal_mat').value || undefined,
+                        nom: nom,
+                        prenom: prenom,
+                        cin: document.getElementById('sal_cin').value,
+                        cnss_num: document.getElementById('sal_cnss').value,
+                        poste: document.getElementById('sal_poste').value,
+                        salaire_base: parseFloat(document.getElementById('sal_base').value) || 1000,
+                        chef_famille: document.getElementById('sal_chef').checked ? 1 : 0,
+                        enfants: parseInt(document.getElementById('sal_enf').value) || 0
+                    })
+                });
+                if (!res.ok) throw new Error('Erreur enregistrement salarié');
+                closeModalById('modalNewSalarie');
+                loadSalaries();
+            } catch (e) { alert('Erreur : ' + e.message); }
+        }
+
+        async function submitEcriture() {
+            try {
+                const montant = parseFloat(document.getElementById('ecr_montant').value) || 0;
+                const res = await fetch(`${API}/ecritures`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        journal: document.getElementById('ecr_journal').value,
+                        date_ecriture: document.getElementById('ecr_date').value || new Date().toISOString().split('T')[0],
+                        numero_piece: document.getElementById('ecr_piece').value,
+                        libelle: document.getElementById('ecr_libelle').value,
+                        compte_debit: document.getElementById('ecr_c_debit').value,
+                        compte_credit: document.getElementById('ecr_c_credit').value,
+                        montant: montant,
+                        reference: document.getElementById('ecr_piece').value
+                    })
+                });
+                if (!res.ok) throw new Error('Erreur enregistrement écriture');
+                closeModalById('modalNewEcriture');
+                loadComptabilite();
+            } catch (e) { alert('Erreur : ' + e.message); }
+        }
+
+        async function submitImmo() {
+            try {
+                const taux = parseFloat(document.getElementById('immo_taux').value) || 20;
+                const res = await fetch(`${API}/immobilisations`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        code: document.getElementById('immo_code').value || undefined,
+                        designation: document.getElementById('immo_des').value,
+                        famille: document.getElementById('immo_fam').value,
+                        date_acquisition: document.getElementById('immo_date').value || new Date().toISOString().split('T')[0],
+                        valeur_acquisition: parseFloat(document.getElementById('immo_val').value) || 0,
+                        taux_amortissement: taux,
+                        duree_amortissement: taux > 0 ? Math.round(100 / taux) : 5
+                    })
+                });
+                if (!res.ok) throw new Error('Erreur enregistrement immobilisation');
+                closeModalById('modalNewImmo');
+                loadImmobilisations();
+            } catch (e) { alert('Erreur : ' + e.message); }
+        }
+
+        async function submitMvtTresorerie() {
+            try {
+                const res = await fetch(`${API}/tresorerie/mouvement`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        compte_id: document.getElementById('treso_cpt').value,
+                        type_operation: document.getElementById('treso_type').value,
+                        montant: parseFloat(document.getElementById('treso_montant').value) || 0,
+                        date_mouvement: document.getElementById('treso_date').value || new Date().toISOString().split('T')[0],
+                        libelle: document.getElementById('treso_lib').value,
+                        reference: document.getElementById('treso_ref').value
+                    })
+                });
+                if (!res.ok) throw new Error('Erreur enregistrement opération');
+                closeModalById('modalMvtTresorerie');
+                loadTresorerie();
+            } catch (e) { alert('Erreur : ' + e.message); }
+        }
+
+        async function submitDeclaration() {
+            try {
+                const res = await fetch(`${API}/declarations`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type_declaration: document.getElementById('decl_type').value,
+                        periode: document.getElementById('decl_periode').value,
+                        date_depot: document.getElementById('decl_date').value || new Date().toISOString().split('T')[0],
+                        montant: parseFloat(document.getElementById('decl_montant').value) || 0,
+                        statut: 'déposée',
+                        notes: document.getElementById('decl_notes').value
+                    })
+                });
+                if (!res.ok) throw new Error('Erreur enregistrement dépôt');
+                closeModalById('modalNewDeclaration');
+                loadDeclarations();
+            } catch (e) { alert('Erreur : ' + e.message); }
+        }
+
+        let pmePayrollValidated = true; // Salaires calculés et validés par défaut pour la version de travail => Alerte à 0 jour
+
+        function getPmeDaysRemaining(dateStr) {
+            if (!dateStr) return 0;
+            const parts = dateStr.split('-').map(Number);
+            if (parts.length !== 3) return 0;
+            const target = new Date(parts[0], parts[1] - 1, parts[2]);
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            return Math.round((target.getTime() - today.getTime()) / 86400000);
+        }
+
+        function updatePmeAlertBadge() {
+            const dateInput = document.getElementById('pme_date_limite');
+            const dateStr = dateInput ? dateInput.value : '2026-11-17';
+            const diff = getPmeDaysRemaining(dateStr);
+            const alertDays = pmePayrollValidated ? 0 : diff;
+
+            const badge = document.getElementById('pme_alerte_badge');
+            const detailSpan = document.getElementById('pme_formule_detail');
+            if (detailSpan) detailSpan.innerText = `(Formule dynamique : Date Limite − Date du jour = ${diff > 0 ? '+' + diff : diff} j)`;
+
+            if (badge) {
+                if (pmePayrollValidated) {
+                    badge.className = 'badge bg-success p-2 fs-6';
+                    badge.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Alerte : <span id="pme_alerte_val" class="fw-bold">0</span> jour (Salaires calculés &amp; validés)`;
+                } else {
+                    const bgClass = diff <= 0 ? 'bg-danger' : diff <= 7 ? 'bg-warning text-dark' : 'bg-primary';
+                    badge.className = `badge ${bgClass} p-2 fs-6`;
+                    badge.innerHTML = `<i class="fa-solid fa-clock me-1"></i> Alerte : <span id="pme_alerte_val" class="fw-bold">${alertDays}</span> ${Math.abs(alertDays) <= 1 ? 'jour' : 'jours'} (En attente de validation)`;
+                }
+            }
+        }
+
+        function onPmeDeadlineChange() {
+            pmePayrollValidated = false;
+            updatePmeAlertBadge();
+        }
+
+        function recalcAndValidatePmePaie() {
+            pmePayrollValidated = true;
+            recalcPmePaie();
+            updatePmeAlertBadge();
+        }
+
+        function recalcPmePaie() {
+            const base = parseFloat(document.getElementById('sim_base')?.value) || 0;
+            const pres = parseFloat(document.getElementById('sim_presence')?.value) || 0;
+            const transp = parseFloat(document.getElementById('sim_transport')?.value) || 0;
+            const enf = parseInt(document.getElementById('sim_enfants')?.value) || 0;
+            const par = parseInt(document.getElementById('sim_parents')?.value) || 0;
+            const chef = document.getElementById('sim_chef')?.checked ? 1 : 0;
+
+            const rCnssSal = parseFloat(document.getElementById('rate_cnss_sal')?.value) || 9.68;
+            const rCnssPat = parseFloat(document.getElementById('rate_cnss_pat')?.value) || 16.57;
+            const rCss = parseFloat(document.getElementById('rate_css')?.value) || 0.5;
+            const rAssurPat = parseFloat(document.getElementById('rate_assur_pat')?.value) || 6.0;
+            const rAssurSal = parseFloat(document.getElementById('rate_assur_sal')?.value) || 0.0;
+
+            const brut = Math.round((base + pres + transp) * 1000) / 1000;
+            const cnssSal = Math.round(brut * (rCnssSal / 100) * 1000) / 1000;
+            const brutImp = Math.max(0, Math.round((brut - cnssSal) * 1000) / 1000);
+            const annBrutImp = brutImp * 12;
+            const fraisPro = Math.min(annBrutImp * 0.10, 2000);
+            const dedFam = (chef ? 300 : 0) + (enf * 100) + (par * 1750);
+            const netImpAnn = Math.max(0, annBrutImp - fraisPro - dedFam);
+
+            const brackets = [
+                [0, 5000, 0], [5000, 10000, 0.15], [10000, 20000, 0.25], [20000, 30000, 0.30],
+                [30000, 40000, 0.33], [40000, 50000, 0.36], [50000, 70000, 0.38], [70000, Infinity, 0.40]
+            ];
+            let irppAnn = 0;
+            for (const [minB, maxB, rateB] of brackets) {
+                if (netImpAnn > minB) {
+                    irppAnn += Math.round((Math.min(netImpAnn, maxB) - minB) * rateB * 1000) / 1000;
+                }
+            }
+            const irpp = Math.round((irppAnn / 12) * 1000) / 1000;
+            const css = Math.round(((netImpAnn * (rCss / 100)) / 12) * 1000) / 1000;
+            const assurSal = Math.round(brut * (rAssurSal / 100) * 1000) / 1000;
+            const assurPat = Math.round(brut * (rAssurPat / 100) * 1000) / 1000;
+            const net = Math.round((brut - cnssSal - irpp - css - assurSal) * 1000) / 1000;
+
+            // 3 Assurances patronales légales (Décès 0.5%, Invalidité 0.784%, Maladie 0.482%)
+            const assurDeces = Math.round(brut * 0.005 * 1000) / 1000;
+            const assurInv = Math.round(brut * 0.00784 * 1000) / 1000;
+            const assurMal = Math.round(brut * 0.00482 * 1000) / 1000;
+            const totAssurPat = Math.round((assurDeces + assurInv + assurMal) * 1000) / 1000;
+            const cnssPat = Math.round(brut * (rCnssPat / 100) * 1000) / 1000;
+            const totChargesPat = Math.round((cnssPat + totAssurPat) * 1000) / 1000;
+
+            const badge = document.getElementById('sim-net-badge');
+            if (badge) badge.innerText = `Net à Payer : ${net.toFixed(3)} TND`;
+            const detail = document.getElementById('sim-assiette-detail');
+            if (detail) detail.innerText = `Assiette annuelle brute : ${(brut * 12).toFixed(3)} − CNSS ${(cnssSal * 12).toFixed(3)} = ${annBrutImp.toFixed(3)} TND | 3 Assurances Patr. : ${totAssurPat.toFixed(3)} TND/mois | Mutuelle Sal. 10200 : ${assurSal.toFixed(3)} TND/mois`;
+
+            const tbody = document.getElementById('sim-payslip-rows');
+            if (tbody) {
+                tbody.innerHTML = `
+                    <tr><td>Salaire de Base</td><td class="text-end">${base.toFixed(3)}</td><td class="text-end">—</td><td class="text-end fw-bold">${base.toFixed(3)}</td><td class="text-end">—</td></tr>
+                    <tr><td>Prime de Présence</td><td class="text-end">${pres.toFixed(3)}</td><td class="text-end">—</td><td class="text-end">${pres.toFixed(3)}</td><td class="text-end">—</td></tr>
+                    <tr><td>Prime de Transport</td><td class="text-end">${transp.toFixed(3)}</td><td class="text-end">—</td><td class="text-end">${transp.toFixed(3)}</td><td class="text-end">—</td></tr>
+                    <tr class="table-light fw-bold"><td>TOTAL BRUT</td><td class="text-end">${brut.toFixed(3)}</td><td class="text-end">—</td><td class="text-end text-primary">${brut.toFixed(3)}</td><td class="text-end">—</td></tr>
+                    <tr><td>CNSS Salarié (9.68%)</td><td class="text-end">${brut.toFixed(3)}</td><td class="text-end">${rCnssSal.toFixed(2)}%</td><td class="text-end">—</td><td class="text-end text-danger">${cnssSal.toFixed(3)}</td></tr>
+                    <tr><td>Brut Imposable</td><td class="text-end">${brutImp.toFixed(3)}</td><td class="text-end">—</td><td class="text-end">—</td><td class="text-end">—</td></tr>
+                    <tr><td>IRPP Retenu</td><td class="text-end">${(netImpAnn / 12).toFixed(3)}</td><td class="text-end">Barème</td><td class="text-end">—</td><td class="text-end text-danger">${irpp.toFixed(3)}</td></tr>
+                    <tr><td>CSS (0.5%)</td><td class="text-end">${(netImpAnn / 12).toFixed(3)}</td><td class="text-end">${rCss.toFixed(2)}%</td><td class="text-end">—</td><td class="text-end text-danger">${css.toFixed(3)}</td></tr>
+                    <tr><td>Mutuelle Salariale (Rubrique 10200)</td><td class="text-end">${brut.toFixed(3)}</td><td class="text-end">${rAssurSal.toFixed(2)}%</td><td class="text-end">—</td><td class="text-end text-danger">${assurSal.toFixed(3)}</td></tr>
+                    <tr class="table-dark fw-bold"><td colspan="3">NET À PAYER PAR VIREMENT</td><td class="text-end text-info" colspan="2">${net.toFixed(3)} TND</td></tr>
+                `;
+            }
+
+            // Mise à jour de l'OD de Paie
+            const totDebit = Math.round((brut + totChargesPat) * 1000) / 1000;
+            const cnssTot = Math.round((cnssSal + cnssPat) * 1000) / 1000;
+            const mutAndAss = Math.round((assurSal + totAssurPat) * 1000) / 1000;
+            const netBal = Math.round((totDebit - (cnssTot + mutAndAss + irpp + css)) * 1000) / 1000;
+            const totCredit = Math.round((netBal + cnssTot + mutAndAss + irpp + css) * 1000) / 1000;
+
+            const el = (id, val) => { const e = document.getElementById(id); if (e) e.innerText = val.toFixed(3); };
+            el('od_pme_debit_640', brut);
+            el('od_pme_debit_647', totChargesPat);
+            el('od_pme_credit_421', netBal);
+            el('od_pme_credit_431', cnssTot);
+            el('od_pme_credit_mutuelle', mutAndAss);
+            el('od_pme_credit_447', irpp);
+            el('od_pme_credit_448', css);
+            el('od_pme_total_debit', totDebit);
+            el('od_pme_total_credit', totCredit);
+
+            updatePmeAlertBadge();
+        }
+
+        async function comptabiliserOdPme() {
+            const alertBox = document.getElementById('od_pme_alert');
+            const tot = parseFloat(document.getElementById('od_pme_total_debit')?.innerText) || 0;
+            if (alertBox) {
+                alertBox.className = 'alert alert-success mt-2 py-2 mb-0';
+                alertBox.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> OD de Paie enregistrée avec succès dans le journal comptable (${tot.toFixed(3)} TND).`;
+            }
+        }
+
         window.onload = () => {
             checkAuth();
             loadSettings();
@@ -2372,6 +2928,7 @@
             loadTiers();
             loadArticles();
             loadSalaries();
+            recalcPmePaie();
         };
     </script>
 </body>

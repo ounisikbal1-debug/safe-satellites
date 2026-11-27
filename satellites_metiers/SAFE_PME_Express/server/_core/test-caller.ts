@@ -1,4 +1,4 @@
-// Canonical way to call appRouter from a test. The agent is forbidden to edit
+﻿// Canonical way to call appRouter from a test. The agent is forbidden to edit
 // _core, which is exactly why this lives here: the pattern cannot be rewritten
 // away by a full-file rewrite of routers.test.ts, and the agent has nothing left
 // to rediscover.

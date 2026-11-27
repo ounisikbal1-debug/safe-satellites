@@ -28,3 +28,4 @@ if errorlevel 1 (
     echo [ERREUR] Erreur lors du demarrage du prologiciel.
     pause
 )
+

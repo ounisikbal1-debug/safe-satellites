@@ -1,4 +1,4 @@
-// ── Graphiques interactifs (SVG natif, aucune dépendance) ────────────────────
+﻿// ── Graphiques interactifs (SVG natif, aucune dépendance) ────────────────────
 // Chaque graphique est piloté par les données réelles de l'ERP et réagit au
 // survol : infobulle, mise en évidence, valeurs au millime.
 import { useMemo, useState } from "react";

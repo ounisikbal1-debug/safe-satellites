@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────────────────────
 // Moteur de calcul fiscal & social tunisien — partagé client ↔ serveur.
 // Tous les montants sont en MILLIMES (1 TND = 1000 millimes), entiers.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -94,10 +94,16 @@ export function computeIrppMonthly(
   return { monthly: Math.round(annual / 12), annual, annualTaxable, detail };
 }
 
-// ── Cotisations sociales ─────────────────────────────────────────────────────
+// ── Cotisations sociales & Assurances patronales modulables ───────────────────
 export const CNSS_EMPLOYEE_RATE = 9.68; // %
-export const CNSS_EMPLOYER_RATE = 17.07; // %
+export const CNSS_EMPLOYER_RATE = 17.07; // % (CNSS patronale 16.57% + Accident du travail 0.5%)
 export const CSS_RATE = 0.5; // % contribution sociale de solidarité (0,5 %)
+export const FOPROLOS_RATE = 1.0; // %
+// 3 Assurances modulables exclusivement patronales
+export const ASSURANCE_DECES_PATRONALE_RATE = 0.5; // % Total brut (Charge patronale)
+export const ASSURANCE_INVALIDITE_PATRONALE_RATE = 0.78400752510838; // % Total brut (Charge patronale)
+export const ASSURANCE_MALADIE_PATRONALE_RATE = 0.48212520380679; // % Total brut (0,0048212520380679 × Brut) (Charge patronale)
+export const TOTAL_ASSURANCES_PATRONALES_RATE = 1.76613272891517; // % Total brut
 
 /** Calcule un bulletin de paie complet à partir du brut (millimes). */
 export function computePayslip(input: {
@@ -110,14 +116,35 @@ export function computePayslip(input: {
   const cnssEmployee = Math.round((gross * CNSS_EMPLOYEE_RATE) / 100);
   const cnssEmployer = Math.round((gross * CNSS_EMPLOYER_RATE) / 100);
   const css = Math.round((gross * CSS_RATE) / 100);
+  // 3 assurances modulables exclusivement patronales
+  const assuranceDecesPatronale = Math.round((gross * ASSURANCE_DECES_PATRONALE_RATE) / 100);
+  const assuranceInvaliditePatronale = Math.round((gross * ASSURANCE_INVALIDITE_PATRONALE_RATE) / 100);
+  const assuranceMaladiePatronale = Math.round((gross * ASSURANCE_MALADIE_PATRONALE_RATE) / 100);
+  const totalAssurancesPatronales = assuranceDecesPatronale + assuranceInvaliditePatronale + assuranceMaladiePatronale;
+  const totalEmployerCharges = cnssEmployer + totalAssurancesPatronales;
+
   // Base imposable = brut − CNSS salarié
   const taxableBase = Math.max(0, gross - cnssEmployee);
   const { monthly: irpp } = computeIrppMonthly(taxableBase, {
     headOfFamily: input.headOfFamily,
     children: input.children,
   });
+  // Net à payer au salarié (non déduit des assurances car 100% patronales)
   const net = Math.max(0, gross - cnssEmployee - css - irpp);
-  return { gross, cnssEmployee, cnssEmployer, css, taxableBase, irpp, net };
+  return {
+    gross,
+    cnssEmployee,
+    cnssEmployer,
+    assuranceDecesPatronale,
+    assuranceInvaliditePatronale,
+    assuranceMaladiePatronale,
+    totalAssurancesPatronales,
+    totalEmployerCharges,
+    css,
+    taxableBase,
+    irpp,
+    net,
+  };
 }
 
 // ── TVA ──────────────────────────────────────────────────────────────────────

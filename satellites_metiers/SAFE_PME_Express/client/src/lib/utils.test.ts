@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+﻿import { describe, expect, it } from "vitest";
 import { cn } from "./utils";
 
 // Smoke test for the scaffold's one shared UI util. Its real job is to prove

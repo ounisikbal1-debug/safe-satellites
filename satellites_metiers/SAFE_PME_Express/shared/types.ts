@@ -1,4 +1,4 @@
-import type { UserRole } from "./constants";
+﻿import type { UserRole } from "./constants";
 
 // The identity contract every AuthProvider yields (DESIGN §5.1). Business code
 // depends ONLY on this shape — never on HOW the user authenticated — which is

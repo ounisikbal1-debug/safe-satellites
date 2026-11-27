@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sqlite3
 import hashlib
 import hmac
@@ -8,8 +8,9 @@ import threading
 import time
 from datetime import datetime, date
 from typing import Optional
-from fastapi import FastAPI, Response, HTTPException
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi import FastAPI, Response
+from fastapi.responses import FileResponse, HTTPException
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 import uvicorn
 
@@ -207,7 +208,10 @@ def dashboard_ui():
       <h1>SAFE ERP — CRM Éditeur & Administration des Licences Matérielles</h1>
       <small style="color:#94a3b8">Suivi du parc clients Tunisie, Hardware IDs, Clés HMAC-SHA256 et Renouvellements</small>
     </div>
-    <div style="text-align:right; font-size:12px; color:#38bdf8">Serveur Local Éditeur : http://localhost:8090</div>
+    <div style="text-align:right; font-size:12px; color:#38bdf8; display:flex; align-items:center; gap:12px;">
+      <span>Serveur Local Éditeur : http://localhost:8090</span>
+      <button type="button" class="btn-sm btn-danger" style="width:auto; margin:0; padding:6px 12px;" onclick="if(confirm('Confirmer la déconnexion ?')) { window.location.reload(); }">🚪 Déconnexion</button>
+    </div>
   </div>
 
   <div class="kpis">

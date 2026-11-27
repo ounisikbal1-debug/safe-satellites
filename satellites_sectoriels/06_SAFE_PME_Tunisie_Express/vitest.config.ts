@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+﻿import { defineConfig } from "vitest/config";
 import path from "node:path";
 
 // Vitest needs its OWN config: vite.config.ts sets `root: client/` (so the dev

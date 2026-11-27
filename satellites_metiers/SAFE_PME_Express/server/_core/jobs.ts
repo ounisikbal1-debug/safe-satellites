@@ -1,4 +1,4 @@
-// Background / scheduled jobs (DESIGN §5.1.2 / §8.4).
+﻿// Background / scheduled jobs (DESIGN §5.1.2 / §8.4).
 //
 // TRUST MODEL: the job BODY only ever runs inside THIS app's own runtime. The
 // platform stores just (app, name, schedule) and fires a signed HTTP callback

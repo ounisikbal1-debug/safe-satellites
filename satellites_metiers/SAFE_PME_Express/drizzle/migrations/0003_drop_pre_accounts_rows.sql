@@ -1,4 +1,4 @@
-DELETE FROM "transmissions";
+﻿DELETE FROM "transmissions";
 --> statement-breakpoint
 DELETE FROM "tax_declarations";
 --> statement-breakpoint

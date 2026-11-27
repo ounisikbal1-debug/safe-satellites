@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+﻿import { beforeEach, describe, expect, it, vi } from "vitest";
 import { DrizzleQueryError } from "drizzle-orm/errors";
 
 // Hoisted, so auth.ts sees them at import time: env.ts calls

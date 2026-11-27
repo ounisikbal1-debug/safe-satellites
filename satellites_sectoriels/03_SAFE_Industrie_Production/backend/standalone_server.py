@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 SAFE ERP - MODULE 03 : INDUSTRIE & PRODUCTION (TUNISIE) - STANDALONE PORT 8003
 Articles produits finis à fabriquer, dépôts, ordres de fabrication, valorisation stocks (SCE NC 01)

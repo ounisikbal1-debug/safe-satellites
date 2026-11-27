@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+﻿import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 
 // env.ts 在导入时就 required() 了一批变量,所以每个用例前把它们补齐,
 // 再用 vi.resetModules 拿一份新的。

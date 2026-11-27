@@ -1,4 +1,4 @@
-// Central, validated env access. Platform SDK only — business code should not
+﻿// Central, validated env access. Platform SDK only — business code should not
 // read process.env directly.
 function required(name: string): string {
   const v = process.env[name];

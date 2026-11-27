@@ -1,4 +1,4 @@
-CREATE TABLE "accounts" (
+﻿CREATE TABLE "accounts" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"code" text NOT NULL,
 	"label" text NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE "assets" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"code" text NOT NULL,
 	"label" text NOT NULL,
-	"category" text DEFAULT 'Matériel' NOT NULL,
+	"category" text DEFAULT 'MatÃ©riel' NOT NULL,
 	"acquisition_date" date NOT NULL,
 	"cost" integer DEFAULT 0 NOT NULL,
 	"duration_years" integer DEFAULT 5 NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE "bills" (
 --> statement-breakpoint
 CREATE TABLE "company" (
 	"id" text PRIMARY KEY DEFAULT 'company' NOT NULL,
-	"name" text DEFAULT 'Société Tunisienne SARL' NOT NULL,
+	"name" text DEFAULT 'SociÃ©tÃ© Tunisienne SARL' NOT NULL,
 	"matricule_fiscal" text DEFAULT '0000000/A/M/000' NOT NULL,
 	"registre_commerce" text DEFAULT 'B0000000000' NOT NULL,
 	"address" text DEFAULT 'Avenue Habib Bourguiba, Tunis' NOT NULL,

@@ -1,4 +1,4 @@
-// ── SERVICE: TVA ─────────────────────────────────────────────────────────────
+﻿// ── SERVICE: TVA ─────────────────────────────────────────────────────────────
 // Couche métier distincte (architecture MVC : ce fichier = Model/Service, les
 // routeurs = Controller, les pages React = View).
 //

@@ -1,4 +1,4 @@
-import type { Hono } from "hono";
+﻿import type { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";

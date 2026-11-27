@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+﻿import { ThemeProvider } from '../../../src/shared/theme';
+
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { trpc, makeTrpcClient } from "./_core/trpc";

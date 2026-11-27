@@ -1,4 +1,4 @@
-// Reading a failed write. Kept in its own leaf module (no env, no driver, no
+﻿// Reading a failed write. Kept in its own leaf module (no env, no driver, no
 // imports at all) so anything — _core, server/db.ts, a router — can ask "was
 // that a duplicate?" without dragging a DB connection into the process.
 //

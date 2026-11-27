@@ -1,4 +1,4 @@
-// ── SERVICE : jeu de données de démonstration ────────────────────────────────
+﻿// ── SERVICE : jeu de données de démonstration ────────────────────────────────
 // Charge exactement 900 enregistrements répartis sur les 12 mois de l'année,
 // puis génère les écritures comptables correspondantes (partie double).
 //

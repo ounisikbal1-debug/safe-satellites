@@ -1,4 +1,4 @@
-// Platform-mediated email (DESIGN §5.1.2 / §8.5).
+﻿// Platform-mediated email (DESIGN §5.1.2 / §8.5).
 //
 // A published app must NOT send mail directly — it is untrusted and driven by
 // anonymous visitors (open-relay / reputation risk). Sending goes through the

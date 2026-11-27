@@ -1,39 +1,39 @@
-# ⚙️ SAFE Production Industrielle & GPAO
-> **Nomenclatures BOM, Ordres de Fabrication (OF), Planification MRP & Maintenance des équipements**
-> *Conformité certifiée : Industrie & GPAO • Version 1.0.0*
+﻿# âš™ï¸ SAFE Production Industrielle & GPAO
+> **Nomenclatures BOM, Ordres de Fabrication (OF), Planification MRP & Maintenance des Ã©quipements**
+> *ConformitÃ© certifiÃ©e : Industrie & GPAO â€¢ Version 1.0.0*
 
 ---
 
-## 1. Présentation du Prologiciel
+## 1. PrÃ©sentation du Prologiciel
 
-**SAFE Production Industrielle & GPAO** est un progiciel vertical dédié, conçu pour répondre avec une précision absolue aux exigences opérationnelles, comptables et fiscales des entreprises établies en **République Tunisienne**.
+**SAFE Production Industrielle & GPAO** est un progiciel vertical dÃ©diÃ©, conÃ§u pour rÃ©pondre avec une prÃ©cision absolue aux exigences opÃ©rationnelles, comptables et fiscales des entreprises Ã©tablies en **RÃ©publique Tunisienne**.
 
-Il fonctionne de manière entièrement autonome pour les équipes opérationnelles tout en restant nativement synchronisé avec le noyau sécurisé **SAFE ERP**, garantissant l'intégrité transactionnelle globale de l'organisation.
-
----
-
-## 2. Cadre Réglementaire & Fiscal Tunisien
-
-- **Normes Tunisiennes homologuées (INNORPI) relatives aux procédés industriels et à la traçabilité de production**\n- **Norme Comptable Tunisienne NCT 04 : Évaluation et valorisation des produits en cours et des produits finis**\n- **Réglementation de la sécurité des équipements industriels et registres de maintenance obligatoire**
+Il fonctionne de maniÃ¨re entiÃ¨rement autonome pour les Ã©quipes opÃ©rationnelles tout en restant nativement synchronisÃ© avec le noyau sÃ©curisÃ© **SAFE ERP**, garantissant l'intÃ©gritÃ© transactionnelle globale de l'organisation.
 
 ---
 
-## 3. Fonctionnalités Clés Livrées
+## 2. Cadre RÃ©glementaire & Fiscal Tunisien
 
-- Gestion des nomenclatures de fabrication multi-niveaux (Bill of Materials - BOM)\n- Création, ordonnancement et suivi d'avancement des Ordres de Fabrication (OF)\n- Calcul des Besoins Nets (MRP) synchronisé avec les stocks de composants et les commandes clients\n- Imputation précise des temps machines, coûts de main-d'œuvre et frais généraux d'atelier\n- Gestion de la maintenance assistée par ordinateur (GMAO) : Parc machines, compteurs, interventions préventives/curatives\n- Module Qualité & CAPA : Déclaration de non-conformités, fiches de rebuts et plans d'actions correctives
+- **Normes Tunisiennes homologuÃ©es (INNORPI) relatives aux procÃ©dÃ©s industriels et Ã  la traÃ§abilitÃ© de production**\n- **Norme Comptable Tunisienne NCT 04 : Ã‰valuation et valorisation des produits en cours et des produits finis**\n- **RÃ©glementation de la sÃ©curitÃ© des Ã©quipements industriels et registres de maintenance obligatoire**
 
 ---
 
-## 4. Démarrage Rapide
+## 3. FonctionnalitÃ©s ClÃ©s LivrÃ©es
 
-Double-cliquez simplement sur le fichier exécutable suivant situé dans ce répertoire :
+- Gestion des nomenclatures de fabrication multi-niveaux (Bill of Materials - BOM)\n- CrÃ©ation, ordonnancement et suivi d'avancement des Ordres de Fabrication (OF)\n- Calcul des Besoins Nets (MRP) synchronisÃ© avec les stocks de composants et les commandes clients\n- Imputation prÃ©cise des temps machines, coÃ»ts de main-d'Å“uvre et frais gÃ©nÃ©raux d'atelier\n- Gestion de la maintenance assistÃ©e par ordinateur (GMAO) : Parc machines, compteurs, interventions prÃ©ventives/curatives\n- Module QualitÃ© & CAPA : DÃ©claration de non-conformitÃ©s, fiches de rebuts et plans d'actions correctives
+
+---
+
+## 4. DÃ©marrage Rapide
+
+Double-cliquez simplement sur le fichier exÃ©cutable suivant situÃ© dans ce rÃ©pertoire :
 
 ```bat
 Lancer_SAFE_Production_GPAO.cmd
 ```
 
-Le progiciel démarre immédiatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dédié.
+Le progiciel dÃ©marre immÃ©diatement en local sur votre poste et ouvre votre navigateur Web directement dans votre environnement de travail dÃ©diÃ©.
 
 ---
 
-*SAFE Suite Tunisie • Système d'Analyse Financière des Entreprises • Normes Tunisiennes & Internationales*
+*SAFE Suite Tunisie â€¢ SystÃ¨me d'Analyse FinanciÃ¨re des Entreprises â€¢ Normes Tunisiennes & Internationales*

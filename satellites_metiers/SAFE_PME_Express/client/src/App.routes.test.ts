@@ -1,4 +1,4 @@
-// Guards the wouter route table in App.tsx against the two ways a generated app
+﻿// Guards the wouter route table in App.tsx against the two ways a generated app
 // silently ships a dead link. Both produce the SAME symptom — the catch-all
 // renders "Not found" — so neither is distinguishable from a typo'd URL, and
 // neither is visible in a screenshot of the home page.
